@@ -1,0 +1,380 @@
+{
+  "summary": {
+    "count": 18
+  },
+  "entries": [
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s01",
+      "description": "Cover slide — Commonly used reference slidesLocation | Date",
+      "tags": [],
+      "use_when": "",
+      "role": "cover",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:57a143cb221d56de"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s02",
+      "description": "Cover slide — SMARTBUILD: Construction's Adoptable PM and AI Platform",
+      "tags": [],
+      "use_when": "",
+      "role": "cover",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [
+        "cover"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:e23d9a9ea3769f89"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s03",
+      "description": "About slide — Construction management platform that supports the full lifecycle of building projects,...",
+      "tags": [],
+      "use_when": "",
+      "role": "about",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [
+        "company-overview"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "WT-05",
+      "content_hash": "sha256:8022d265d2f5976a"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s04",
+      "description": "Section slide — Commonly used reference slides slide 4",
+      "tags": [],
+      "use_when": "",
+      "role": "section",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:30b93054eae2110d"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s05",
+      "description": "Proof slide — Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contrac...",
+      "tags": [],
+      "use_when": "",
+      "role": "proof",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [
+        "market",
+        "adoption"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:332474f520098abe"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s06",
+      "description": "About slide — Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, a...",
+      "tags": [],
+      "use_when": "",
+      "role": "about",
+      "entities": [
+        "smrt-E"
+      ],
+      "topics": [
+        "product-overview",
+        "ai"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:2d953e5ff0f8a91a"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s07",
+      "description": "Content slide — Just talk. smrt-E handles the rest",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "smrt-E"
+      ],
+      "topics": [
+        "product-capability",
+        "ai"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:92e5ed80d2bf1c2c"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s08",
+      "description": "Content slide — From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into projec...",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "smrt-E"
+      ],
+      "topics": [
+        "product-capability",
+        "data"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:a9487d5edfa03859"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s09",
+      "description": "Proof slide — $180M ARR | 1M+ Users",
+      "tags": [],
+      "use_when": "",
+      "role": "proof",
+      "entities": [
+        "SmartBuild",
+        "SMARTBUILD"
+      ],
+      "topics": [
+        "traction",
+        "financials"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:3bfd337bd46b4055"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s10",
+      "description": "Market slide — 65,000+ contractors in the US$10-250M segment (US + Canada) are underserved by platform...",
+      "tags": [],
+      "use_when": "",
+      "role": "market",
+      "entities": [
+        "SmartBuild",
+        "SMARTBUILD",
+        "smrt-E"
+      ],
+      "topics": [
+        "market",
+        "tam"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:fd149915641d079c"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s11",
+      "description": "Bio slide — Executive Team",
+      "tags": [],
+      "use_when": "",
+      "role": "bio",
+      "entities": [
+        "SmartBuild",
+        "Rowan",
+        "Zulq",
+        "Vinay"
+      ],
+      "topics": [
+        "team",
+        "leadership"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "WT-05",
+      "content_hash": "sha256:2b9c1bc39fce8626"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s12",
+      "description": "Section slide — The goal isn’t to be tech experts.",
+      "tags": [],
+      "use_when": "",
+      "role": "section",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:5354185eb5a8a33b"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s13",
+      "description": "Content slide — The challenge is that you don’t know how to progress",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:cc39a4b31a778db1"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s14",
+      "description": "Content slide — Real use cases at each point in the journey",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:fcce133a7107b512"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s15",
+      "description": "Content slide — Market Position and Opportunity",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:4633f45b79089a7c"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s16",
+      "description": "Content slide — There are a lot of options but until you are advanced how you use it is what matters",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "NM-01",
+      "content_hash": "sha256:7bcdbea6af76602d"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s17",
+      "description": "Content slide — The Challenge Is that You Don’t Know How to Progress",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:dc6e2b900227a1e4"
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s18",
+      "description": "Content slide — Know Al can be confidently wrong (\"hallucinate\")",
+      "tags": [],
+      "use_when": "",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:d4da62485e798cdc"
+    }
+  ]
+}

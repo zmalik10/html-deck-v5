@@ -1,0 +1,66 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s16",
+  "title": "There are a lot of options but until you are advanced how you use it is what matters",
+  "role": "content",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "NM-01",
+  "content_hash": "sha256:7bcdbea6af76602d",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 16,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:54+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "There are a lot of options but until you are advanced how you use it is what matters",
+    "layout": {
+      "family": "NM-01",
+      "shape_tags": [
+        "about"
+      ]
+    },
+    "group": "about",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "There are a lot of options but until you are advanced how you use it is what matters"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Not exhaustive Trained on vast amounts of information. Think of them as a powerful apprentice that can read, write, and summarize information at superhuman speed. Sora Code Most used AI Studio Nano Banana Fastest growth today About to be in IOS Claude Enterprise leader"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "ca480f99-7153-46cf-82b8-f04a4fa48c55"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s16.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s16.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

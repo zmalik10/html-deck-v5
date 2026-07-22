@@ -1,0 +1,26 @@
+<!-- Always-present chrome (both review.html and presentation.html).
+     build.py may DROP #sources-btn/#sources-panel when no asset needs
+     attribution AND audience allows the clean off-by-default view. -->
+<div id="nav-dots"></div>
+<button id="fs-btn" class="uibtn" title="Presentation Mode (F)">&#x26F6;</button>
+<button id="theme-btn" class="uibtn" title="Light / Dark">&#9788;</button>
+<button id="save-btn" class="uibtn" title="Save As">&#8681;</button>
+<button id="sources-btn" class="uibtn" title="Sources">&#9432;</button>
+
+<div id="save-menu">
+  <button data-export="html"><span>&#128196;</span>Save as HTML</button>
+  <button data-export="pdf"><span>&#128462;</span>Save as PDF</button>
+  <button data-export="pptx"><span>&#128202;</span>Save as PowerPoint</button>
+</div>
+
+<div id="export-overlay">
+  <div class="exp-spinner"></div>
+  <div class="exp-title">Exporting Deck</div>
+  <div class="exp-msg" id="export-msg">Preparing...</div>
+  <div id="export-bar"><div id="export-fill"></div></div>
+</div>
+
+<aside id="sources-panel" class="sidepanel">
+  <header><h3>Sources</h3><button class="panel-close" title="Close">&#x2715;</button></header>
+  <div class="panel-body"><div id="sources-list"></div></div>
+</aside>

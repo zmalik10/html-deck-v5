@@ -1,0 +1,72 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s09",
+  "title": "$180M ARR  |  1M+ Users",
+  "role": "proof",
+  "entities": [
+    "SmartBuild",
+    "SMARTBUILD"
+  ],
+  "topics": [
+    "traction",
+    "financials"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:3bfd337bd46b4055",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 9,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:26+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "$180M ARR  |  1M+ Users",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "$180M ARR  |  1M+ Users"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Consumer AI voice recorder + app Hardware + software product Transcription + productivity focus Unstructured voice capture Does Not Do: No outputs or connections to construction systems $700M Valuation  | 100x YoY User Growth Voice dictation across any app Massive demand proof point $250M Valuation AI meeting notes + summarization Knowledge-worker focused 10% weekly user growth No field or site awareness Understands construction language Inbuilt translation / records Structured output / forms Asks the questions needed for legal and safety records ✓ Construction System of Record Voice outputs structured actions, not generic text \"Voice AI has unlocked a mass behavior shift. The $1B+ players are proving the market. None of them is effective on a job site especially not for the field workers. SMARTBUILD does.\" Boot strapped Does Not Do: No outputs or connections to construction systems Does Not Do: No outputs or connections to construction systems Voice AI Is Taking Over - Construction Is Next"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "81134d78-2acb-4320-8bba-bd7a1faa0a64"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s09.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s09.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [
+    29
+  ],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

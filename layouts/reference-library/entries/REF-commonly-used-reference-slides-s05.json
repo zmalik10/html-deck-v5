@@ -1,0 +1,71 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s05",
+  "title": "Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contractors of all sizes prioritizing PM",
+  "role": "proof",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [
+    "market",
+    "adoption"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:332474f520098abe",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 5,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:01+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contractors of all sizes prioritizing PM",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contractors of all sizes prioritizing PM"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Source: 2025 ABC Excellence In Construction Award Nominees research 207 General Contractors 134 Specialty Contractors 59% Projects <$20M in size Active in PM, Safety, and AI, the top 2 categories plus the fastest growing The top performing contractors are investing in PM and Safety Software as their top priority"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "39fa4684-a03f-4ea4-8d8e-f4f93e866c90"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s05.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s05.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [
+    4
+  ],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

@@ -1,0 +1,18 @@
+{
+  "library_version": "1.0.0",
+  "note": "Layout families PLAN picks from by matching shape_tags to content shape. Variety rule: same group -> reuse shape; new group -> a different `shape` value from the previous group. If nothing fits, author family='custom' (deck-local until review-promoted). Grows by promotion, not by auto-mutation.",
+  "families": [
+    { "family": "cover", "shape": "title", "items": 0, "orientation": "n/a", "flow": false, "use": "Opening slide: logo, hero headline, tagline.", "tags": ["title", "single", "open"] },
+    { "family": "mission", "shape": "split-statement", "items": 1, "orientation": "row", "flow": false, "use": "A statement + one supporting big stat panel.", "tags": ["statement", "one-stat", "split"] },
+    { "family": "stats-grid", "shape": "n-across", "items": 3, "orientation": "row", "flow": false, "use": "3 peer statistics across; each expandable.", "tags": ["proof", "stats", "3-across"] },
+    { "family": "product-split", "shape": "logo-split", "items": 1, "orientation": "row", "flow": false, "use": "Product: colored logo panel one side, copy+KPI the other. Alternate side per product for rhythm.", "tags": ["product", "split", "feature"] },
+    { "family": "one-big-idea", "shape": "single-focus", "items": 1, "orientation": "center", "flow": false, "use": "One dominant idea/number/quote, full bleed.", "tags": ["single", "focus", "impact"] },
+    { "family": "3-ideas", "shape": "3-tile", "items": 3, "orientation": "row", "flow": false, "use": "Three parallel, UNRELATED ideas as tiles.", "tags": ["three", "tiles", "parallel"] },
+    { "family": "5-ideas", "shape": "5-tile", "items": 5, "orientation": "mixed", "flow": false, "use": "Five parallel ideas (e.g. 3+2 or 5-across).", "tags": ["five", "tiles", "parallel"] },
+    { "family": "3-big-vertical", "shape": "3-stack", "items": 3, "orientation": "column", "flow": false, "use": "Three large ideas stacked vertically, each with weight.", "tags": ["three", "vertical", "stack"] },
+    { "family": "process-flow-4", "shape": "flow", "items": 4, "orientation": "row", "flow": true, "use": "Four connected steps with directional connectors. Use SAME shape for continued flow across slides.", "tags": ["process", "flow", "steps", "connected"] },
+    { "family": "process-flow-6", "shape": "flow", "items": 6, "orientation": "row", "flow": true, "use": "Six connected steps (or 3+3 across two slides — keep same shape for continuity).", "tags": ["process", "flow", "steps", "connected"] },
+    { "family": "closing", "shape": "cta", "items": 0, "orientation": "column", "flow": false, "use": "Closing CTA: logo, headline, CTA button.", "tags": ["cta", "close", "single"] },
+    { "family": "custom", "shape": "custom", "items": -1, "orientation": "any", "flow": false, "use": "Invented layout when nothing fits. Deck-local; must obey the contract (stage, data-block UUIDs, tokens). Candidate for review-promotion.", "tags": ["invented"] }
+  ]
+}

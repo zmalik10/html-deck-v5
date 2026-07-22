@@ -1,0 +1,71 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s06",
+  "title": "Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, and compliance tracking and integr",
+  "role": "about",
+  "entities": [
+    "smrt-E"
+  ],
+  "topics": [
+    "product-overview",
+    "ai"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": true,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:2d953e5ff0f8a91a",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 6,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:15+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, and compliance tracking and integr",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, and compliance tracking and integr"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Tailored exclusively for Sub Contractors, the backbone of the industry, our affordable Construction Management software empowers you to seamlessly navigate your projects. From concept to completion, smrtAE is the industry’s most comprehensive workflow platform - helping AE firms manage the life cycle of a project. Beyond project management, it’s the key to smarter, more effective construction. It’s not just software; it’s the essence of intelligent Construction Management. Our Digital Ecosystem to Transform Construction  We are Bringing Data Sovereignty with Curated Workflows fit for Purpose BETA BETA"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "87946d39-5231-43d8-8428-4791096a4e0d"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s06.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s06.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [
+    5
+  ],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

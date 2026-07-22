@@ -1,0 +1,66 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s18",
+  "title": "Know Al can be confidently wrong (\"hallucinate\")",
+  "role": "content",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:d4da62485e798cdc",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 18,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:56+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Know Al can be confidently wrong (\"hallucinate\")",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Know Al can be confidently wrong (\"hallucinate\")"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "AI gets things wrong and sounds confident doing it. Treat it like an intern’s draft. Your judgment is still the final check. No sensitive datain public tools AI uses what you give it and free versions use it for training. Paid workspaces keep your data private. It can process info, but no one else can “see” it Never let Al make a major call without review AI speeds up tasks but can’t replace judgement, experience or context. It supports your work. It doesn’t substitute for it. Playing it safe: 3 Rules of Smart AI Use"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "68f0412e-a05d-45d3-8536-42bbb1308b6a"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s18.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s18.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

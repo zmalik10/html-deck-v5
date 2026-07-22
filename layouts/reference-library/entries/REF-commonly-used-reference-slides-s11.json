@@ -1,0 +1,74 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s11",
+  "title": "Executive Team",
+  "role": "bio",
+  "entities": [
+    "SmartBuild",
+    "Rowan",
+    "Zulq",
+    "Vinay"
+  ],
+  "topics": [
+    "team",
+    "leadership"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": true,
+  "status": "published",
+  "layout_hint": "WT-05",
+  "content_hash": "sha256:2b9c1bc39fce8626",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 11,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:34+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Executive Team",
+    "layout": {
+      "family": "WT-05",
+      "shape_tags": [
+        "bio"
+      ]
+    },
+    "group": "bio",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Executive Team"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Zulq Malik Owner and Founder 30 years in construction $1.6B in projects completed Civil Engineer Rowan Steel-Hall Chief Operating Officer Former, Partner at Boston Consulting Group 20 years experience driving value through data and AI Vinay Nair Chief Customer Officer 25 years driving B2B SaaS start up growth Leadership at IBM and Microsoft Operating model Total Org ~22 FTE & 5 specialist contractors"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "4c7cc4eb-992b-4da0-8d6f-cd6be07394fc"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s11.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s11.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [
+    6
+  ],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

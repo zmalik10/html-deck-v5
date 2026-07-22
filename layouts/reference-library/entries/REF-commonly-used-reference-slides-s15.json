@@ -1,0 +1,66 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s15",
+  "title": "Market Position and Opportunity",
+  "role": "content",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:4633f45b79089a7c",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 15,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:46+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Market Position and Opportunity",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Market Position and Opportunity"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Multinational $$$ $ SME The affordable quadrant for SME contractors is where 90% of the market lives. Incumbents built for enterprise. We built for everyone else. Our challenge isn't product. It's distribution. The right partner unlocks access to 65,000+ contractors we can't reach alone. Procore is the biggest in our space but has ~6% market penetration"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "ad841eb3-5f84-4617-886b-243a71a8ab99"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s15.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s15.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

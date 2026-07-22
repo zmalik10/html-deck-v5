@@ -1,0 +1,69 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s07",
+  "title": "Just talk. smrt-E handles the rest",
+  "role": "content",
+  "entities": [
+    "smrt-E"
+  ],
+  "topics": [
+    "product-capability",
+    "ai"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:92e5ed80d2bf1c2c",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 7,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:23+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Just talk. smrt-E handles the rest",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Just talk. smrt-E handles the rest"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Speak, don't type. Field workers complete reports, logs, and inspections by voice. No forms, no training. Any language, delivered in English. A foreman reports in Spanish. The PM receives it in English. Both are stored. Works anywhere. offline functionality. Custom forms for any trade or workflow. Connects to existing construction management systems.A foreman speaks into his phone in Spanish at 6am. By the time the PM opens her laptop, the daily log is filed in English, tagged to the project, and flagged for safety review Contextual AI on the move BETA"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "24219072-c9f4-4be1-8b26-ea7e965bd0a7"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s07.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s07.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

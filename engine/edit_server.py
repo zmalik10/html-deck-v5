@@ -1,0 +1,452 @@
+"""
+SmartBuild Deck v5 — edit_server.py  (OPTIONAL live-edit mode; does NOT touch the pipeline)
+
+A tiny stdlib-only local server that turns a built deck into a PowerPoint-style editor:
+serve review.html over http://localhost and autosave direct-text edits straight to disk.
+
+It runs ONLY on the author's own machine, talks ONLY to their own browser, and stops when
+they close it. Nothing is hosted or published. No third-party dependencies.
+
+    python engine/edit_server.py --skill-path . --out decks/<deck>/out --plan decks/<deck>/plan.json
+
+An edit POSTed by the deck (block_uuid + new text) is written to BOTH:
+  1. plan.json  — the deck's source of truth, so the edit survives every future rebuild/export.
+  2. review.html on disk — so the file itself reflects the change immediately (no rebuild wait).
+
+Authored block edits (data-block) autosave here; reference-slide adaptations still round-trip
+via "Copy All Notes to Claude" (those slides are image-locked).
+"""
+import argparse, json, os, re, sys, html, threading, subprocess, uuid
+from html.parser import HTMLParser
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# ---- rich-text sanitiser: allow only inline formatting tags + a few safe style props ----
+_ALLOWED_TAGS = {"b", "strong", "i", "em", "u", "mark", "span"}
+_BLOCK_TAGS = {"div", "p"}            # convert to line breaks
+_ALLOWED_STYLE = {"color", "background-color", "text-decoration", "font-weight", "font-style"}
+
+
+def _clean_style(style):
+    keep = []
+    for part in (style or "").split(";"):
+        if ":" not in part:
+            continue
+        prop, val = part.split(":", 1)
+        prop, val = prop.strip().lower(), val.strip()
+        if prop in _ALLOWED_STYLE and val and "url(" not in val.lower() and "<" not in val and '"' not in val:
+            keep.append("%s:%s" % (prop, val))
+    return ";".join(keep)
+
+
+class _Sanitizer(HTMLParser):
+    """Rebuild HTML keeping ONLY allowlisted inline formatting; everything else is unwrapped
+    (text kept), scripts/handlers/unknown attrs dropped. div/p become line breaks."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.out, self._stack, self._drop = [], [], 0
+
+    def handle_starttag(self, tag, attrs):
+        tag = tag.lower()
+        if tag in ("script", "style"):
+            self._drop += 1; self._stack.append(None); return   # drop the tag AND its contents
+        if tag == "br":
+            self.out.append("<br>"); return
+        if tag in _BLOCK_TAGS:
+            if self.out and not "".join(self.out[-1:]).endswith("<br>"):
+                self.out.append("<br>")
+            self._stack.append(None); return
+        if tag not in _ALLOWED_TAGS:
+            self._stack.append(None); return
+        style = ""
+        for k, v in attrs:
+            if k.lower() == "style":
+                style = _clean_style(v)
+        self.out.append("<%s%s>" % (tag, (' style="%s"' % style) if style else ""))
+        self._stack.append(tag)
+
+    def handle_startendtag(self, tag, attrs):
+        if tag.lower() == "br":
+            self.out.append("<br>")
+
+    def handle_endtag(self, tag):
+        if tag.lower() in ("script", "style") and self._drop:
+            self._drop -= 1
+        if not self._stack:
+            return
+        t = self._stack.pop()
+        if t:
+            self.out.append("</%s>" % t)
+
+    def handle_data(self, data):
+        if self._drop:
+            return                     # inside script/style → discard
+        self.out.append(html.escape(data, quote=False))
+
+    def result(self):
+        s = "".join(self.out)
+        while s.endswith("<br>"):
+            s = s[:-4]
+        return s.strip()
+
+
+def sanitize_html(s):
+    p = _Sanitizer(); p.feed(s or ""); return p.result()
+
+
+def html_to_text(s):
+    """Plain-text fallback (for fidelity/search/PPTX) from sanitised HTML."""
+    t = re.sub(r"<br\s*/?>", "\n", s or "")
+    t = re.sub(r"<[^>]+>", "", t)
+    return html.unescape(t).strip()
+
+
+def _atomic_write(path, text):
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(text)
+    os.replace(tmp, path)
+
+
+def _patch_block_html(doc, block_uuid, inner_html):
+    """Replace the inner content of the element carrying data-block="UUID" with inner_html
+    (already-final HTML: sanitised rich markup, or escaped plain text). Balanced scan on the
+    element's OWN tag so inner inline spans don't confuse it."""
+    m = re.search(r'<([A-Za-z][A-Za-z0-9]*)\b[^>]*\bdata-block="' + re.escape(block_uuid) + r'"[^>]*>', doc)
+    if not m:
+        return doc, False
+    tag = m.group(1)
+    inner_start = m.end()
+    open_re = re.compile(r'<' + re.escape(tag) + r'\b', re.I)
+    close_re = re.compile(r'</' + re.escape(tag) + r'\s*>', re.I)
+    depth, pos = 1, inner_start
+    while depth > 0:
+        no = open_re.search(doc, pos)
+        nc = close_re.search(doc, pos)
+        if not nc:
+            return doc, False
+        if no and no.start() < nc.start():
+            depth += 1
+            pos = no.end()
+        else:
+            depth -= 1
+            if depth == 0:
+                return doc[:inner_start] + inner_html + doc[nc.start():], True
+            pos = nc.end()
+    return doc, False
+
+
+class EditState:
+    """Holds paths + a lock; applies edits to plan.json and review.html on disk."""
+    def __init__(self, out_dir, plan_path, skill_path="."):
+        self.out_dir = out_dir
+        self.review_path = os.path.join(out_dir, "review.html")
+        self.plan_path = plan_path
+        self.skill_path = os.path.abspath(skill_path)
+        self.lock = threading.Lock()
+
+    def _rebuild(self):
+        """Re-render slides.html from plan.json then BUILD --brand --presentation, so
+        review.html + presentation.html on disk match the current plan. Time-bounded."""
+        slides_html = os.path.join(os.path.dirname(self.plan_path), "slides.html")
+        py = sys.executable or "python3"
+        try:
+            r = subprocess.run([py, os.path.join(HERE, "render_slides.py"), "--skill-path", self.skill_path,
+                                "--plan", self.plan_path, "--out", slides_html], timeout=180)
+            if r.returncode != 0:
+                return False, "render_slides.py failed"
+            r = subprocess.run([py, os.path.join(HERE, "build.py"), "--skill-path", self.skill_path,
+                                "--plan", self.plan_path, "--slides", slides_html, "--out", self.out_dir,
+                                "--brand", "--presentation"], timeout=180)
+            if r.returncode != 0:
+                return False, "build.py failed"
+        except subprocess.TimeoutExpired:
+            return False, "rebuild timed out"
+        return True, "rebuilt"
+
+    @staticmethod
+    def _new_spare_slide():
+        """Mint a schema-valid, renderable BLANK slide for an added spare. layout.family
+        'custom' → render_slides' _fallback renderer (headline + body card). Flagged
+        (group 'spare-…', recognizable topic + body) so Claude can find it and author it."""
+        su = str(uuid.uuid4())
+        return {
+            "slide_uuid": su,
+            "status": "active",
+            "topic": "New slide (to author)",
+            "layout": {"family": "custom"},
+            "group": "spare-" + su[:8],
+            "continues": False,
+            "content_blocks": [
+                {"block_uuid": str(uuid.uuid4()), "type": "headline", "text": "New slide"},
+                {"block_uuid": str(uuid.uuid4()), "type": "body",
+                 "text": "Blank spare slide. Tell Claude what to put here and it will be authored."},
+            ],
+        }
+
+    def save_board(self, payload):
+        """Apply a Slide Board decision to plan.json, then rebuild so the FILES match the board.
+        Maps onto existing schema fields — NO schema change:
+          • order    → order of plan['slides'] (active + newly-added, in board order)
+          • remove   → slide.status = 'deleted' (already skipped by render_slides + build)
+          • variant  → slide.variant_choice ('light'|'dark'); cleared when no explicit choice
+          • add spare→ a REAL blank slide is MINTED and inserted at that position (physically in
+                       the file, live), plan_revision bumped, and the client reloads to see it.
+                       The new slide is also logged to authoring-requests.json so Claude fills it.
+        Returns (ok, result_dict); result carries reload=True after an add."""
+        with self.lock:
+            with open(self.plan_path, encoding="utf-8") as f:
+                plan = json.load(f)
+            slides = plan.get("slides", [])
+            by = {s.get("slide_uuid"): s for s in slides}
+            active = [u for u in (payload.get("active") or []) if u in by]
+            removed = [u for u in (payload.get("removed") or []) if u in by]
+            variants = payload.get("variants") or {}
+            removed_set = set(removed)
+            # status: board-known slides only; leave slides the board never saw untouched.
+            for u in active:
+                by[u]["status"] = "active"
+            for u in removed:
+                by[u]["status"] = "deleted"
+            # variant_choice: explicit choice wins; active slide w/o choice follows deck default.
+            for u in active:
+                v = variants.get(u)
+                if v in ("light", "dark"):
+                    by[u]["variant_choice"] = v
+                else:
+                    by[u].pop("variant_choice", None)
+            # materialize each added spare into a real blank slide, remembering where it goes
+            add_reqs = payload.get("add_requests") or []
+            new_slides = []            # (after_uuid, slide_dict)
+            for r in add_reqs:
+                new_slides.append((r.get("after"), self._new_spare_slide()))
+            # final ordered list of uuids: board active order, each new slide after its anchor
+            ordered = list(active)
+            for after_u, ns in new_slides:
+                nu = ns["slide_uuid"]
+                if after_u and after_u in ordered:
+                    ordered.insert(ordered.index(after_u) + 1, nu)
+                else:
+                    ordered.append(nu)
+            for _, ns in new_slides:
+                slides.append(ns)      # add to the pool (same list object as plan['slides'])
+            rank = {u: i for i, u in enumerate(ordered)}
+            def _key(s):
+                u = s.get("slide_uuid")
+                if u in rank:
+                    return (0, rank[u])
+                return (1, 0) if u in removed_set else (2, 0)
+            plan["slides"] = sorted(slides, key=_key)
+            added = len(new_slides)
+            if added:
+                # a structural change → bump revision so the reloaded client starts from the
+                # baked baseline (its rev-keyed board localStorage is discarded, so the spare
+                # can't be minted twice).
+                plan["plan_revision"] = int(plan.get("plan_revision", 0)) + 1
+            _atomic_write(self.plan_path, json.dumps(plan, indent=2, ensure_ascii=False))
+            if added:
+                req_path = os.path.join(os.path.dirname(self.plan_path), "authoring-requests.json")
+                try:
+                    with open(req_path, encoding="utf-8") as f:
+                        existing = json.load(f)
+                    if not isinstance(existing, list):
+                        existing = []
+                except Exception:
+                    existing = []
+                for after_u, ns in new_slides:
+                    existing.append({"slide_uuid": ns["slide_uuid"], "after_slide_uuid": after_u,
+                                     "status": "pending", "created_rev": plan["plan_revision"]})
+                _atomic_write(req_path, json.dumps(existing, indent=2, ensure_ascii=False))
+        # rebuild OUTSIDE the lock (it's the slow part)
+        ok, msg = self._rebuild()
+        res = {"ok": ok, "msg": msg, "added": added}
+        if added:
+            res["reload"] = True
+            res["rev"] = plan.get("plan_revision")
+        return ok, res
+
+    def run_export(self, fmt):
+        """Hand the export to engine/export_deck.py — the SAME path a manual CLI export uses —
+        so the in-deck "Save As" button produces byte-identical output and opens the file in the
+        OS app (PowerPoint / PDF viewer). Rebuilds from plan.json first so live edits are baked
+        in. Returns (ok, result_dict). Never hangs: the subprocess is time-bounded."""
+        cmd = [sys.executable or "python3", os.path.join(HERE, "export_deck.py"),
+               "--skill-path", self.skill_path, "--plan", self.plan_path,
+               "--out", self.out_dir, "--format", fmt, "--rebuild", "--open"]
+        try:
+            p = subprocess.run(cmd, capture_output=True, text=True, timeout=240)
+        except subprocess.TimeoutExpired:
+            return False, {"ok": False, "format": fmt, "msg": "export timed out (240s)"}
+        # export_deck.py prints exactly one JSON result line on stdout; take the last {...} line.
+        line = ""
+        for l in (p.stdout or "").strip().splitlines():
+            if l.strip().startswith("{"):
+                line = l.strip()
+        try:
+            res = json.loads(line) if line else {
+                "ok": False, "format": fmt, "msg": (p.stderr or "no output from exporter")[-400:]}
+        except Exception:
+            res = {"ok": False, "format": fmt, "msg": (p.stderr or p.stdout or "parse error")[-400:]}
+        return bool(res.get("ok")), res
+
+    def plan_revision(self):
+        try:
+            with open(self.plan_path, encoding="utf-8") as f:
+                return json.load(f).get("plan_revision")
+        except Exception:
+            return None
+
+    def apply(self, block_uuid, text=None, rich_html=None):
+        """Update the block in plan.json (source of truth) + patch review.html. Rich edits
+        store sanitised markup in block.text_html (rendered verbatim) with a plain-text
+        fallback in block.text; plain edits store only text. Returns (ok, msg)."""
+        with self.lock:
+            with open(self.plan_path, encoding="utf-8") as f:
+                plan = json.load(f)
+            target = None
+            for sl in plan.get("slides", []):
+                for b in sl.get("content_blocks", []):
+                    if b.get("block_uuid") == block_uuid:
+                        target = b; break
+                if target:
+                    break
+            if not target:
+                return False, "unknown block_uuid"
+            if rich_html is not None:
+                clean = sanitize_html(rich_html)
+                plain = html_to_text(clean)
+                target["text"] = plain
+                if "<" in clean:                       # real inline formatting present
+                    target["text_html"] = clean
+                    inner = clean
+                else:                                   # formatting cleared → plain text only
+                    target.pop("text_html", None)
+                    inner = html.escape(plain, quote=False)
+            else:
+                target["text"] = text or ""
+                target.pop("text_html", None)
+                inner = html.escape(target["text"], quote=False)
+            _atomic_write(self.plan_path, json.dumps(plan, indent=2, ensure_ascii=False))
+            # review.html on disk — so the file reflects it now (no rebuild needed)
+            with open(self.review_path, encoding="utf-8") as f:
+                doc = f.read()
+            doc, patched = _patch_block_html(doc, block_uuid, inner)
+            if patched:
+                _atomic_write(self.review_path, doc)
+            return True, "saved (plan.json%s%s)" % ("+html" if patched else "", " rich" if rich_html and "<" in inner else "")
+
+
+def make_handler(state):
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self, *a):
+            pass  # quiet
+
+        def _send(self, code, body, ctype="application/json"):
+            data = body.encode("utf-8") if isinstance(body, str) else body
+            self.send_response(code)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(data)
+
+        def do_GET(self):
+            path = self.path.split("?", 1)[0]
+            if path in ("/", "/review.html"):
+                try:
+                    with open(state.review_path, "rb") as f:
+                        self._send(200, f.read(), "text/html; charset=utf-8")
+                except FileNotFoundError:
+                    self._send(404, "review.html not found — build the deck first.", "text/plain")
+                return
+            self._send(404, "not found", "text/plain")
+
+        def do_POST(self):
+            route = self.path.split("?", 1)[0]
+            if route == "/export":
+                try:
+                    n = int(self.headers.get("Content-Length", 0))
+                    payload = json.loads(self.rfile.read(n) or b"{}")
+                except Exception:
+                    self._send(400, '{"ok":false,"msg":"bad json"}')
+                    return
+                fmt = payload.get("format")
+                if fmt not in ("pptx", "pdf", "html"):
+                    self._send(400, json.dumps({"ok": False, "msg": "bad format (want pptx|pdf|html)"}))
+                    return
+                ok, res = state.run_export(fmt)
+                self._send(200 if ok else 500, json.dumps(res))
+                return
+            if route == "/save-board":
+                try:
+                    n = int(self.headers.get("Content-Length", 0))
+                    payload = json.loads(self.rfile.read(n) or b"{}")
+                except Exception:
+                    self._send(400, '{"ok":false,"msg":"bad json"}')
+                    return
+                client_rev = payload.get("rev")
+                cur_rev = state.plan_revision()
+                if client_rev is not None and cur_rev is not None and client_rev != cur_rev:
+                    self._send(409, json.dumps({"ok": False, "reload": True, "rev": cur_rev}))
+                    return
+                try:
+                    ok, res = state.save_board(payload)
+                except Exception as e:
+                    self._send(500, json.dumps({"ok": False, "msg": "save-board error: %s" % e}))
+                    return
+                self._send(200 if ok else 500, json.dumps(res))
+                return
+            if route != "/save-edit":
+                self._send(404, '{"ok":false}')
+                return
+            try:
+                n = int(self.headers.get("Content-Length", 0))
+                payload = json.loads(self.rfile.read(n) or b"{}")
+            except Exception:
+                self._send(400, '{"ok":false,"error":"bad json"}')
+                return
+            # only authored block edits autosave here (kind 'block')
+            if payload.get("kind") not in (None, "block"):
+                self._send(200, json.dumps({"ok": False, "skip": "non-block"}))
+                return
+            uuid = payload.get("block_uuid")
+            if not uuid:
+                self._send(400, '{"ok":false,"error":"no block_uuid"}')
+                return
+            # stale-revision guard: tell the client to reload if the plan moved on
+            client_rev = payload.get("rev")
+            cur_rev = state.plan_revision()
+            if client_rev is not None and cur_rev is not None and client_rev != cur_rev:
+                self._send(409, json.dumps({"ok": False, "reload": True, "rev": cur_rev}))
+                return
+            ok, msg = state.apply(uuid, text=payload.get("text"), rich_html=payload.get("html"))
+            self._send(200 if ok else 404, json.dumps({"ok": ok, "msg": msg, "rev": cur_rev}))
+    return Handler
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--skill-path", default=".")
+    ap.add_argument("--out", required=True, help="deck build output dir (contains review.html)")
+    ap.add_argument("--plan", required=True, help="the deck's plan.json (source of truth)")
+    ap.add_argument("--port", type=int, default=8770)
+    ap.add_argument("--host", default="127.0.0.1")
+    args = ap.parse_args()
+
+    state = EditState(os.path.abspath(args.out), os.path.abspath(args.plan), args.skill_path)
+    if not os.path.exists(state.review_path):
+        print("Not found: " + state.review_path + " — build the deck first.")
+        sys.exit(1)
+
+    httpd = ThreadingHTTPServer((args.host, args.port), make_handler(state))
+    print("EDIT SERVER live at http://%s:%d/review.html  (Ctrl+C to stop)" % (args.host, args.port))
+    print("  autosaving text edits to: %s" % state.plan_path)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nedit server stopped.")
+
+
+if __name__ == "__main__":
+    main()

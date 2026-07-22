@@ -1,0 +1,70 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s03",
+  "title": "Construction management platform that supports the full lifecycle of building projects, from design coordination through",
+  "role": "about",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [
+    "company-overview"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": true,
+  "status": "published",
+  "layout_hint": "WT-05",
+  "content_hash": "sha256:8022d265d2f5976a",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 3,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:26:53+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Construction management platform that supports the full lifecycle of building projects, from design coordination through",
+    "layout": {
+      "family": "WT-05",
+      "shape_tags": [
+        "bio"
+      ]
+    },
+    "group": "bio",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Construction management platform that supports the full lifecycle of building projects, from design coordination through"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Empowering the industry with data ownership and workflows tailored to them Built for builders without massive back offices. Designed to compete with larger incumbents. INTRODUCING Rowan Steel-Hall​ Chief Operating Officer SMARTBUILD Why a PM system matters 2x 4X Median profit margin lift from optimized PM software use higher chance of resolving disputes without litigation. Dodge Construction Network Dodge Construction Network John Lehmann​ Co-Founder and President Construction Leadership Network (CLN)"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "912bb555-3645-44d8-8d8b-ced77eb7513c"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s03.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s03.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [
+    2
+  ],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

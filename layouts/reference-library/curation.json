@@ -1,0 +1,60 @@
+{
+  "note": "Curation overlay for the reference-library. `rules` match a case-insensitive SUBSTRING of a slide title and override catalog fields so human decisions survive re-ingest. `shape_suppressions`, `logo_swaps`, and `fragments` are 1-based slide-index overrides applied by ingest_decks._render_verbatim so catalog renders match the exec-approved review deck exactly (build_ref_review.py). Applied by engine/ingest_decks.",
+  "shape_suppressions": [
+    { "slide": 2, "names": ["Picture 9"],
+      "why": "Rowan review pin-2 (2026-07-04): decorative 720x9 line image extending off-slide — 'this blue bar should not be there'." },
+    { "slide": 5, "names": ["Chart 8", "Star: 5 Points 17", "Star: 5 Points 18", "Star: 5 Points 6"],
+      "why": "Cycle-10 pin-2 (2026-07-06): the COM-rasterized PPT chart must be suppressed — the s05-chart.html fragment (mode append) is the chart. Regression guard: the old scratchpad review script suppressed this inline; the generalized script only reads curation.json, so without this entry the raster AND the fragment both render (doubled chart). Cycle-11 pins 1/3 (2026-07-06): the three chart star markers (Star 17/18/6 = the PM/Safety/AI rows) overlapped the label text and vanished in dark mode; suppressed here and redrawn theme-aware in the fragment (left of the label, blue/sky). Footer 'Star: 5 Points 13' is NOT suppressed." },
+    { "slide": 7, "names": ["Picture 13"],
+      "why": "Cycle-10 pin-4 (2026-07-06): non-standard white wordmark raster bottom-right (box 88.3%,94.7%) — invisible white-on-white in the native light render, but shows as a second logo on dark. The standard footer logo bottom-left stays." },
+    { "slide": 6, "names": ["Picture 10", "Rectangle 8"],
+      "why": "Cycle-4 pin-1b (2026-07-04): small bottom-right logo (Picture 10, box 1149,692,101x15) is an error per the customer — remove it (was previously swapped; now suppressed in both catalog render and PPTX export). Rectangle 8 (box 1144,689,113x26) is that logo's now-orphaned bordered container — suppressed too so the corner is clean (a stray empty box otherwise shows on dark)." }
+  ],
+  "dark_backers": [
+    { "slide": 9, "names": ["Picture 4", "Graphic 9", "Picture 10"],
+      "why": "Cycle-10 pin-6 (2026-07-06): the competitor logos (PLAUD / Flow / granola) are dark artwork that vanished on the dark card panels in dark mode. In dark display only, a soft light chip (#EEF3F8, rounded, subtle shadow) is drawn immediately behind each so they read. Picture 11 (smrt-E) is colourful and legible on dark, so it gets no chip." }
+  ],
+  "image_swaps": [
+    { "slide": 8, "shapes": { "Picture 9": "s08-cloud-sync.svg" },
+      "why": "Cycle-11 pin-2 (2026-07-06): the photo cut-out (s08-cloud-cutout.png) still clipped the cloud edge, so the photo was replaced entirely with a DRAWN vector cloud + circular feedback-loop (sync arrows) — assets/s08-cloud-sync.svg — picking up the glassy-blue style of the original image, not the image itself. Crisp and legible on both white and navy; no edge clipping. Supersedes cycle-10 pin-5 (s08-cloud-cutout.png retained in assets but no longer referenced)." }
+  ],
+  "logo_swaps": [
+    { "slide": 3, "shapes": { "Picture 3": "smartbuild.4c.svg" },
+      "why": "Rowan review: raster smartbuild wordmark swapped for the crisp brand SVG (dark variant lifts grey 'build' letterforms on navy)." },
+    { "slide": 6, "shapes": { "Picture 3": "smartbuild.4c.svg", "Picture 5": "smrt-GC.4c.svg", "Picture 15": "smrt-SUB.4c.svg",
+      "Picture 13": "smrt-AE.4c.svg", "Picture 9": "smrt-E.4c.svg" },
+      "why": "Ecosystem slide: top smartbuild wordmark (Picture 3, box 240,172,418x69 — cycle-4 pin-1a) plus all four product marks swapped for crisp brand SVGs; dark variant lifts grey letterforms. Bottom-right Picture 10 is NOT swapped — it is suppressed (pin-1b)." }
+  ],
+  "fragments": [
+    { "slide": 4, "mode": "replace", "file": "s04-rebuild.html", "pptx_native": true,
+      "why": "cycle-7 pin-2/4: pasted-picture slide rebuilt natively (text/stats/panel as real HTML, theme-aware). pptx_native: export_pptx builds this slide as native PowerPoint objects from the fragment (no raster, no picture-of-text)." },
+    { "slide": 5, "mode": "append", "file": "s05-chart.html", "pptx_native": true,
+      "why": "cycle-7 pin-6: rasterized PPT chart replaced with a native theme-aware HTML bar chart at the Chart 8 box. pptx_native: export_pptx copies the reference slide, strips the raster chart, and builds native bar rects + value labels from the fragment." },
+    { "slide": 11, "mode": "append-dark", "file": "s11-dark-overlay.html",
+      "clip_dark": { "match": "<img src=\"data:image/png[^\"]*\" style=\"position:absolute;left:699[^>]*>",
+                     "insert": "clip-path:circle(224px at 272.5px 272.5px);" },
+      "why": "cycle-9 pin-4/5: dark org-wheel raster clipped to the inner wheel, then name blocks + rings redrawn as an overlay." }
+  ],
+  "rules": [
+    { "match_title": "adoptable pm and ai platform",
+      "set": { "role": "cover", "canonical": true, "entities": ["SmartBuild"], "topics": ["cover"] } },
+    { "match_title": "construction management platform that supports",
+      "set": { "role": "about", "canonical": true, "entities": ["SmartBuild"], "topics": ["company-overview"] } },
+    { "match_title": "ai-powered construction coordinator",
+      "set": { "role": "about", "canonical": true, "entities": ["smrt-E"], "topics": ["product-overview", "ai"] } },
+    { "match_title": "executive team",
+      "set": { "role": "bio", "canonical": true, "entities": ["SmartBuild", "Rowan", "Zulq", "Vinay"], "topics": ["team", "leadership"] } },
+    { "match_title": "smrt-e handles the rest",
+      "set": { "role": "content", "entities": ["smrt-E"], "topics": ["product-capability", "ai"] } },
+    { "match_title": "from the field to the front office",
+      "set": { "role": "content", "entities": ["smrt-E"], "topics": ["product-capability", "data"] } },
+    { "match_title": "arr",
+      "set": { "role": "proof", "topics": ["traction", "financials"] } },
+    { "match_title": "65,000+ contractors",
+      "set": { "role": "market", "topics": ["market", "tam"] } },
+    { "match_title": "industry validation",
+      "set": { "role": "proof", "topics": ["market", "adoption"] } },
+    { "match_title": "there are a lot of options",
+      "set": { "role": "content" } }
+  ]
+}

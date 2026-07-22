@@ -1,0 +1,43 @@
+{
+  "skill": "smartbuild-deck",
+  "version": "5.0.0",
+  "description": "Staged-pipeline SmartBuild deck builder. One installable unit.",
+  "runtime": {
+    "python": ">=3.8",
+    "python_optional": ["jsonschema (full plan validation; falls back to structural checks if absent)"],
+    "node": "not required to build; the deck itself is plain HTML/CSS/JS",
+    "browser": "Any modern Chromium/Firefox/Safari to view. Export (PPTX/PDF) needs internet to load pinned libraries."
+  },
+  "depends_on": {
+    "design_skill": { "artifact": "assets/tokens/tokens.json", "token_version": "1.0.0", "note": "Brand tokens are extracted from the `design` skill. Re-extract and bump token_version if the brand system changes." }
+  },
+  "components": {
+    "schema": "schema/plan.schema.json",
+    "engine": ["engine/build.py", "engine/validate.py", "engine/fidelity.py"],
+    "frontend": ["frontend/base.css", "frontend/deck.js", "frontend/ui.common.html", "frontend/ui.review.html"],
+    "assets": ["assets/fonts/ (3 woff2)", "assets/logos/ (5 svg)", "assets/tokens/tokens.json"],
+    "libraries": ["layouts/library-v9/catalog.json (105 templates, THE library)", "layouts/library-v9/INDEX.md", "layouts/layouts.json (legacy seed, superseded)", "libraries/icons/catalog.json", "libraries/images/catalog.json"]
+  },
+  "cdn_allowlist": ["cdnjs.cloudflare.com", "cdn.jsdelivr.net", "images.unsplash.com"],
+  "export_libraries": {
+    "html2canvas": "1.4.1",
+    "jspdf": "2.5.1",
+    "pptxgenjs": "3.12.0",
+    "sri_note": "Fill SRI integrity hashes in engine/build.py CDN map before client-facing export use; preflight warns if empty."
+  },
+  "license_checks": [
+    "Icons: Lucide (ISC) — no attribution required.",
+    "Fonts: Montserrat (SIL OFL) — embedded, redistributable.",
+    "Logos: SmartBuild proprietary — internal/client use.",
+    "Images: prefer owned/generated (approved_for_client). Client export blocked unless every resolved asset approved_for_client."
+  ],
+  "run": {
+    "preflight": "python packaging/preflight.py",
+    "build_light": "python engine/build.py --skill-path . --plan plan.json --slides slides.html --out out",
+    "build_brand": "python engine/build.py --skill-path . --plan plan.json --slides slides.html --out out --brand",
+    "open": "python engine/open_deck.py --out out",
+    "open_presentation": "python engine/open_deck.py --out out --presentation",
+    "sweep": "python engine/validate.py --skill-path . --plan plan.json --out out && python engine/fidelity.py --plan plan.json --out out",
+    "tests": "python tests/run_tests.py"
+  }
+}

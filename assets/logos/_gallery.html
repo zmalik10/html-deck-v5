@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Logo Library</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0b1220;color:#e8f0f8;font-family:'Montserrat',system-ui,Arial,sans-serif;padding:0 0 60px}
+.bar{position:sticky;top:0;z-index:5;background:#0b1220;border-bottom:1px solid #21324a;padding:16px 28px;display:flex;align-items:baseline;gap:14px}
+.bar h1{font-size:20px;font-weight:900;color:#00B2E3}
+.bar .s{color:#8fa6bf;font-size:13px;font-weight:700}
+h2{color:#00B2E3;font-size:14px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin:30px 28px 12px;display:flex;gap:10px;align-items:center}
+h2 .n{background:#00B2E3;color:#04223d;border-radius:999px;font-size:12px;padding:2px 9px}
+.grid{display:grid;gap:18px;padding:0 28px}
+.imgs{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.icons{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.logos{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.slides{grid-template-columns:repeat(auto-fill,minmax(440px,1fr))}
+.cell{background:#111c2e;border:1px solid #21324a;border-radius:8px;overflow:hidden}
+.cell .thumb{background:#0a1526;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.imgs .thumb{height:150px}.imgs .thumb img{width:100%;height:100%;object-fit:cover}
+.logos .thumb{height:110px;background:#fff}.logos .thumb img{max-width:78%;max-height:70%;object-fit:contain}
+.icons .thumb{height:96px}.icons .thumb svg{width:44px;height:44px;stroke:#00B2E3;stroke-width:2;fill:none}
+.meta{padding:9px 12px}
+.meta .id{font-weight:800;font-size:12px;color:#cfe0f0}
+.meta .tags{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:10px;font-weight:700;color:#00B2E3;background:rgba(0,178,227,.12);border-radius:4px;padding:2px 6px}
+.slides .frame{height:248px;position:relative;overflow:hidden;background:#000}
+.slides iframe{width:1280px;height:720px;border:0;transform:scale(.344);transform-origin:top left;pointer-events:none}
+.slides .meta .id{font-size:13px}
+.note{color:#8fa6bf;font-size:12px;margin:6px 28px 0;max-width:900px;line-height:1.5}
+.thumb.dark{background:#060c1a !important}
+.thumb.dark img{filter:brightness(0) invert(1)}
+</style></head><body><div class="bar"><h1>Logo Library</h1><span class="s">7 brand + product logos (data-logo)</span></div>
+<p class="note">The SmartBuild mark has TWO real forms only: the <b>full-colour</b> wordmark (used on light backgrounds) and the <b>white</b> version (auto-applied on dark backgrounds via CSS). <b>There is no black logo.</b> The <b>badge</b> is extracted on its own (<code>data-logo="smartbuild-badge"</code>) as a creative stand-in for the full wordmark.</p>
+<h2>Full-colour - on light backgrounds <span class="n">7</span></h2><div class="grid logos"><div class="cell"><div class="thumb"><img src="smartbuild.4c.svg"></div><div class="meta"><div class="id">smartbuild.4c.svg</div></div></div><div class="cell"><div class="thumb"><img src="smartbuild-badge.svg"></div><div class="meta"><div class="id">smartbuild-badge.svg</div><div class="tags"><span class="tag">badge</span><span class="tag">new</span></div></div></div><div class="cell"><div class="thumb"><img src="smrt-AE.4c.svg"></div><div class="meta"><div class="id">smrt-AE.4c.svg</div></div></div><div class="cell"><div class="thumb"><img src="smrt-AEC.4c.png"></div><div class="meta"><div class="id">smrt-AEC.4c.png</div></div></div><div class="cell"><div class="thumb"><img src="smrt-E.4c.svg"></div><div class="meta"><div class="id">smrt-E.4c.svg</div></div></div><div class="cell"><div class="thumb"><img src="smrt-GC.4c.svg"></div><div class="meta"><div class="id">smrt-GC.4c.svg</div></div></div><div class="cell"><div class="thumb"><img src="smrt-SUB.4c.svg"></div><div class="meta"><div class="id">smrt-SUB.4c.svg</div></div></div></div>
+<h2>White - on dark backgrounds (SmartBuild mark + badge) <span class="n">2</span></h2><div class="grid logos"><div class="cell"><div class="thumb dark"><img src="smartbuild.4c.svg"></div><div class="meta"><div class="id">smartbuild (white)</div></div></div><div class="cell"><div class="thumb dark"><img src="smartbuild-badge.svg"></div><div class="meta"><div class="id">smartbuild-badge (white)</div></div></div></div>
+</body></html>

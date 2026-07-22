@@ -1,0 +1,1280 @@
+{
+  "summary": {
+    "dataset_version": "ref-lib-v1",
+    "generated_at": "2026-07-03",
+    "kind": "reference-library",
+    "principle": "Finished, reviewed CONTENT slides — reused, never reinvented. A canonical entry is the single approved rendering of a recurring content slide (About SmartBuild, About smrt-E, a leader bio). PLAN searches here FIRST and reuses before authoring net-new. Unlike layouts/library-v9 (empty layout shapes), these entries carry the ACTUAL words. Not a ceiling: PLAN authors net-new whenever nothing fits — it just never rebuilds content that is already published.",
+    "roles": [
+      "about",
+      "bio",
+      "mission",
+      "offering",
+      "proof",
+      "closing"
+    ],
+    "reuse_modes": [
+      "verbatim",
+      "adapted",
+      "authored"
+    ],
+    "status_values": [
+      "draft",
+      "published"
+    ],
+    "entry_fields": [
+      "ref_id",
+      "title",
+      "role",
+      "entities",
+      "topics",
+      "audience",
+      "canonical",
+      "status",
+      "layout_hint",
+      "content_hash",
+      "approved_facts",
+      "provenance",
+      "used_in",
+      "planFragment"
+    ],
+    "content_hash_algo": "sha256:16 — sha256 over JSON-encoded [stripped active planFragment block texts...] + [approved_fact.value or .text...], first 16 hex chars. Identical in engine/ingest_decks.py and engine/reference_search.py (content_hash() helper).",
+    "provenance_contract": {
+      "note": "Stamped by PLAN on every REUSED or ADAPTED slide (not on net-new authored slides, which are source='authored' by default). Recorded in this catalog (entry.used_in[]) and in archive.json (slide.used_in[]) — NOT inline in plan.json, whose schema forbids extra slide keys. reference_search.record_reuse() writes it.",
+      "shape": {
+        "ref_id": "REF-* if reused from this library, else null",
+        "archive_id": "archive slide id if reused from the deck archive, else null",
+        "source": "reference-library | archive | authored",
+        "reuse": "verbatim | adapted | authored",
+        "canonical": "bool — true only for canonical library entries",
+        "content_hash": "hash of the SOURCE content at reuse time (detects later drift)",
+        "deck_title": "the deck this was reused into",
+        "reused_at_revision": "plan_revision at reuse time",
+        "adapted_note": "if reuse='adapted', what changed; else null"
+      }
+    },
+    "planFragment_contract": "A full plan.schema.json slide object (slide_uuid, topic, layout{family,shape_tags}, group, continues, content_blocks[], optional image_intent/icon_intent). The entry's own approved_facts[] carry any facts the fragment's fact_refs point at. On reuse PLAN copies the fragment into plan.json, RE-MINTS all uuids (uuids are unique per plan, never shared across decks), and merges the entry's approved_facts into the plan's approved_facts.",
+    "entry_count": 18,
+    "canonical_count": 4
+  },
+  "entries": [
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s01",
+      "title": "Commonly used reference slidesLocation | Date",
+      "role": "cover",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:57a143cb221d56de",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 1,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:26:42+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Commonly used reference slidesLocation | Date",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "cover"
+          ]
+        },
+        "group": "cover",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Commonly used reference slidesLocation | Date"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "eb7a87b4-0c74-49a1-8cd5-495bec43ab4a"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s01.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s01.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s02",
+      "title": "SMARTBUILD: Construction's Adoptable PM and AI Platform",
+      "role": "cover",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [
+        "cover"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:e23d9a9ea3769f89",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 2,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:26:43+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "SMARTBUILD: Construction's Adoptable PM and AI Platform",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "section"
+          ]
+        },
+        "group": "section",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "SMARTBUILD: Construction's Adoptable PM and AI Platform"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "June 2026"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "c91e2244-7d59-4bd9-8a39-13c2a24723e2"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "dark",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s02.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s02.dark.html"
+      },
+      "render_modes": {
+        "light": "image-swap",
+        "dark": "faithful"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s03",
+      "title": "Construction management platform that supports the full lifecycle of building projects, from design coordination through",
+      "role": "about",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [
+        "company-overview"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "WT-05",
+      "content_hash": "sha256:8022d265d2f5976a",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 3,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:26:53+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Construction management platform that supports the full lifecycle of building projects, from design coordination through",
+        "layout": {
+          "family": "WT-05",
+          "shape_tags": [
+            "bio"
+          ]
+        },
+        "group": "bio",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Construction management platform that supports the full lifecycle of building projects, from design coordination through"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Empowering the industry with data ownership and workflows tailored to them Built for builders without massive back offices. Designed to compete with larger incumbents. INTRODUCING Rowan Steel-Hall​ Chief Operating Officer SMARTBUILD Why a PM system matters 2x 4X Median profit margin lift from optimized PM software use higher chance of resolving disputes without litigation. Dodge Construction Network Dodge Construction Network John Lehmann​ Co-Founder and President Construction Leadership Network (CLN)"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "912bb555-3645-44d8-8d8b-ced77eb7513c"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s03.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s03.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [
+        2
+      ],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s04",
+      "title": "Commonly used reference slides slide 4",
+      "role": "section",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:30b93054eae2110d",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 4,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:00+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "section",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "section"
+          ]
+        },
+        "group": "section",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "(untitled)"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "8bfe0ebc-811c-4255-8258-82a10528debc"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s04.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s04.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "image-swap"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s05",
+      "title": "Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contractors of all sizes prioritizing PM",
+      "role": "proof",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [
+        "market",
+        "adoption"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:332474f520098abe",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 5,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:01+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contractors of all sizes prioritizing PM",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Industry Validation | Contractors Are Adopting TechnologyABC data shows leading contractors of all sizes prioritizing PM"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Source: 2025 ABC Excellence In Construction Award Nominees research 207 General Contractors 134 Specialty Contractors 59% Projects <$20M in size Active in PM, Safety, and AI, the top 2 categories plus the fastest growing The top performing contractors are investing in PM and Safety Software as their top priority"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "39fa4684-a03f-4ea4-8d8e-f4f93e866c90"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s05.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s05.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [
+        4
+      ],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s06",
+      "title": "Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, and compliance tracking and integr",
+      "role": "about",
+      "entities": [
+        "smrt-E"
+      ],
+      "topics": [
+        "product-overview",
+        "ai"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:2d953e5ff0f8a91a",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 6,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:15+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, and compliance tracking and integr",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Your AI-powered construction coordinator. smrt-E will take the hassle out of reports, and compliance tracking and integr"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Tailored exclusively for Sub Contractors, the backbone of the industry, our affordable Construction Management software empowers you to seamlessly navigate your projects. From concept to completion, smrtAE is the industry’s most comprehensive workflow platform - helping AE firms manage the life cycle of a project. Beyond project management, it’s the key to smarter, more effective construction. It’s not just software; it’s the essence of intelligent Construction Management. Our Digital Ecosystem to Transform Construction  We are Bringing Data Sovereignty with Curated Workflows fit for Purpose BETA BETA"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "87946d39-5231-43d8-8428-4791096a4e0d"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s06.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s06.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [
+        5
+      ],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s07",
+      "title": "Just talk. smrt-E handles the rest",
+      "role": "content",
+      "entities": [
+        "smrt-E"
+      ],
+      "topics": [
+        "product-capability",
+        "ai"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:92e5ed80d2bf1c2c",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 7,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:23+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Just talk. smrt-E handles the rest",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Just talk. smrt-E handles the rest"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Speak, don't type. Field workers complete reports, logs, and inspections by voice. No forms, no training. Any language, delivered in English. A foreman reports in Spanish. The PM receives it in English. Both are stored. Works anywhere. offline functionality. Custom forms for any trade or workflow. Connects to existing construction management systems.A foreman speaks into his phone in Spanish at 6am. By the time the PM opens her laptop, the daily log is filed in English, tagged to the project, and flagged for safety review Contextual AI on the move BETA"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "24219072-c9f4-4be1-8b26-ea7e965bd0a7"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s07.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s07.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s08",
+      "title": "From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into project intelligence",
+      "role": "content",
+      "entities": [
+        "smrt-E"
+      ],
+      "topics": [
+        "product-capability",
+        "data"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:a9487d5edfa03859",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 8,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:24+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into project intelligence",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into project intelligence"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Field Input Project Intelligence No double entry. Field data populates project records automatically. No chasing paperwork. Reports are filed the moment the worker speaks. No information silos. Everyone on the project sees the same data. Automatic Sync & Translation"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "c3fc60fd-ac23-4670-819e-8889a0deb011"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s08.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s08.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s09",
+      "title": "$180M ARR  |  1M+ Users",
+      "role": "proof",
+      "entities": [
+        "SmartBuild",
+        "SMARTBUILD"
+      ],
+      "topics": [
+        "traction",
+        "financials"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:3bfd337bd46b4055",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 9,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:26+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "$180M ARR  |  1M+ Users",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "$180M ARR  |  1M+ Users"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Consumer AI voice recorder + app Hardware + software product Transcription + productivity focus Unstructured voice capture Does Not Do: No outputs or connections to construction systems $700M Valuation  | 100x YoY User Growth Voice dictation across any app Massive demand proof point $250M Valuation AI meeting notes + summarization Knowledge-worker focused 10% weekly user growth No field or site awareness Understands construction language Inbuilt translation / records Structured output / forms Asks the questions needed for legal and safety records ✓ Construction System of Record Voice outputs structured actions, not generic text \"Voice AI has unlocked a mass behavior shift. The $1B+ players are proving the market. None of them is effective on a job site especially not for the field workers. SMARTBUILD does.\" Boot strapped Does Not Do: No outputs or connections to construction systems Does Not Do: No outputs or connections to construction systems Voice AI Is Taking Over - Construction Is Next"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "81134d78-2acb-4320-8bba-bd7a1faa0a64"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s09.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s09.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [
+        29
+      ],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s10",
+      "title": "65,000+ contractors in the US$10-250M segment (US + Canada) are underserved by platforms built for $500M+ firms",
+      "role": "market",
+      "entities": [
+        "SmartBuild",
+        "SMARTBUILD",
+        "smrt-E"
+      ],
+      "topics": [
+        "market",
+        "tam"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:fd149915641d079c",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 10,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:34+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "65,000+ contractors in the US$10-250M segment (US + Canada) are underserved by platforms built for $500M+ firms",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "65,000+ contractors in the US$10-250M segment (US + Canada) are underserved by platforms built for $500M+ firms"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Over 45% still run on spreadsheets and paper. 35% plan to increase PM software spend $2.6B addressable market in North America ~10M field workers in North America have smartphones 34% of US construction workers are Hispanic 25% of jobsite accidents are linked to language barriers 69% use mobile devices for some field reporting today No incumbent owns this space Market Opportunity | Two markets one platform SMARTBUILD enters through the company. smrt-E enters through the worker. Both feed the same growth engine SMARTBUILD PM Solutions smrt-E Field Tools"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "acd8840e-af47-4033-8ff2-85276d296caf"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s10.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s10.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s11",
+      "title": "Executive Team",
+      "role": "bio",
+      "entities": [
+        "SmartBuild",
+        "Rowan",
+        "Zulq",
+        "Vinay"
+      ],
+      "topics": [
+        "team",
+        "leadership"
+      ],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": true,
+      "status": "published",
+      "layout_hint": "WT-05",
+      "content_hash": "sha256:2b9c1bc39fce8626",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 11,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:34+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Executive Team",
+        "layout": {
+          "family": "WT-05",
+          "shape_tags": [
+            "bio"
+          ]
+        },
+        "group": "bio",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Executive Team"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Zulq Malik Owner and Founder 30 years in construction $1.6B in projects completed Civil Engineer Rowan Steel-Hall Chief Operating Officer Former, Partner at Boston Consulting Group 20 years experience driving value through data and AI Vinay Nair Chief Customer Officer 25 years driving B2B SaaS start up growth Leadership at IBM and Microsoft Operating model Total Org ~22 FTE & 5 specialist contractors"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "4c7cc4eb-992b-4da0-8d6f-cd6be07394fc"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s11.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s11.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [
+        6
+      ],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s12",
+      "title": "The goal isn’t to be tech experts.",
+      "role": "section",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:5354185eb5a8a33b",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 12,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:45+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "The goal isn’t to be tech experts.",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "section"
+          ]
+        },
+        "group": "section",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "The goal isn’t to be tech experts."
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "It’s to become better builders"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "98b75879-be06-40c7-8175-d8e2ef4c97c2"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "dark",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s12.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s12.dark.html"
+      },
+      "render_modes": {
+        "light": "image-swap",
+        "dark": "faithful"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s13",
+      "title": "The challenge is that you don’t know how to progress",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:cc39a4b31a778db1",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 13,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:46+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "The challenge is that you don’t know how to progress",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "The challenge is that you don’t know how to progress"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "3 4 Basic Conversations Chat Window Basics Voice & images Review documents / one-time analysis Persistent Context Projects & Custom GPT’s Canvas Memory & profiles Power User Connectors Operator / Browser Agents Deep Research & Reasoning Automations Workflow Automation (Zapier & N8N) Breaking big tasks into smaller sub tasks Webhooks and APIs Vibe Coding Replit Claude Code Codex 5"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "8aae93f8-ad1a-4f82-8ce6-5c9f3415b5c9"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s13.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s13.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s14",
+      "title": "Real use cases at each point in the journey",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:fcce133a7107b512",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 14,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:46+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Real use cases at each point in the journey",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Real use cases at each point in the journey"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "1 2 3 4 Basic Conversations Drafting RFI’s Clean up site notes Draft scope clarifications Persistent Context Repeatable RFI drafting Consistent brand voice Email assistant Meeting minutes Power Users Connecting directly to email or files Tasks that require multiple steps Deep research on topics e.g., building codes Automations Extracting submittal requirements from docs Daily report compilation Inbox triage Vibe Coding Custom estimates Website rebuild System for collecting photos in field 5 Attainable for all ~70% of people today High potential but high time and experimentation Identify a few folks and give more tools Current Focus Future"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "4263182a-8266-4287-89a7-c25ce5b6c035"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s14.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s14.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s15",
+      "title": "Market Position and Opportunity",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:4633f45b79089a7c",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 15,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:46+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Market Position and Opportunity",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Market Position and Opportunity"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Multinational $$$ $ SME The affordable quadrant for SME contractors is where 90% of the market lives. Incumbents built for enterprise. We built for everyone else. Our challenge isn't product. It's distribution. The right partner unlocks access to 65,000+ contractors we can't reach alone. Procore is the biggest in our space but has ~6% market penetration"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "ad841eb3-5f84-4617-886b-243a71a8ab99"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s15.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s15.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s16",
+      "title": "There are a lot of options but until you are advanced how you use it is what matters",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "NM-01",
+      "content_hash": "sha256:7bcdbea6af76602d",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 16,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:54+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "There are a lot of options but until you are advanced how you use it is what matters",
+        "layout": {
+          "family": "NM-01",
+          "shape_tags": [
+            "about"
+          ]
+        },
+        "group": "about",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "There are a lot of options but until you are advanced how you use it is what matters"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "Not exhaustive Trained on vast amounts of information. Think of them as a powerful apprentice that can read, write, and summarize information at superhuman speed. Sora Code Most used AI Studio Nano Banana Fastest growth today About to be in IOS Claude Enterprise leader"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "ca480f99-7153-46cf-82b8-f04a4fa48c55"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s16.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s16.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s17",
+      "title": "The Challenge Is that You Don’t Know How to Progress",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:dc6e2b900227a1e4",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 17,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:55+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "The Challenge Is that You Don’t Know How to Progress",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "The Challenge Is that You Don’t Know How to Progress"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "1 2 3 4 Basic Conversations Chat Window Basics Voice & images Review documents / one-time analysis Persistent Context Projects & Custom GPT’s Canvas Memory & profiles Power User Connectors Operator / Browser Agents Deep Research & Reasoning Automations Workflow Automation (Zapier & N8N) Breaking big tasks into smaller sub tasks Webhooks and APIs Vibe Coding Replit Claude Code Windsurf etc. 5"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "56145b3f-ef68-4661-80be-9134edf67866"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s17.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s17.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    },
+    {
+      "ref_id": "REF-commonly-used-reference-slides-s18",
+      "title": "Know Al can be confidently wrong (\"hallucinate\")",
+      "role": "content",
+      "entities": [
+        "SmartBuild"
+      ],
+      "topics": [],
+      "audience": [
+        "internal",
+        "client"
+      ],
+      "canonical": false,
+      "status": "published",
+      "layout_hint": "custom",
+      "content_hash": "sha256:d4da62485e798cdc",
+      "approved_facts": [],
+      "provenance": {
+        "origin": "collection",
+        "source_collection": "Commonly used reference slides",
+        "source_index": 18,
+        "source_id": "Commonly used reference slides.pptx",
+        "ingested_at": "2026-07-05T01:27:56+00:00",
+        "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+      },
+      "used_in": [],
+      "planFragment": {
+        "topic": "Know Al can be confidently wrong (\"hallucinate\")",
+        "layout": {
+          "family": "custom",
+          "shape_tags": [
+            "content"
+          ]
+        },
+        "group": "content",
+        "continues": false,
+        "content_blocks": [
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000001",
+            "type": "headline",
+            "text": "Know Al can be confidently wrong (\"hallucinate\")"
+          },
+          {
+            "block_uuid": "00000000-0000-4000-8000-000000000002",
+            "type": "body",
+            "text": "AI gets things wrong and sounds confident doing it. Treat it like an intern’s draft. Your judgment is still the final check. No sensitive datain public tools AI uses what you give it and free versions use it for training. Paid workspaces keep your data private. It can process info, but no one else can “see” it Never let Al make a major call without review AI speeds up tasks but can’t replace judgement, experience or context. It supports your work. It doesn’t substitute for it. Playing it safe: 3 Rules of Smart AI Use"
+          }
+        ],
+        "icon_intent": [],
+        "slide_uuid": "68f0412e-a05d-45d3-8536-42bbb1308b6a"
+      },
+      "render_mode": "verbatim-locked",
+      "locked": true,
+      "exec_approved": true,
+      "native_theme": "light",
+      "render": {
+        "light": "rendered/REF-commonly-used-reference-slides-s18.light.html",
+        "dark": "rendered/REF-commonly-used-reference-slides-s18.dark.html"
+      },
+      "render_modes": {
+        "light": "faithful",
+        "dark": "recolor"
+      },
+      "rasterized_shapes": [],
+      "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+<!-- ============================================================
+     LAYOUT AUTHORING REFERENCE — copy a block, swap {block_uuid}s
+     and text. Every content element MUST carry data-block + data-block-type.
+     Colours use tokens only (var(--sb-*)). Stage is 1280x720.
+     (cover / stats-grid / closing are shown in examples/sample-short/slides.html)
+============================================================ -->
+
+<!-- ===== one-big-idea : single dominant idea/number, full bleed ===== -->
+<section class="slide" data-slide="{slide_uuid}" data-topic="{topic}">
+  <div class="stage" style="display:flex;flex-direction:column;justify-content:center;padding:96px 110px;gap:24px">
+    <span class="label reveal" data-block="{u}" data-block-type="label">{eyebrow}</span>
+    <h2 class="hl reveal" data-block="{u}" data-block-type="headline" style="font-size:110px">{Big <span style="color:var(--sb-sky)">idea</span>}</h2>
+    <p class="body reveal" data-block="{u}" data-block-type="body" style="font-size:26px;max-width:60ch">{Supporting sentence.}</p>
+  </div>
+</section>
+
+<!-- ===== 3-ideas : three PARALLEL, unrelated ideas as tiles ===== -->
+<section class="slide" data-slide="{slide_uuid}" data-topic="{topic}">
+  <div class="stage" style="display:flex;flex-direction:column;padding:0">
+    <div style="padding:44px 72px 24px"><h2 class="hl reveal" data-block="{u}" data-block-type="headline" style="font-size:48px">{Section title}</h2></div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08)">
+      <div style="background:var(--sb-deck-bg);display:flex;flex-direction:column;justify-content:center;gap:14px;padding:48px">
+        <svg class="icon" data-icon="{icon}"></svg>
+        <strong class="reveal" data-block="{u}" data-block-type="card_title" style="font-size:24px;text-transform:uppercase">{Idea 1}</strong>
+        <span class="body" data-block="{u}" data-block-type="card_body" style="font-size:17px">{Detail.}</span>
+      </div>
+      <!-- repeat the column twice more for ideas 2 and 3 -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== product-split : logo panel + copy/KPI. Flip side per product. ===== -->
+<section class="slide" data-slide="{slide_uuid}" data-topic="{topic}">
+  <div class="stage" style="display:flex">
+    <div style="flex:0 0 45%;display:flex;align-items:center;justify-content:center;background:var(--sb-sky)">
+      <img data-logo="smrtGC" style="width:60%">
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:88px 56px">
+      <span class="label reveal" data-block="{u}" data-block-type="label">Product Suite</span>
+      <h2 class="hl reveal" data-block="{u}" data-block-type="headline" style="font-size:64px"><span class="product-name" style="color:var(--sb-sky)">smrtGC</span><span class="subhead" style="display:block;font-size:28px">{Sub-title}</span></h2>
+      <p class="body reveal" data-block="{u}" data-block-type="body" style="font-size:22px">{Description.}</p>
+      <div><span class="kpi-num reveal" data-block="{u}" data-block-type="stat" style="font-size:120px">{38%}</span><span class="kpi-label" data-block="{u}" data-block-type="stat_label">{KPI label}</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== process-flow-4 : connected steps (SAME shape for continued flows) ===== -->
+<section class="slide" data-slide="{slide_uuid}" data-topic="{topic}">
+  <div class="stage" style="display:flex;flex-direction:column;padding:0">
+    <div style="padding:44px 72px 20px"><h2 class="hl reveal" data-block="{u}" data-block-type="headline" style="font-size:46px">{Process title}</h2></div>
+    <div style="flex:1;display:flex;align-items:center;gap:20px;padding:0 56px 40px">
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:32px;border:1px solid rgba(255,255,255,0.12);border-radius:12px">
+        <span class="kpi-num" style="font-size:40px">1</span>
+        <strong class="reveal" data-block="{u}" data-block-type="card_title" style="font-size:20px;text-transform:uppercase">{Step}</strong>
+        <span class="body" data-block="{u}" data-block-type="card_body" style="font-size:15px">{Detail.}</span>
+      </div>
+      <span style="color:var(--sb-sky);font-size:32px">&#8594;</span>
+      <!-- repeat step+arrow to 4 steps; drop the trailing arrow -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3-big-vertical : three weighty ideas stacked ===== -->
+<section class="slide" data-slide="{slide_uuid}" data-topic="{topic}">
+  <div class="stage" style="display:flex;flex-direction:column;justify-content:center;gap:1px;background:rgba(255,255,255,0.08);padding:0">
+    <div style="background:var(--sb-deck-bg);display:flex;align-items:center;gap:32px;padding:36px 72px">
+      <span class="kpi-num" style="font-size:64px;flex:0 0 120px">01</span>
+      <div><strong class="reveal" data-block="{u}" data-block-type="card_title" style="font-size:30px;text-transform:uppercase">{Idea}</strong><span class="body" data-block="{u}" data-block-type="card_body" style="display:block;font-size:18px">{Detail.}</span></div>
+    </div>
+    <!-- repeat twice more -->
+  </div>
+</section>
+
+<!-- ===== mission : statement + one big stat panel ===== -->
+<section class="slide" data-slide="{slide_uuid}" data-topic="{topic}">
+  <div class="stage" style="display:flex">
+    <div style="flex:0 0 62%;display:flex;flex-direction:column;justify-content:space-between;padding:80px 64px">
+      <span class="label reveal" data-block="{u}" data-block-type="label">Our Mission</span>
+      <h2 class="hl reveal" data-block="{u}" data-block-type="headline" style="font-size:72px">{Built for the <span style="color:var(--sb-sky)">people</span> who build}</h2>
+      <p class="body reveal" data-block="{u}" data-block-type="body" style="font-size:22px;max-width:55ch">{Mission body.}</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--sb-sky)">
+      <span class="reveal" data-block="{u}" data-block-type="stat" style="font-size:160px;font-weight:900;color:var(--sb-ink)">93%</span>
+      <span data-block="{u}" data-block-type="stat_label" style="color:var(--sb-ink);font-weight:700;text-transform:uppercase;letter-spacing:.1em">Customer Retention</span>
+    </div>
+  </div>
+</section>

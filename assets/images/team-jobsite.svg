@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="SmartBuild — every stakeholder connected on one platform">
+  <defs>
+    <radialGradient id="tj-warm" cx="0.35" cy="0.4" r="0.8">
+      <stop offset="0" stop-color="#14263f"/>
+      <stop offset="1" stop-color="#060c1a"/>
+    </radialGradient>
+    <linearGradient id="tj-copper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E17126"/>
+      <stop offset="1" stop-color="#ED1651"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#tj-warm)"/>
+
+  <!-- connection web between stakeholder nodes -->
+  <g stroke="#76A3B2" stroke-width="2.5" stroke-opacity="0.55">
+    <line x1="800" y1="450" x2="360" y2="250"/>
+    <line x1="800" y1="450" x2="1240" y2="250"/>
+    <line x1="800" y1="450" x2="300" y2="640"/>
+    <line x1="800" y1="450" x2="1300" y2="640"/>
+    <line x1="800" y1="450" x2="800" y2="180"/>
+    <line x1="360" y1="250" x2="300" y2="640"/>
+    <line x1="1240" y1="250" x2="1300" y2="640"/>
+    <line x1="300" y1="640" x2="1300" y2="640"/>
+  </g>
+
+  <!-- central hub -->
+  <circle cx="800" cy="450" r="70" fill="none" stroke="#00B2E3" stroke-width="4"/>
+  <circle cx="800" cy="450" r="40" fill="url(#tj-copper)"/>
+
+  <!-- stakeholder nodes (person glyphs) -->
+  <g>
+    <g transform="translate(360 250)"><circle r="46" fill="#0d1829" stroke="#00B2E3" stroke-width="3"/><circle cy="-14" r="13" fill="#00B2E3"/><path d="M-20 22a20 20 0 0140 0z" fill="#00B2E3"/></g>
+    <g transform="translate(1240 250)"><circle r="46" fill="#0d1829" stroke="#E17126" stroke-width="3"/><circle cy="-14" r="13" fill="#E17126"/><path d="M-20 22a20 20 0 0140 0z" fill="#E17126"/></g>
+    <g transform="translate(300 640)"><circle r="46" fill="#0d1829" stroke="#76A3B2" stroke-width="3"/><circle cy="-14" r="13" fill="#76A3B2"/><path d="M-20 22a20 20 0 0140 0z" fill="#76A3B2"/></g>
+    <g transform="translate(1300 640)"><circle r="46" fill="#0d1829" stroke="#ED1651" stroke-width="3"/><circle cy="-14" r="13" fill="#ED1651"/><path d="M-20 22a20 20 0 0140 0z" fill="#ED1651"/></g>
+    <g transform="translate(800 180)"><circle r="46" fill="#0d1829" stroke="#00B2E3" stroke-width="3"/><circle cy="-14" r="13" fill="#00B2E3"/><path d="M-20 22a20 20 0 0140 0z" fill="#00B2E3"/></g>
+  </g>
+</svg>

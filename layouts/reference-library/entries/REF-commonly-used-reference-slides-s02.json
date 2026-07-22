@@ -1,0 +1,68 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s02",
+  "title": "SMARTBUILD: Construction's Adoptable PM and AI Platform",
+  "role": "cover",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [
+    "cover"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": true,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:e23d9a9ea3769f89",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 2,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:26:43+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "SMARTBUILD: Construction's Adoptable PM and AI Platform",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "section"
+      ]
+    },
+    "group": "section",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "SMARTBUILD: Construction's Adoptable PM and AI Platform"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "June 2026"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "c91e2244-7d59-4bd9-8a39-13c2a24723e2"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "dark",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s02.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s02.dark.html"
+  },
+  "render_modes": {
+    "light": "image-swap",
+    "dark": "faithful"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

@@ -1,0 +1,46 @@
+<!-- Review-only chrome. Included in review.html ONLY.
+     Physically absent from presentation.html (the client deliverable). -->
+<button id="edit-toggle" class="uibtn" title="Review Mode">&#9998;</button>
+<button id="board-toggle" class="uibtn" title="Slide Board - reorder / remove / light&dark (B)">&#9638;</button>
+<button id="text-toggle" class="uibtn" title="Edit text directly - type on the slide (authored slides only)">T</button>
+<button id="tpl-lib-btn" class="uibtn" title="Template Library - open all rendered templates in a new tab">&#9640;</button>
+
+<!-- Slide Board: all slides in parallel; drag to reorder, remove, set light/dark per slide -->
+<div id="slide-board">
+  <div class="board-head">
+    <h2>Slide Board</h2>
+    <span class="board-sub" id="board-sub"></span>
+    <span class="board-spacer"></span>
+    <button id="board-reset" class="board-btn" title="Discard board changes">Reset</button>
+    <button id="board-copy" class="board-btn primary" title="Copy layout + variant decisions to Claude">Copy layout &amp; variants</button>
+    <button id="board-close" class="board-btn" title="Close (Esc)">Close</button>
+  </div>
+  <div class="board-legend">
+    <span><b>Drag</b> a card to reorder, or drag it into <b>Not used</b> to remove it from the deck</span>
+    <span><b>&#9728; / &#9790;</b> pick the light or dark version</span>
+    <span><b>&#10005;</b> moves a slide to Not used &middot; <b>&#8634;</b> adds it back</span>
+    <span><b>Click</b> a slide to open it in the deck</span>
+  </div>
+  <div class="board-scroll">
+    <div class="board-section-title">In deck</div>
+    <div class="board-grid" id="board-grid"></div>
+    <div class="board-section-title board-parked-title">Not used</div>
+    <div class="board-grid board-grid-parked" id="board-parked"></div>
+  </div>
+</div>
+
+<aside id="review-panel" class="sidepanel">
+  <header><h3>Review Notes</h3><button class="panel-close" title="Close">&#x2715;</button></header>
+  <div class="panel-body"><div id="review-list"></div></div>
+  <div class="panel-foot">
+    <button id="copy-notes" class="panel-cta" disabled>Copy All Notes to Claude</button>
+    <div id="copy-confirm" style="opacity:0;transition:opacity .3s;font-size:12px;color:var(--sb-sky);text-align:center;margin-top:8px">&#10003; Copied</div>
+  </div>
+</aside>
+
+<div id="pin-popup">
+  <div class="target" id="pp-target"></div>
+  <div class="pp-prov" id="pp-prov" style="display:none"></div>
+  <textarea id="pp-text" placeholder="Describe the change needed..."></textarea>
+  <div class="pin-btns"><button id="pp-save">Save Note</button><button id="pp-cancel">Cancel</button></div>
+</div>

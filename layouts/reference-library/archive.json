@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "dataset_version": "ref-archive-v1",
+    "generated_at": "2026-07-03",
+    "kind": "deck-archive",
+    "principle": "A searchable index of EVERY past/published deck's slides, built by engine/ingest_decks.py from real files (.pptx/.pdf/.html). PLAN searches this alongside the reference-library so it can reuse or adapt real prior slides instead of reinventing them. Recognizable About/bio slides found here are promoted into catalog.json as canonical candidates. This seed is empty until the first ingest run.",
+    "slide_fields": [
+      "archive_id",
+      "deck_id",
+      "index",
+      "title",
+      "text",
+      "role",
+      "entities",
+      "content_hash",
+      "used_in"
+    ],
+    "deck_fields": [
+      "deck_id",
+      "source_path",
+      "source_type",
+      "title",
+      "slide_count",
+      "content_hash",
+      "ingested_at"
+    ],
+    "role_values": [
+      "cover",
+      "section",
+      "about",
+      "bio",
+      "mission",
+      "offering",
+      "proof",
+      "content",
+      "closing",
+      "unknown"
+    ],
+    "content_hash_algo": "sha256:16 — same content_hash() helper as catalog.json; per-slide hash over [title, text]; per-deck hash over the ordered per-slide hashes. Used for idempotent re-ingest (unchanged deck => skipped).",
+    "deck_count": 0,
+    "slide_count": 0,
+    "last_ingest": "2026-07-05T01:27:57+00:00",
+    "last_src": "C:\\Users\\rowan\\AppData\\Local\\Temp\\claude\\C--Users-rowan\\fed0bd02-6251-4ba5-9bff-32162ec8a12c\\scratchpad\\collections"
+  },
+  "decks": [],
+  "slides": []
+}

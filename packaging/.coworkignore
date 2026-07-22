@@ -1,0 +1,14 @@
+# What the Cowork .skill package EXCLUDES. Patterns are skill-relative, forward-slash,
+# PowerShell -like globs.
+#
+# Phase 1 strategy: ship the SLIM Slide Vault so verbatim reuse works in Cowork, but
+# keep the heavy originals + generated browser out. The package therefore ships:
+#   layouts/reference-library/index.json      (tiny search index)
+#   layouts/reference-library/entries/*.json  (full per-entry records: planFragment, facts)
+#   layouts/reference-library/catalog.json    (scrubbed authored source / fallback)
+#   layouts/reference-library/rendered.slim/* (slimmed verbatim renders, ~5.7 MB)
+# and EXCLUDES the heavy originals + intermediates below.
+layouts/reference-library/rendered/*
+layouts/reference-library/assets/*
+layouts/library-v9/library.html
+assets/images/extracted/*

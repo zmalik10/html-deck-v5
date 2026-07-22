@@ -1,0 +1,66 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s13",
+  "title": "The challenge is that you don’t know how to progress",
+  "role": "content",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:cc39a4b31a778db1",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 13,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:46+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "The challenge is that you don’t know how to progress",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "The challenge is that you don’t know how to progress"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "3 4 Basic Conversations Chat Window Basics Voice & images Review documents / one-time analysis Persistent Context Projects & Custom GPT’s Canvas Memory & profiles Power User Connectors Operator / Browser Agents Deep Research & Reasoning Automations Workflow Automation (Zapier & N8N) Breaking big tasks into smaller sub tasks Webhooks and APIs Vibe Coding Replit Claude Code Codex 5"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "8aae93f8-ad1a-4f82-8ce6-5c9f3415b5c9"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s13.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s13.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

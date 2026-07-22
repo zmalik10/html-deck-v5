@@ -1,0 +1,66 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s14",
+  "title": "Real use cases at each point in the journey",
+  "role": "content",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:fcce133a7107b512",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 14,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:46+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Real use cases at each point in the journey",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Real use cases at each point in the journey"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "1 2 3 4 Basic Conversations Drafting RFI’s Clean up site notes Draft scope clarifications Persistent Context Repeatable RFI drafting Consistent brand voice Email assistant Meeting minutes Power Users Connecting directly to email or files Tasks that require multiple steps Deep research on topics e.g., building codes Automations Extracting submittal requirements from docs Daily report compilation Inbox triage Vibe Coding Custom estimates Website rebuild System for collecting photos in field 5 Attainable for all ~70% of people today High potential but high time and experimentation Identify a few folks and give more tools Current Focus Future"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "4263182a-8266-4287-89a7-c25ce5b6c035"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s14.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s14.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

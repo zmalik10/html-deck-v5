@@ -1,0 +1,69 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s08",
+  "title": "From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into project intelligence",
+  "role": "content",
+  "entities": [
+    "smrt-E"
+  ],
+  "topics": [
+    "product-capability",
+    "data"
+  ],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:a9487d5edfa03859",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 8,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:27:24+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into project intelligence",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "content"
+      ]
+    },
+    "group": "content",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "From the Field to the Front Officesmrt-E captures data. SMARTBUILD turns it into project intelligence"
+      },
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000002",
+        "type": "body",
+        "text": "Field Input Project Intelligence No double entry. Field data populates project records automatically. No chasing paperwork. Reports are filed the moment the worker speaks. No information silos. Everyone on the project sees the same data. Automatic Sync & Translation"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "c3fc60fd-ac23-4670-819e-8889a0deb011"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s08.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s08.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

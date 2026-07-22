@@ -1,0 +1,526 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://smrtbld.com/schemas/deck-plan-v5.json",
+  "title": "SmartBuild Deck Plan (v5)",
+  "description": "Canonical source of truth for all deck DECISIONS. Every pass (PLAN/BUILD/REFINE/BRAND/SWEEP/EXPORT) reads and writes only this file for decisions; generated HTML, resolved-asset manifests, sweep reports and exports are derived artifacts tracked in the run manifest. UUID lifecycle: a NEW block created after PLAN mints a fresh block_uuid; an EDITED block keeps its uuid; a DELETED block is tombstoned (status='deleted', retained so pins resolve to 'target removed'); a SPLIT keeps the original uuid on the primary fragment and mints new uuids for the rest; a MERGE keeps one survivor uuid and tombstones the others. uuids are unique per plan and never re-minted.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "plan_revision",
+    "deck",
+    "slides",
+    "approved_facts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "5.0.0",
+      "description": "Schema version. A migration step must run before a pass consumes a plan whose schema_version is older than the engine's."
+    },
+    "plan_revision": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Monotonic revision. Bumped on every atomic write. Used for stale-pin detection and rollback, not mutual exclusion (single sequential writer)."
+    },
+    "stage": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "default": 1,
+      "description": "Pipeline stage this deck has reached: 1 PLAN, 2 BUILD, 3 REFINE, 4 BRAND & SWEEP, 5 EXPORT. Each pass bumps it to its own number on completion. build.py stamps a cover-slide stage ribbon for stages 1-3 (internal drafts); at stages 4-5 no ribbon (deck is client-shareable/external-ready)."
+    },
+    "deck": {
+      "type": "object",
+      "required": [
+        "title",
+        "audience",
+        "theme"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "audience": {
+          "type": "string",
+          "enum": [
+            "internal",
+            "client"
+          ],
+          "description": "client => hard license gate: EXPORT blocked unless every resolved asset is approved_for_client."
+        },
+        "theme": {
+          "type": "string",
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "default": "dark"
+        },
+        "theme_locked": {
+          "type": "boolean",
+          "description": "Set true during REFINE once the human picks the final light/dark theme. Locks the deck to `theme` as the single decided version: the build drops the light/dark toggle from the chrome, and EXPORT uses `theme` with no prompt."
+        },
+        "cta_url": {
+          "type": "string"
+        }
+      }
+    },
+    "approved_facts": {
+      "type": "array",
+      "description": "Human-approved factual claims / statistics. Captured at PLAN, editable only inside an approved REFINE scope. SWEEP's content-fidelity gate compares rendered claims to this set and hard-fails on any new/altered fact not covered by an approved scope.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^fact-[a-z0-9-]+$"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "string",
+            "description": "Normalized value for exact matching, e.g. '93%', '$2B+', '500+'."
+          },
+          "source": {
+            "type": "string",
+            "description": "Where this fact came from / who approved it."
+          }
+        }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/slide"
+      }
+    },
+    "resolved_assets": {
+      "type": "array",
+      "description": "Filled at BRAND from what was ACTUALLY injected (not planned intent). Drives the Sources manifest and the client license gate.",
+      "items": {
+        "$ref": "#/$defs/resolved_asset"
+      }
+    }
+  },
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "slide": {
+      "type": "object",
+      "required": [
+        "slide_uuid",
+        "topic",
+        "layout",
+        "group",
+        "continues",
+        "content_blocks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "slide_uuid": {
+          "$ref": "#/$defs/uuid"
+        },
+        "display_index": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Derived display-only label (s10). NEVER an identifier."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "deleted"
+          ],
+          "default": "active"
+        },
+        "variant_choice": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ],
+          "description": "Reviewer's chosen 'main version' for a slide that bakes both a light and dark render (recorded via the review Slide Board); build stamps data-variant on the section."
+        },
+        "topic": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layout": {
+          "type": "object",
+          "required": [
+            "family"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "family": {
+              "type": "string",
+              "minLength": 2,
+              "description": "A template id from the layout library catalog (layouts/library-v9/catalog.json), e.g. 'CV-11', 'NM-01', 'AN-09'. Use 'custom' for an invented layout (deck-local until review-promoted). build.py checks membership against the catalog and warns on unknown ids."
+            },
+            "shape_tags": {
+              "type": "array",
+              "description": "Shape descriptors for relationship-driven variety (item-count, orientation, is-flow). Same group => reuse shape; new group => different shape from previous group.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "templateVersion": {
+          "type": "string",
+          "description": "Optional. The layout-template version this slide CONSUMED (the catalog `version` at build time). Stamps what the deck actually used, so a later master-template bump (via the stage-gate, see layouts/GATE.md) never silently changes an in-flight deck. build.py records this per slide in the run manifest; if absent, the manifest falls back to the current catalog version."
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance",
+          "description": "Optional. Reference-library / deck-archive lineage when a slide's CONTENT was reused from a published, reviewed source rather than authored fresh. Carried through into the run manifest by build.py. Absent on freshly-authored slides."
+        },
+        "reference": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ref_id"
+          ],
+          "properties": {
+            "ref_id": {
+              "type": "string",
+              "description": "A reference-library entry with render_mode 'verbatim-locked'."
+            },
+            "theme": {
+              "type": "string",
+              "enum": [
+                "light",
+                "dark"
+              ],
+              "description": "Optional per-slide theme override; defaults to the deck theme."
+            }
+          },
+          "description": "Marks this slide as a VERBATIM-LOCKED reuse of an exec-approved reference slide. build.py replaces the slide's rendered stage with the entry's locked HTML for the deck theme (word/image/style-for-style; only light<->dark swaps). Content is locked: REFINE/SWEEP/fidelity do NOT content-edit or re-check it. content_blocks still carry the text for search/attribution."
+        },
+        "group": {
+          "type": "string",
+          "description": "Sequence id. Slides sharing a group are a connected sequence and should share a layout shape."
+        },
+        "continues": {
+          "type": "boolean",
+          "description": "True if this slide continues the previous slide's idea (continuity signal)."
+        },
+        "content_blocks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/content_block"
+          }
+        },
+        "image_intent": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tag": {
+              "type": "string",
+              "description": "Topic tag looked up in libraries/images/catalog.json (owned images resolve by this tag FIRST)."
+            },
+            "mood": {
+              "type": "string"
+            },
+            "query": {
+              "type": "string",
+              "description": "Search phrase for the Unsplash FALLBACK when no owned image matches the tag (BRAND uses it to find a photo)."
+            },
+            "resolved": {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "The specific image chosen for this slot, recorded at BRAND so it is a stable decision (not re-picked each build). Owned images ALWAYS take priority; a resolved Unsplash entry is only written when no owned image fits.",
+              "required": [
+                "provider"
+              ],
+              "properties": {
+                "provider": {
+                  "type": "string",
+                  "enum": [
+                    "owned",
+                    "unsplash"
+                  ]
+                },
+                "photo_id": {
+                  "type": "string",
+                  "description": "Unsplash CDN photo slug, e.g. 'photo-1503387762-592deb58ef4e'."
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Full images.unsplash.com URL of the chosen photo (build.py downloads + embeds this as a data-URI)."
+                },
+                "author": {
+                  "type": "string"
+                },
+                "author_url": {
+                  "type": "string"
+                },
+                "license": {
+                  "type": "string",
+                  "description": "e.g. 'Unsplash' (free) or the owned-asset license."
+                },
+                "approved_for_client": {
+                  "type": "boolean",
+                  "description": "Whether this image may ship on a client deck (license gate)."
+                }
+              }
+            }
+          }
+        },
+        "icon_intent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "represents"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Icon name from libraries/icons/catalog.json (Lucide set)."
+              },
+              "represents": {
+                "type": "string",
+                "description": "What concept this icon conveys — used by SWEEP's icon-relevance check."
+              }
+            }
+          }
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        }
+      }
+    },
+    "content_block": {
+      "type": "object",
+      "required": [
+        "block_uuid",
+        "type",
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "block_uuid": {
+          "$ref": "#/$defs/uuid"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "headline",
+            "subhead",
+            "body",
+            "label",
+            "kpi",
+            "kpi_label",
+            "stat",
+            "stat_label",
+            "card_title",
+            "card_body",
+            "list_item",
+            "quote",
+            "cta",
+            "caption"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "deleted"
+          ],
+          "default": "active",
+          "description": "'deleted' = tombstoned; retained so pins resolve to 'target removed'."
+        },
+        "fact_refs": {
+          "type": "array",
+          "description": "approved_facts ids whose claim/stat appears in this block. Lets the content-fidelity gate map rendered claims back to approved facts.",
+          "items": {
+            "type": "string",
+            "pattern": "^fact-[a-z0-9-]+$"
+          }
+        },
+        "text_html": {
+          "type": "string",
+          "description": "Rich inline HTML (bold/italic/underline/colour/highlight/line-breaks) authored via the live editor. When present the renderer uses it VERBATIM instead of brandify(text); `text` stays as the plain-text fallback (fidelity/search/PPTX). Sanitised to an allowlist of formatting tags/styles on save."
+        }
+      }
+    },
+    "pin": {
+      "type": "object",
+      "required": [
+        "pin_id",
+        "block_uuid",
+        "note",
+        "dropped_at_revision",
+        "content_hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pin_id": {
+          "type": "string"
+        },
+        "block_uuid": {
+          "$ref": "#/$defs/uuid",
+          "description": "The element the pin anchors to (id-primary). Survives reorders/inserts/deletes."
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "description": "Auto-captured: element type + current text + slide/section, at drop time."
+        },
+        "dropped_at_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "content_hash": {
+          "type": "string",
+          "description": "Hash of the anchored block at drop time. On rebuild, mismatch => pin flagged 'stale' for re-confirmation, not silently applied."
+        },
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percent-of-slide tiebreaker only."
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "resolved",
+            "stale",
+            "target_removed"
+          ],
+          "default": "open"
+        }
+      }
+    },
+    "resolved_asset": {
+      "type": "object",
+      "required": [
+        "asset_id",
+        "kind",
+        "source",
+        "license",
+        "approved_for_client"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "font",
+            "logo",
+            "icon",
+            "image"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "requires_attribution": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true anywhere, Sources is forced visible + exported, or EXPORT is blocked."
+        },
+        "approved_for_client": {
+          "type": "boolean",
+          "description": "client decks: EXPORT blocked unless every asset is true."
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Reference-library / deck-archive lineage for a REUSED slide's content. Recorded when PLAN searches-and-reuses published, reviewed content (About SmartBuild, bios, etc.) instead of reinventing it. The reference-library master is itself versioned and stage-gated (see layouts/GATE.md): entries bump their version on approved change, and a reusing deck stamps the `ref_version` it consumed — the same never-auto-flow-down rule as templates.",
+      "required": [
+        "source",
+        "ref_id",
+        "ref_version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "reference-library",
+            "deck-archive"
+          ],
+          "description": "Which store the content came from: the curated reference-slide library, or the archive of past decks."
+        },
+        "ref_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Id of the reused reference entry / archived slide, e.g. 'ref-about-smartbuild'."
+        },
+        "ref_version": {
+          "type": "string",
+          "description": "Version of the reference entry CONSUMED at build time (stamped so a later gated bump does not silently alter this deck)."
+        },
+        "blocks_hash": {
+          "type": "string",
+          "description": "SWEEP drift baseline: reference_search.blocks_hash() of the reused content (active block texts) AT PULL TIME. On every SWEEP, validate.drift_advisories recomputes it for the current slide and, on mismatch, raises a NON-blocking advisory to bank the edit upward via the gate. Absent => drift check skips this slide (back-compat)."
+        },
+        "reuse": {
+          "type": "string",
+          "enum": [
+            "verbatim",
+            "adapted"
+          ],
+          "description": "Whether the reused content was pulled verbatim or adapted on insert."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable label for the reused content."
+        },
+        "reused_at_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "plan_revision at which this content was pulled in."
+        }
+      }
+    }
+  }
+}

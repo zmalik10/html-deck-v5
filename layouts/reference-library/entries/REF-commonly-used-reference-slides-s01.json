@@ -1,0 +1,61 @@
+{
+  "ref_id": "REF-commonly-used-reference-slides-s01",
+  "title": "Commonly used reference slidesLocation | Date",
+  "role": "cover",
+  "entities": [
+    "SmartBuild"
+  ],
+  "topics": [],
+  "audience": [
+    "internal",
+    "client"
+  ],
+  "canonical": false,
+  "status": "published",
+  "layout_hint": "custom",
+  "content_hash": "sha256:57a143cb221d56de",
+  "approved_facts": [],
+  "provenance": {
+    "origin": "collection",
+    "source_collection": "Commonly used reference slides",
+    "source_index": 1,
+    "source_id": "Commonly used reference slides.pptx",
+    "ingested_at": "2026-07-05T01:26:42+00:00",
+    "note": "Curated CURRENT reference slide — every slide in this collection is a keeper. Mark canonical=true on the always-reuse ones (About/bios) during curation."
+  },
+  "used_in": [],
+  "planFragment": {
+    "topic": "Commonly used reference slidesLocation | Date",
+    "layout": {
+      "family": "custom",
+      "shape_tags": [
+        "cover"
+      ]
+    },
+    "group": "cover",
+    "continues": false,
+    "content_blocks": [
+      {
+        "block_uuid": "00000000-0000-4000-8000-000000000001",
+        "type": "headline",
+        "text": "Commonly used reference slidesLocation | Date"
+      }
+    ],
+    "icon_intent": [],
+    "slide_uuid": "eb7a87b4-0c74-49a1-8cd5-495bec43ab4a"
+  },
+  "render_mode": "verbatim-locked",
+  "locked": true,
+  "exec_approved": true,
+  "native_theme": "light",
+  "render": {
+    "light": "rendered/REF-commonly-used-reference-slides-s01.light.html",
+    "dark": "rendered/REF-commonly-used-reference-slides-s01.dark.html"
+  },
+  "render_modes": {
+    "light": "faithful",
+    "dark": "recolor"
+  },
+  "rasterized_shapes": [],
+  "theme_note": "STYLE is locked (word/image/style-for-style); colours are converted to the brand guide for the counterpart theme (RC1). Complex diagrams are COM-rasterized (RC3)."
+}

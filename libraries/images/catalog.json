@@ -1,0 +1,1636 @@
+{
+  "library_version": "0.2.0",
+  "policy": "PLAN picks an image by TAG; it does not hunt the web (the model's image-finding is the weak link). Preferred source is our OWN generated/curated library — on-brand and self-contained. At BRAND, owned images embed (SVG inline, raster compressed) and ALWAYS win over the Unsplash fallback. Unsplash is a CDN stopgap for tags the owned library does not cover yet. Every entry carries provenance for the Sources manifest + client license gate.",
+  "owned": {
+    "note": "Owned brand assets live in assets/images/ (alongside logos + fonts) and are referenced skill-root-relative in `file`. SVG assets embed inline as tiny self-contained data URIs; raster (.jpg/.png) drop-ins (e.g. ChatGPT-generated photos) embed compressed via Pillow. Set status='seeded' once a real file is present and approved_for_client=true. These embed at BRAND and take priority over unsplash_fallback. CLIENT/PARTNER LOGOS: when a deck cites another company, use its official logo via the `client-<slug>` tag (files in assets/images/clients/, sourced from our own site — never web-scraped).",
+    "entries": [
+      {
+        "id": "img-construction-aerial",
+        "tags": [
+          "cover",
+          "construction",
+          "cranes",
+          "aerial",
+          "scale"
+        ],
+        "mood": "epic, wide, industrial",
+        "file": "assets/images/cover-construction.svg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild brand library (generated vector)",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-team-jobsite",
+        "tags": [
+          "mission",
+          "team",
+          "people",
+          "jobsite",
+          "collaboration",
+          "stakeholders"
+        ],
+        "mood": "human, warm, connected",
+        "file": "assets/images/team-jobsite.svg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild brand library (generated vector)",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-dashboard-data",
+        "tags": [
+          "owner",
+          "analytics",
+          "dashboard",
+          "data",
+          "intelligence",
+          "insight"
+        ],
+        "mood": "clean, techy, blue",
+        "file": "assets/images/dashboard-data.svg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild brand library (generated vector)",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-skyline-dusk",
+        "tags": [
+          "closing",
+          "skyline",
+          "cta",
+          "future",
+          "city",
+          "vision"
+        ],
+        "mood": "aspirational, dusk, forward-looking",
+        "file": "assets/images/skyline-dusk.svg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild brand library (generated vector)",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s01-01",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s01"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s01-i01.png",
+        "blob_sha": "910048768b7eda65",
+        "dims": [
+          7821,
+          1320
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s02-00",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s02"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s02-i00.png",
+        "blob_sha": "6b8170c5589190e0",
+        "dims": [
+          3706,
+          2084
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s02-06",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s02"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s02-i06.wmf",
+        "blob_sha": "5e392c03ef5b818e",
+        "dims": [
+          734,
+          18
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s02-07",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s02"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s02-i07.png",
+        "blob_sha": "80934ef1b5ce3781",
+        "dims": [
+          2640,
+          457
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s03-01",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s03",
+          "architecture",
+          "building",
+          "about",
+          "concrete",
+          "facade"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s03-i01.jpg",
+        "blob_sha": "99ab49776daf635f",
+        "dims": [
+          209,
+          928
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s03-08",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s03"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s03-i08.jpg",
+        "blob_sha": "0d4305ed8685a472",
+        "dims": [
+          299,
+          296
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s03-17",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s03"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s03-i17.jpg",
+        "blob_sha": "ca324c403c35f916",
+        "dims": [
+          299,
+          299
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s04-03",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s04"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s04-i03.png",
+        "blob_sha": "e323db4b3357353e",
+        "dims": [
+          1216,
+          683
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s06-06",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s06"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s06-i06.png",
+        "blob_sha": "b191879350391b4a",
+        "dims": [
+          914,
+          277
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s06-07",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s06"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s06-i07.png",
+        "blob_sha": "681a690045a4f16b",
+        "dims": [
+          980,
+          283
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s06-08",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s06"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s06-i08.png",
+        "blob_sha": "67c8fe07979ce3d1",
+        "dims": [
+          1232,
+          928
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s06-10",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s06"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s06-i10.png",
+        "blob_sha": "a3ad77705d987557",
+        "dims": [
+          350,
+          52
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s06-12",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s06"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s06-i12.png",
+        "blob_sha": "6c52f0cbd0255c90",
+        "dims": [
+          1027,
+          284
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s06-13",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s06"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s06-i13.png",
+        "blob_sha": "4f5404fb7d9c0f65",
+        "dims": [
+          1411,
+          339
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s07-00",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s07"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s07-i00.png",
+        "blob_sha": "9d3b40f99bff18dd",
+        "dims": [
+          747,
+          129
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s07-02",
+        "tags": [
+          "product-smrt-e",
+          "extracted",
+          "commonly-used-reference-slides-s07"
+        ],
+        "mood": "smrt-E mobile app — field home screen",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s07-i02.png",
+        "blob_sha": "51420693c4bad429",
+        "dims": [
+          652,
+          1348
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s08-00",
+        "tags": [
+          "product-smrt-gc",
+          "extracted",
+          "commonly-used-reference-slides-s08"
+        ],
+        "mood": "smrt-GC dashboard — projects health & tasks",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s08-i00.png",
+        "blob_sha": "cb15a6c5a7005c71",
+        "dims": [
+          1500,
+          1000
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s08-09",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s08"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s08-i09.png",
+        "blob_sha": "fd6cb6d0583ab9dc",
+        "dims": [
+          1024,
+          1024
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s09-28",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s09"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s09-i28.png",
+        "blob_sha": "8b55caa270c4b65a",
+        "dims": [
+          330,
+          83
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s09-30",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s09"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s09-i30.png",
+        "blob_sha": "de1f55208d781fcb",
+        "dims": [
+          820,
+          288
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s11-02",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s11",
+          "headshot",
+          "leader-1",
+          "exec"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s11-i02.png",
+        "blob_sha": "ae305307b749bc79",
+        "dims": [
+          500,
+          500
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s11-03",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s11",
+          "headshot",
+          "leader-2",
+          "exec"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s11-i03.png",
+        "blob_sha": "2ca81557c202a83a",
+        "dims": [
+          800,
+          800
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s11-04",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s11",
+          "architecture",
+          "interior",
+          "building"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s11-i04.png",
+        "blob_sha": "f57309cb7907967b",
+        "dims": [
+          1232,
+          928
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s11-05",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s11",
+          "headshot",
+          "leader-3",
+          "exec"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s11-i05.jpg",
+        "blob_sha": "eaf1719a62676132",
+        "dims": [
+          800,
+          800
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s12-00",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s12"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s12-i00.png",
+        "blob_sha": "bd2ef46043bda8ff",
+        "dims": [
+          954,
+          534
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-07",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i07.png",
+        "blob_sha": "ebe0760d56f814e1",
+        "dims": [
+          1027,
+          284
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-08",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i08.png",
+        "blob_sha": "40e11e09e972ebc1",
+        "dims": [
+          1411,
+          339
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-10",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i10.png",
+        "blob_sha": "d217b0f956e6b614",
+        "dims": [
+          225,
+          225
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-12",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i12.jpg",
+        "blob_sha": "bd5c3145c56a0a14",
+        "dims": [
+          1808,
+          949
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-13",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i13.png",
+        "blob_sha": "2f16b4106fcc5405",
+        "dims": [
+          900,
+          114
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-14",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i14.png",
+        "blob_sha": "57887cb31c390d02",
+        "dims": [
+          8652,
+          2564
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-15",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i15.png",
+        "blob_sha": "b08a47e266dfa256",
+        "dims": [
+          1546,
+          347
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-16",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i16.png",
+        "blob_sha": "b7caaeecf788bf81",
+        "dims": [
+          3840,
+          2160
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-17",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i17.png",
+        "blob_sha": "3a3f9e8ec5d60a7e",
+        "dims": [
+          1427,
+          351
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-18",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i18.png",
+        "blob_sha": "26251685222dcd2e",
+        "dims": [
+          600,
+          315
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-19",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i19.png",
+        "blob_sha": "3f80ee3d6e5d01e8",
+        "dims": [
+          666,
+          248
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-20",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i20.png",
+        "blob_sha": "1f9bd7e663baaf8f",
+        "dims": [
+          1332,
+          265
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s15-21",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s15"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s15-i21.png",
+        "blob_sha": "d54155582edf30d8",
+        "dims": [
+          750,
+          134
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-05",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i05.png",
+        "blob_sha": "58c52d901427d032",
+        "dims": [
+          449,
+          449
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-06",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i06.png",
+        "blob_sha": "64ef03acbc1a513d",
+        "dims": [
+          500,
+          138
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-07",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i07.png",
+        "blob_sha": "b69be619de7e2eeb",
+        "dims": [
+          700,
+          700
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-08",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i08.png",
+        "blob_sha": "cbaaf158cf2cb39a",
+        "dims": [
+          285,
+          285
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-11",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i11.png",
+        "blob_sha": "01970f9a6de233df",
+        "dims": [
+          616,
+          181
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-13",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i13.png",
+        "blob_sha": "8cc36490e830eb41",
+        "dims": [
+          433,
+          373
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-14",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i14.png",
+        "blob_sha": "4fa9350e3ccef05f",
+        "dims": [
+          443,
+          452
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-15",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i15.png",
+        "blob_sha": "23f7cbab1efe2344",
+        "dims": [
+          546,
+          201
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-16",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i16.png",
+        "blob_sha": "b283e428c5fe0e70",
+        "dims": [
+          700,
+          700
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-18",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i18.png",
+        "blob_sha": "3a269c4f865c3be6",
+        "dims": [
+          350,
+          215
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-21",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i21.png",
+        "blob_sha": "98b849d4a051f94c",
+        "dims": [
+          300,
+          300
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-22",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i22.png",
+        "blob_sha": "dd895623c3fdb202",
+        "dims": [
+          545,
+          340
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s16-23",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s16"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s16-i23.png",
+        "blob_sha": "67ef18c2b27c9441",
+        "dims": [
+          793,
+          411
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s18-04",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s18"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s18-i04.jpg",
+        "blob_sha": "80c717e7656b2186",
+        "dims": [
+          283,
+          982
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s18-11",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s18"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s18-i11.png",
+        "blob_sha": "3609589a9afea369",
+        "dims": [
+          199,
+          218
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s18-12",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s18"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s18-i12.png",
+        "blob_sha": "00529289390be781",
+        "dims": [
+          237,
+          242
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-commonly-used-reference-slides-s18-13",
+        "tags": [
+          "extracted",
+          "commonly-used-reference-slides-s18"
+        ],
+        "mood": "product screenshot",
+        "file": "assets/images/extracted/commonly-used-reference-slides-s18-i13.png",
+        "blob_sha": "b1eb46e55e857beb",
+        "dims": [
+          512,
+          512
+        ],
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild collection: Commonly used reference slides",
+          "author": "SmartBuild",
+          "license": "owned",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-parke-pacific",
+        "tags": [
+          "client-parke-pacific",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "Parke Pacific logo",
+        "file": "assets/images/clients/parke-pacific.svg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "Parke Pacific",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-gen-pro",
+        "tags": [
+          "client-gen-pro",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "GEN-PRO logo",
+        "file": "assets/images/clients/gen-pro.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "GEN-PRO",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-gobrocon",
+        "tags": [
+          "client-gobrocon",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "GOBROCON logo",
+        "file": "assets/images/clients/gobrocon.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "GOBROCON",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-kaiser-martin",
+        "tags": [
+          "client-kaiser-martin",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "Kaiser Martin Group logo",
+        "file": "assets/images/clients/kaiser-martin.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "Kaiser Martin Group",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-concreat",
+        "tags": [
+          "client-concreat",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "ConCreat logo",
+        "file": "assets/images/clients/concreat.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "ConCreat",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-ac-electric",
+        "tags": [
+          "client-ac-electric",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "AC Electric circular badge logo (transparent PNG)",
+        "file": "assets/images/clients/ac-electric.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "AC Electric",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-kal-electric",
+        "tags": [
+          "client-kal-electric",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "Kal Electric logo",
+        "file": "assets/images/clients/kal-electric.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "Kal Electric",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-client-a-hattersley",
+        "tags": [
+          "client-a-hattersley",
+          "client-logo",
+          "logo"
+        ],
+        "mood": "A Hattersley logo",
+        "file": "assets/images/clients/a-hattersley.png",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
+          "author": "A Hattersley",
+          "license": "client trademark — displayed by SmartBuild with permission",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-persona-lumiere",
+        "tags": [
+          "persona-lumiere",
+          "persona",
+          "headshot"
+        ],
+        "mood": "warm, welcoming concierge",
+        "file": "assets/images/personas/lumiere.jpg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "Unsplash (photo-1565448896852-6491cf66daf5)",
+          "author": "Unsplash contributor",
+          "license": "Unsplash",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-persona-mufasa",
+        "tags": [
+          "persona-mufasa",
+          "persona",
+          "headshot"
+        ],
+        "mood": "patient mentor guiding at a whiteboard",
+        "file": "assets/images/personas/mufasa.jpg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "Unsplash (photo-1580894732444-8ecded7900cd)",
+          "author": "Unsplash contributor",
+          "license": "Unsplash",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "id": "img-persona-woody",
+        "tags": [
+          "persona-woody",
+          "persona",
+          "headshot"
+        ],
+        "mood": "dependable support agent with a headset",
+        "file": "assets/images/personas/woody.jpg",
+        "status": "seeded",
+        "provenance": {
+          "kind": "image",
+          "source": "Unsplash (photo-1768919533164-1695daa801e8)",
+          "author": "Unsplash contributor",
+          "license": "Unsplash",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      }
+    ]
+  },
+  "unsplash_fallback": {
+    "note": "CDN stopgap for tags the owned library does not yet cover. Unsplash images load from images.unsplash.com (not self-contained) so they are used ONLY when no owned entry matches the tag. Unsplash License = no attribution required, but prefer owned for client decks.",
+    "entries": [
+      {
+        "tags": [
+          "cover",
+          "cranes"
+        ],
+        "unsplash_id": "1504307651254-35680f356dfd",
+        "provenance": {
+          "kind": "image",
+          "source": "Unsplash",
+          "license": "Unsplash License",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "tags": [
+          "mission",
+          "team"
+        ],
+        "unsplash_id": "1581578731548-c64695cc6952",
+        "provenance": {
+          "kind": "image",
+          "source": "Unsplash",
+          "license": "Unsplash License",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      },
+      {
+        "tags": [
+          "closing",
+          "skyline"
+        ],
+        "unsplash_id": "1486325212027-8081e485255e",
+        "provenance": {
+          "kind": "image",
+          "source": "Unsplash",
+          "license": "Unsplash License",
+          "requires_attribution": false,
+          "approved_for_client": true
+        }
+      }
+    ]
+  }
+}

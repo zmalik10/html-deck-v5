@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="s8cg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0f8fd"/>
+      <stop offset="0.55" stop-color="#d6ebf7"/>
+      <stop offset="1" stop-color="#bcdcef"/>
+    </linearGradient>
+    <linearGradient id="s8ar" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4aa3d6"/>
+      <stop offset="1" stop-color="#2f7fbe"/>
+    </linearGradient>
+    <marker id="s8ah" viewBox="0 0 10 10" refX="5.5" refY="5" markerWidth="3.1" markerHeight="3.1" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f7fbe"/>
+    </marker>
+  </defs>
+  <path d="M66,142 C41,142 21,122 21,97 C21,77 35,60 55,56 C60,33 80,17 105,17 C127,17 145,29 154,48 C160,44 168,42 175,42 C198,42 216,60 216,83 C216,86 216,89 215,92 C228,97 237,109 237,123 C237,133 229,142 218,142 Z"
+        fill="url(#s8cg)" stroke="#9cc8e6" stroke-width="2.5" stroke-linejoin="round"/>
+  <ellipse cx="82" cy="58" rx="33" ry="14" fill="#ffffff" opacity="0.4"/>
+  <path d="M102,83 A27,27 0 0 1 155,83" fill="none" stroke="url(#s8ar)" stroke-width="7.5" stroke-linecap="round" marker-end="url(#s8ah)"/>
+  <path d="M155,101 A27,27 0 0 1 102,101" fill="none" stroke="url(#s8ar)" stroke-width="7.5" stroke-linecap="round" marker-end="url(#s8ah)"/>
+</svg>
