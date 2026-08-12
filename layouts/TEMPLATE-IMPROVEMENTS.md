@@ -152,7 +152,7 @@ silently DROPPED plan content_blocks it didn't recognize - proposal: every rende
 to rendering unmapped blocks as a stacked list rather than dropping words on the floor.
 - **CV-08**: drops extra `label` blocks (co-brand company name + client logo slot never rendered).
 - **NM-18**: dropped all `list_item` + second `subhead` blocks (only image + headline survived).
-- **NM-07**: dropped the `subhead` intro line under the headline.
+- **NM-07**: dropped the `subhead` intro line under the headline. **FIXED at master 2026-08-12**: card_row now renders the subhead AND adapts against wasted pixel space - with an `image_intent` on the slide, sparse card rows stack left and the photo fills the right (see SKILL.md "No dead pixel space" rule).
 - **WT-01**: scrambled block mapping - used a `body` block as the giant title, put the headline in a card.
 - **NM-15**: rendered first `body` as kicker, dropped remaining `body` paragraphs.
 - **CC-12**: dropped every step_label/step_title/list_item column (headline-only slide).

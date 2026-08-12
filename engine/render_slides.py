@@ -502,18 +502,39 @@ def feature_benefit(s, acc):
     return _card_grid(s, 2)
 
 def card_row(s, acc):
+    """NM-07: claim + supporting cards. ADAPTIVE against wasted pixel space: a short card
+    row (sparse copy) leaves the slide mostly empty, so when the slide carries an image
+    (owned first, Unsplash fallback per PASS 4) the cards STACK on the left and the photo
+    fills the right - reformat + outsource an element rather than ship dead space."""
     g = grp(s); head = _headline_block(g)
+    sub = g.get("subhead", [None])[0]
     titles, bodies = g.get("card_title", []), g.get("card_body", [])
     ic = icons_of(s)
+    n = min(len(titles), len(bodies))
+    split = has_image(s)
     cards = ""
-    for i in range(min(len(titles), len(bodies))):
-        cards += ('<div class="reveal sb-card" style="flex:1;padding:32px 28px">'
+    for i in range(n):
+        cards += ('<div class="reveal sb-card" style="%s">' % ("padding:24px 26px" if split else "flex:1;padding:32px 28px")
                   + (icon(ic[i], 36) + '<div style="height:14px"></div>' if i < len(ic) else rule("0") + '<div style="height:16px"></div>')
                   + blk(titles[i], "div", "no-caps", "font-weight:900;font-size:22px;color:var(--sb-text-on-dark);margin-bottom:12px")
                   + blk(bodies[i], "div", "", "font-size:16px;line-height:1.55;color:var(--sb-body-on-dark)")
                   + '</div>')
+    if split:
+        # Stacked cards left, natural photo right (no scrim - it sits beside text, not under it).
+        subh = blk(sub, "div", "reveal no-caps", "font-size:18px;font-weight:600;color:var(--sb-body-on-dark);margin:14px 0 0") if sub else ""
+        left = ('<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;min-width:0">'
+                + cards + '</div>')
+        right = ('<div class="reveal-right" style="flex:0 0 42%;border-radius:6px;overflow:hidden;position:relative;min-height:0">'
+                 + '<img data-image="%s" class="img-cover" style="position:absolute;inset:0;width:100%%;height:100%%;object-fit:cover"></div>' % img_tag(s))
+        inner = (blk(head, "h2", "hl reveal", "font-size:44px;margin:0 0 6px")
+                 + rule("6px") + subh
+                 + f'<div style="flex:1;display:flex;gap:36px;align-items:stretch;min-height:0;margin-top:26px">{left}{right}</div>')
+        return inner, 64
+    subh = ('<div style="display:flex;justify-content:center">'
+            + blk(sub, "div", "reveal no-caps", "font-size:18px;font-weight:600;color:var(--sb-body-on-dark);margin-top:12px;text-align:center")
+            + '</div>') if sub else ""
     inner = (blk(head, "h2", "hl reveal", "font-size:46px;text-align:center;margin:0 0 6px")
-             + '<div style="display:flex;justify-content:center">' + rule("6px") + '</div>'
+             + '<div style="display:flex;justify-content:center">' + rule("6px") + '</div>' + subh
              + f'<div style="flex:1;display:flex;align-items:center"><div style="display:flex;gap:24px;width:100%;align-items:stretch">{cards}</div></div>')
     return inner, 64
 
