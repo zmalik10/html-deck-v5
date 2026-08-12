@@ -634,9 +634,12 @@ def build_page(mode, title, slides_html, css_head, ui_html, deck_js, annotations
         "__CDN__": CDN,
     }
     boot_js = "".join("window.%s=%s;\n" % (k, json.dumps(v)) for k, v in boot.items())
+    # connect-src includes localhost so the file:// view's ↗ button can PROBE for a live
+    # edit server (edit_server.py) before opening it — a dead tab reads as "editor broken".
     csp = ("default-src 'self' 'unsafe-inline' data: blob:; "
            "script-src 'self' 'unsafe-inline' " + " ".join("https://" + h for h in CDN_ALLOWLIST) + "; "
-           "img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;")
+           "img-src 'self' data: https:; font-src 'self' data:; "
+           "connect-src 'self' https: http://127.0.0.1:* http://localhost:*;")
     return (
         "<!DOCTYPE html>\n<html lang=\"en\" data-theme=\"%s\">\n<head>\n<meta charset=\"UTF-8\">\n"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
@@ -830,6 +833,14 @@ def main():
         "slides": slide_provenance(plan, catalog_by_id(sp)),
     }
     atomic_write(os.path.join(args.out, "run-manifest.json"), json.dumps(manifest, indent=2))
+
+    # (Re)generate the deck's double-click live-editor launcher (SKILL.md: "Edit Deck.command")
+    # on every build, so the launcher always exists and always carries current absolute paths.
+    try:
+        from edit_server import write_edit_command
+        write_edit_command(os.path.abspath(args.plan), os.path.abspath(args.out))
+    except Exception:
+        pass  # never let launcher generation break a build
 
     if pres_p:
         print("Built (%s fidelity): %s (%d KB), %s (%d KB)" % (

@@ -15,7 +15,7 @@ and it is correct in BOTH light and dark by construction.
 Unimplemented templates fall back to a generic stacked-card renderer (logged), so any plan
 still produces a coherent, on-brand slide.
 """
-import json, os, re, argparse, sys
+import json, os, re, argparse, subprocess, sys
 
 PROD = ["smrtPAY", "smrtGC", "smrtSUB", "smrtAEC", "smrtAE", "smrt-E"]
 ACCENT = {"smrtGC": "sky", "smrtSUB": "copper", "smrtAE": "steel", "smrtAEC": "steel",
@@ -387,11 +387,15 @@ def cover_geo(s, acc):
         title = blk(head, "div", "reveal-hero", "margin:0",
                     raw='<img data-logo="%s" alt="%s" style="height:116px;display:block">' % (prod, prod))
     else:
-        title = blk(head, "h1", "hl reveal-hero", "font-size:104px;line-height:0.95;margin:0")
-    content = ('<div style="max-width:780px">'
+        # Adaptive display size: a long title must not overflow the 720 canvas.
+        n = len((head.get("text") or "")) if head else 0
+        tsize = 104 if n <= 20 else 92 if n <= 30 else 78 if n <= 44 else 66
+        title = blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:0.98;margin:0" % tsize)
+    subsize = 30 if len((sub.get("text") or "")) <= 90 else 24 if sub else 30
+    content = ('<div style="max-width:820px">'
                + blk(label, "div", "label reveal", "color:var(--sb-product-accent,var(--sb-sky));margin-bottom:20px")
                + title
-               + blk(sub, "div", "reveal", "font-size:30px;font-weight:700;margin-top:24px")
+               + blk(sub, "div", "reveal", "font-size:%dpx;font-weight:700;line-height:1.45;margin-top:24px" % subsize)
                + blk(cap, "div", "reveal", "font-size:15px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;opacity:0.85;margin-top:30px")
                + '</div>')
     wrap_cls = "on-media" if photo else ""
@@ -3369,6 +3373,132 @@ def gradient_divider(s, acc):
     inner = (grad + wash + logo_mark()
              + '<div class="on-media" style="position:absolute;left:64px;bottom:64px;right:64px;z-index:2;max-width:900px">%s</div>' % title_html)
     return inner, 0
+
+# ---------------------------------------------------------------------
+# SMARTBUILD AI ROADMAP — deck-local renderers (Workflow -> Data -> Agent)
+# ---------------------------------------------------------------------
+def wf_stage(s, acc):
+    """Signature Workflow -> Data -> Agent slide: kicker + headline/subhead, a
+    three-step flow (System of Record -> Portfolio Repository -> System of Action),
+    then EITHER a four-pillar value row (workflow slides) OR a single takeaway
+    footnote (the thesis slide). Same shape every time => concept consistency."""
+    g = grp(s)
+    kicker = _first(g, "kicker"); head = _first(g, "headline"); sub = _first(g, "subhead")
+    slabels = g.get("step_label", []); stitles = g.get("step_title", []); sbodies = g.get("step_body", [])
+    ptitles = g.get("pillar_title", []); pbodies = g.get("pillar_body", [])
+    vlabel = _first(g, "value_label"); foot = _first(g, "footnote")
+    ic = icons_of(s)
+
+    header = ((blk(kicker, "div", "label reveal", "color:%s;margin-bottom:10px" % ACC) if kicker else "")
+              + '<div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">'
+              + blk(head, "h2", "hl reveal-left", "font-size:34px;margin:0;line-height:1.05")
+              + (blk(sub, "div", "reveal no-caps", "font-size:18px;font-weight:700;color:var(--sb-body-on-dark)") if sub else "")
+              + '</div>')
+
+    chev = chevron_connector()
+    n = min(len(slabels), len(stitles), len(sbodies))
+    cards = ""
+    for i in range(n):
+        border = "border:2px solid %s;" % ACC if i == n - 1 else ""
+        cards += ('<div class="reveal sb-card" style="flex:1;%spadding:20px 22px;display:flex;flex-direction:column;gap:8px">' % border
+                  + blk(slabels[i], "div", "", "font-size:12px;font-weight:800;letter-spacing:0.14em;color:%s" % ACC)
+                  + blk(stitles[i], "div", "no-caps", "font-weight:900;font-size:19px;color:var(--sb-text-on-dark);line-height:1.1")
+                  + blk(sbodies[i], "div", "", "font-size:14px;line-height:1.5;color:var(--sb-body-on-dark)")
+                  + '</div>')
+        if i < n - 1:
+            cards += chev
+    flow = '<div style="display:flex;gap:6px;align-items:stretch">%s</div>' % cards
+
+    tail = ""
+    if ptitles:
+        cols = ""
+        m = min(len(ptitles), len(pbodies))
+        for i in range(m):
+            cols += ('<div class="reveal" style="flex:1;display:flex;flex-direction:column;gap:8px">'
+                     + (icon(ic[i], 26) if i < len(ic) else "")
+                     + blk(ptitles[i], "div", "", "font-size:12px;font-weight:900;letter-spacing:0.08em;color:var(--sb-text-on-dark)")
+                     + blk(pbodies[i], "div", "", "font-size:13px;line-height:1.45;color:var(--sb-body-on-dark)")
+                     + '</div>')
+        tail = ('<div style="border-top:1px solid var(--sb-border-subtle);padding-top:16px">'
+                + (blk(vlabel, "div", "label reveal", "color:%s;margin-bottom:14px" % ACC) if vlabel else "")
+                + '<div style="display:flex;gap:26px;align-items:flex-start">%s</div></div>' % cols)
+    elif foot:
+        tail = ('<div class="reveal sb-card" style="border-left:4px solid %s;padding:18px 22px">' % ACC
+                + blk(foot, "div", "", "font-size:17px;line-height:1.5;color:var(--sb-text-on-dark)") + '</div>')
+
+    inner = ('<div style="display:flex;flex-direction:column;gap:22px;height:100%;justify-content:center">'
+             + header + flow + tail + '</div>')
+    return inner, 64
+
+
+def wf_contrast(s, acc):
+    """Two-column contrast: 'Most AI today' (muted) vs 'The SMARTBUILD approach'
+    (accent-bordered), a lead paragraph above and a pull-quote band below."""
+    g = grp(s)
+    kicker = _first(g, "kicker"); head = _first(g, "headline"); lead = _first(g, "lead")
+    llab = _first(g, "left_label"); rlab = _first(g, "right_label")
+    lbods = g.get("left_body", []); rbods = g.get("right_body", []); quote = _first(g, "quote")
+
+    def lines(bods):
+        return "".join(blk(b, "div", "", "font-size:15px;line-height:1.5;color:var(--sb-body-on-dark);margin-top:10px") for b in bods)
+
+    left = ('<div class="reveal sb-card" style="flex:1;padding:24px 26px">'
+            + blk(llab, "div", "", "font-weight:900;font-size:15px;letter-spacing:0.08em;color:var(--sb-text-secondary)")
+            + lines(lbods) + '</div>')
+    right = ('<div class="reveal sb-card" style="flex:1;border:2px solid %s;padding:24px 26px">' % ACC
+             + blk(rlab, "div", "", "font-weight:900;font-size:15px;letter-spacing:0.08em;color:%s" % ACC)
+             + lines(rbods) + '</div>')
+    qband = ""
+    if quote:
+        qband = ('<div class="reveal" style="border-left:4px solid %s;padding:12px 24px">' % ACC
+                 + blk(quote, "div", "no-caps", "font-size:19px;font-weight:800;line-height:1.4;color:var(--sb-title)") + '</div>')
+    inner = ('<div style="display:flex;flex-direction:column;gap:16px;height:100%;justify-content:center">'
+             + (blk(kicker, "div", "label reveal", "color:%s" % ACC) if kicker else "")
+             + blk(head, "h2", "hl reveal-left", "font-size:38px;margin:0;line-height:1.05")
+             + (blk(lead, "div", "reveal no-caps", "font-size:16px;line-height:1.55;color:var(--sb-body-on-dark);max-width:1010px") if lead else "")
+             + '<div style="display:flex;gap:22px;align-items:stretch">%s%s</div>' % (left, right)
+             + qband + '</div>')
+    return inner, 64
+
+
+def wf_pillars(s, acc):
+    """Four-pillar value framework: kicker + headline + intro, then four icon cards
+    (Productivity / Reduced Cost / Reduced Risk / Employee Experience)."""
+    g = grp(s)
+    kicker = _first(g, "kicker"); head = _first(g, "headline"); sub = _first(g, "subhead")
+    ptitles = g.get("pillar_title", []); pbodies = g.get("pillar_body", []); ic = icons_of(s)
+    cards = ""
+    m = min(len(ptitles), len(pbodies))
+    for i in range(m):
+        cards += ('<div class="reveal-scale sb-card" style="flex:1;padding:26px 22px;display:flex;flex-direction:column;gap:12px">'
+                  + (icon(ic[i], 34) if i < len(ic) else "")
+                  + blk(ptitles[i], "div", "", "font-weight:900;font-size:17px;letter-spacing:0.04em;color:var(--sb-text-on-dark)")
+                  + blk(pbodies[i], "div", "", "font-size:15px;line-height:1.5;color:var(--sb-body-on-dark)")
+                  + '</div>')
+    inner = ('<div style="display:flex;flex-direction:column;gap:20px;height:100%;justify-content:center">'
+             + (blk(kicker, "div", "label reveal", "color:%s" % ACC) if kicker else "")
+             + blk(head, "h2", "hl reveal", "font-size:44px;margin:0")
+             + (blk(sub, "div", "reveal no-caps", "font-size:17px;line-height:1.55;color:var(--sb-body-on-dark);max-width:980px") if sub else "")
+             + '<div style="display:flex;gap:20px;align-items:stretch;margin-top:6px">%s</div>' % cards
+             + '</div>')
+    return inner, 64
+
+
+def wf_moat(s, acc):
+    """Closing 'moat' statement over a photo backdrop, badge mark top-left, tagline
+    on an accent rule."""
+    g = grp(s)
+    kicker = _first(g, "kicker"); head = _first(g, "headline"); body = _first(g, "body"); tag = _first(g, "tagline")
+    photo = photo_bg(img_tag(s)) if has_image(s) else '<div style="position:absolute;inset:0;background:linear-gradient(120deg,var(--sb-navy),var(--sb-steel))"></div>'
+    content = ('<div style="max-width:920px">'
+               + (blk(kicker, "div", "label reveal", "color:var(--sb-product-accent,var(--sb-sky));margin-bottom:16px") if kicker else "")
+               + blk(head, "h1", "reveal-hero", "font-size:62px;line-height:1.0;margin:0;font-weight:900")
+               + (blk(body, "div", "reveal no-caps", "font-size:20px;line-height:1.55;margin-top:24px") if body else "")
+               + (blk(tag, "div", "reveal", "font-size:22px;font-weight:800;margin-top:28px;padding-top:20px;border-top:2px solid var(--sb-product-accent,var(--sb-sky))") if tag else "")
+               + '</div>')
+    inner = (photo + badge_mark()
+             + '<div class="on-media" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:0 76px;box-sizing:border-box">%s</div>' % content)
+    return inner, 0
 # <<< EXT RENDERERS END <<<
 
 REGISTRY = {
@@ -3466,6 +3596,10 @@ REGISTRY.update({
     "blank": blank,
     "source_page": source_page,
     "gradient_divider": gradient_divider,
+    "wf_stage": wf_stage,
+    "wf_contrast": wf_contrast,
+    "wf_pillars": wf_pillars,
+    "wf_moat": wf_moat,
 })
 # <<< EXT REGISTRY END <<<
 
@@ -3534,6 +3668,16 @@ def main():
     with open(args.out, "w") as f:
         f.write(html)
     print("rendered %d slides -> %s" % (len(out), args.out))
+    # Deck-local renderer patches: a deck may ship a patch_slides.py next to its plan.json
+    # (the documented pattern for renderer gaps). Running it HERE — immediately after every
+    # fresh render — guarantees the patches apply on EVERY pipeline that renders (manual
+    # builds, the edit server's rebuild, export_deck.py), exactly once per render.
+    patcher = os.path.join(os.path.dirname(os.path.abspath(args.plan)), "patch_slides.py")
+    if os.path.exists(patcher):
+        r = subprocess.call([sys.executable or "python3", patcher],
+                            cwd=os.path.dirname(patcher))
+        if r != 0:
+            print("  [warn] deck-local patch_slides.py exited %d — slides may be unpatched" % r)
     if warnings:
         print("  [warn] no dedicated renderer (used fallback) for: " + ", ".join(warnings))
 

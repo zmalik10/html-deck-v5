@@ -33,32 +33,64 @@ def find_chrome():
 
 def open_edit_mode(args):
     """Live-edit mode: start the local edit server (autosaves text edits to disk) and open
-    the deck at its localhost URL. A plain file:// page can't write to disk; this can."""
+    the deck at its localhost URL. A plain file:// page can't write to disk; this can.
+
+    Robustness contract (the editor must come up correctly EVERY time):
+      - a live editor for the SAME deck on the preferred port is reused, not duplicated;
+      - a busy port (stale server, another deck's editor) is skipped for the next free one;
+      - the EDITABLE localhost tab is opened directly (the file view is the reference copy);
+      - the double-click "Edit Deck.command" launcher is (re)generated next to plan.json."""
     if not args.plan:
         print("--edit requires --plan <deck>/plan.json"); sys.exit(1)
     here = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, here)
+    from edit_server import pick_port, server_identity, write_edit_command, PORT_BASE, PORT_TRIES
+
     review = os.path.abspath(os.path.join(args.out, "review.html"))
+    plan_abs = os.path.abspath(args.plan)
+    skill_root = os.path.dirname(here)
     if not os.path.exists(review):
         print("Not found: " + review + " — build the deck first."); sys.exit(1)
-    # launch edit_server.py as a child process, then open the browser at localhost
-    srv = subprocess.Popen([sys.executable, os.path.join(here, "edit_server.py"),
-                            "--skill-path", ".", "--out", os.path.abspath(args.out),
-                            "--plan", os.path.abspath(args.plan), "--port", str(args.port)])
-    time.sleep(1.0)  # let the server bind
-    # Open the FILE (read-only reference). The edit server is now running in the background,
-    # so clicking the T tool opens the editable localhost version in a tab beside this one.
+
+    launcher = write_edit_command(plan_abs, args.out, skill_root)
+
+    # Reuse a live editor already serving THIS deck (any port in the window); otherwise
+    # bind the first free port. Never crash on "Address already in use".
+    srv, port = None, None
+    for p in range(args.port, args.port + PORT_TRIES):
+        who = server_identity("127.0.0.1", p)
+        if who and who.get("app") == "sbdeck-edit-server" and who.get("plan_path") == plan_abs:
+            port = p
+            print("Reusing the editor already running for this deck on port %d." % p)
+            break
+    if port is None:
+        port = pick_port("127.0.0.1", args.port)
+        srv = subprocess.Popen([sys.executable, os.path.join(here, "edit_server.py"),
+                                "--skill-path", skill_root, "--out", os.path.abspath(args.out),
+                                "--plan", plan_abs, "--port", str(port)])
+        for _ in range(20):  # wait until it answers (max ~4s), not a blind sleep
+            time.sleep(0.2)
+            if server_identity("127.0.0.1", port):
+                break
+
+    # Open the EDITABLE version front and centre — this is the editor the user asked for.
+    # The file:// copy stays available as the read-only reference (SKILL.md two-tab flow).
+    edit_url = "http://127.0.0.1:%d/review.html" % port
     file_url = "file:///" + review.replace("\\", "/") + "?v=" + str(int(time.time()))
-    edit_url = "http://127.0.0.1:%d/review.html" % args.port
     chrome = find_chrome()
     if chrome:
         try:
-            subprocess.Popen(chrome + (["--new-window"] if args.new_window else []) + [file_url])
+            subprocess.Popen(chrome + (["--new-window"] if args.new_window else []) + [edit_url])
         except Exception:
-            webbrowser.open(file_url)
+            webbrowser.open(edit_url)
     else:
-        webbrowser.open(file_url)
-    print("EDIT MODE ready.\n  File view (reference): %s\n  Editable version (opens when you click the T tool, or directly): %s"
-          "\n  Text edits autosave to disk. Close this window (Ctrl+C) to stop the edit server." % (file_url, edit_url))
+        webbrowser.open(edit_url)
+    print("EDIT MODE ready.\n  Editable version (open now): %s\n  File view (read-only reference): %s"
+          % (edit_url, file_url)
+          + ("\n  Double-click launcher: %s" % launcher if launcher else "")
+          + "\n  Text edits autosave to disk. Close this window (Ctrl+C) to stop the edit server.")
+    if srv is None:
+        return  # reused an existing server; nothing to babysit
     try:
         srv.wait()
     except KeyboardInterrupt:

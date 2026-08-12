@@ -1903,8 +1903,11 @@
         el.addEventListener('blur', function () { if (document.body.classList.contains('text-edit-mode')) record(el); });
         el.addEventListener('keydown', function (e) {
           // Escape commits (blur). Enter inserts a line break for multi-line rich text
-          // (PowerPoint-style); the edit commits when you click away.
+          // (PowerPoint-style); the edit commits when you click away. Enter is handled
+          // EXPLICITLY as <br> — the contenteditable default wraps lines in <div>s, which
+          // depends on browser quirks and bloats what the sanitiser has to unwrap.
           if (e.key === 'Escape') { e.preventDefault(); el.blur(); }
+          else if (e.key === 'Enter') { e.preventDefault(); document.execCommand('insertLineBreak'); }
         });
         el.addEventListener('input', function () { scheduleSave(el); });   // debounced live save while typing
         el.addEventListener('paste', function (e) {
@@ -1916,9 +1919,39 @@
     }
     function enter() { document.body.classList.add('text-edit-mode'); btn.classList.add('active'); wireOnce(); setEditable(true); }
     function exit() { document.body.classList.remove('text-edit-mode'); btn.classList.remove('active'); setEditable(false); }
+    // file:// view → find the LIVE editor before opening anything. The edit server may sit
+    // on any port in the 8770+ window (busy ports fall through to the next), and blindly
+    // opening a dead or wrong-deck URL is exactly what reads as "the editor is broken".
+    // Each candidate port answers /whoami with its deck_title; we open the one serving
+    // THIS deck, and if none answers we say how to start it instead of opening a dead tab.
+    function probeEditor(port, tries, done) {
+      if (tries <= 0) { done(null); return; }
+      var ctl = ('AbortController' in window) ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctl) ctl.abort(); }, 900);
+      fetch('http://127.0.0.1:' + port + '/whoami', { signal: ctl ? ctl.signal : undefined })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          clearTimeout(t);
+          var mine = (window.__DECK__ && window.__DECK__.title) || '';
+          if (j && j.app === 'sbdeck-edit-server' && (!mine || j.deck_title === mine)) {
+            done('http://127.0.0.1:' + port + '/review.html');
+          } else {
+            probeEditor(port + 1, tries - 1, done);   // an editor, but for another deck
+          }
+        })
+        .catch(function () { clearTimeout(t); probeEditor(port + 1, tries - 1, done); });
+    }
     btn.addEventListener('click', function () {
       if (!CAN_SAVE) {                       // file:// view → open the editable tab beside it
-        window.open(EDIT_URL, 'sbdeck-editor');   // named target: reuses the same editor tab
+        btn.disabled = true;
+        probeEditor(8770, 10, function (url) {
+          btn.disabled = false;
+          if (url) { window.open(url, 'sbdeck-editor'); return; }  // named target: reuses the editor tab
+          alert('The live editor is not running.\n\n' +
+                'Start it first, then click this button again:\n' +
+                '  • double-click "Edit Deck.command" in the deck folder, or\n' +
+                '  • run: python engine/open_deck.py --edit --out <deck>/out --plan <deck>/plan.json');
+        });
         return;
       }
       document.body.classList.contains('text-edit-mode') ? exit() : enter();
@@ -2006,7 +2039,12 @@
     document.addEventListener('mousedown', function (e) {
       if (!document.body.classList.contains('text-edit-mode')) return;
       var top = document.elementFromPoint(e.clientX, e.clientY);
-      if (top && top.closest && top.closest('[data-te][contenteditable="true"]')) return;  // native works
+      // UI chrome (format bar, toolbar, menus, panels) is appended to <body>, OUTSIDE any
+      // .slide, and often sits ON TOP of slide text. A click on that chrome must NOT be
+      // redirected into the editable behind it — doing so stole the caret/selection from
+      // under the format bar and dropped edit context. Let chrome handle its own click.
+      if (!top || !top.closest || !top.closest('.slide')) return;
+      if (top.closest('[data-te][contenteditable="true"]')) return;  // native works
       var stack = document.elementsFromPoint(e.clientX, e.clientY);
       for (var i = 0; i < stack.length; i++) {
         var ed = stack[i].closest && stack[i].closest('[data-te][contenteditable="true"]');
