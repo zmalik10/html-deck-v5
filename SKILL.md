@@ -165,8 +165,10 @@ python engine/build.py --skill-path . --plan plan.json --slides slides.html --ou
 BRAND records each injected asset in the plan's `resolved_assets` with `source/author/license/approved_for_client`. That provenance drives the Sources panel and the client license gate.
 
 ### Image sourcing — owned first, Unsplash fallback (do this as part of BRAND)
-Before the `--brand` build, resolve every slide's `image_intent` to a real photo. **The order is not negotiable: SmartBuild's own photos always win.**
+Before the `--brand` build, resolve every slide's `image_intent` to a real photo. **The order is not negotiable: SmartBuild's own photos always win** — with one carve-out for generic mood photos, below.
 1. **Owned first.** For each `image_intent.tag`, check the owned library (`libraries/images/catalog.json`). If an owned image matches the tag, that is the image — `build.py` embeds it automatically. Do NOT pick an Unsplash photo for a slot an owned image can fill.
+
+   **1a. VARIETY RULE for generic mood photos — no two decks share a hero.** Owned-first applies unconditionally to brand-SPECIFIC assets (product screenshots, logos, exec/team headshots, photos extracted from our own decks/site). But GENERIC mood photos (covers, heroes, closing shots, atmosphere imagery) must vary across decks: if every deck reuses the same owned jobsite photo, every client sees the same deck. Before picking a generic photo, check the usage ledger `libraries/images/usage.json` (build.py appends every brand-built deck's image usage automatically). If the candidate is already recorded under ANOTHER deck's title, do not reuse it — pick a different owned match or source a FRESH Unsplash photo for this deck (step 2), recorded in `image_intent.resolved`. Fetch and LOOK at 2-3 candidates before choosing (Read tool); pick for the slide's message, not the first hit.
 2. **Unsplash fallback (you choose it — no human step).** Only for a slot with NO owned match: search Unsplash yourself (use the slide's `image_intent.query` / `mood` as the search phrase), pick ONE photo that genuinely fits the slide's message, and record your choice into that slide's `image_intent.resolved`:
    ```json
    "resolved": { "provider": "unsplash",

@@ -842,6 +842,29 @@ def main():
     except Exception:
         pass  # never let launcher generation break a build
 
+    # IMAGE-USAGE LEDGER (brand builds): record which images this deck used, keyed by asset
+    # id, in libraries/images/usage.json. PLAN/BRAND consult it to keep GENERIC mood photos
+    # (covers, heroes, atmosphere) DIFFERENT across decks - two decks must never ship the
+    # same generic hero. Brand-specific assets (product shots, logos, headshots) are exempt.
+    if args.brand:
+        try:
+            ledger_path = os.path.join(sp, "libraries", "images", "usage.json")
+            ledger = {}
+            if os.path.exists(ledger_path):
+                with open(ledger_path, encoding="utf-8") as f:
+                    ledger = json.load(f)
+            title = plan.get("deck", {}).get("title", "untitled")
+            for a in resolved:
+                aid = a.get("asset_id", "")
+                if not aid.startswith("image:"):
+                    continue
+                entry = ledger.setdefault(aid, {"decks": []})
+                if title not in entry["decks"]:
+                    entry["decks"].append(title)
+            atomic_write(ledger_path, json.dumps(ledger, indent=1, ensure_ascii=False))
+        except Exception:
+            pass  # the ledger is advisory - never break a build over it
+
     if pres_p:
         print("Built (%s fidelity): %s (%d KB), %s (%d KB)" % (
             manifest["fidelity"], review_p, len(review) // 1024, pres_p, len(presentation) // 1024))
