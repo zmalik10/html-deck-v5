@@ -133,3 +133,29 @@ shared layer and logged here, so the template library keeps improving. See the
 ## Side-border accent bars → PPTX — 2026-07-22
 - **Issue:** coloured `border-left` accent bars (e.g. WT-06 prompt_anatomy beats: sky/copper) rendered in HTML+PDF but not PPTX - _mShapeSpec only captured a UNIFORM 4-side border, so single-side accents were dropped.
 - **Fix:** added _mBorderBars(cs,b,sc) in deck.js — emits a thin filled rect per coloured side border (left/right/top/bottom, non-uniform), pushed as shapes with the element's z. Verified: slide 7 PPTX now has a 0.06in sky bar + copper bar matching the HTML/PDF.
+
+## 2026-08-11 — affiliate-partner-program deck (renderer block-type coverage)
+- **CC-14 (numeral_actions)**: only consumes `list_item`; drops `step_label/step_title/step_body`, `kicker`, `subhead`, `caption`. Proposed: accept the step_* triple (the schema's natural step vocabulary).
+- **NM-15 (stat_rail)**: only consumes kpi/stat types; drops `card_title/card_body` rows. Proposed: accept card_title+card_body pairs as bold-lead rows.
+- **NM-05 (versus)**: drops `left_label/left_body/right_label/right_body` (the schema types named for it), plus `body` and `cta`. Proposed: consume the left_*/right_* types directly.
+- **AN-12 (data_table)**: drops `kicker`, `stat_label`, and its own `headline` when stats present. Proposed: render stat_label/stat/caption triples as tier rows.
+- **PD-02 (suite)**: drops `pillar_title/pillar_body` (schema's pillar vocabulary) and `footnote`. Proposed: pillar_title as product logo lookup + pillar_body copy; footnote as bottom strip.
+- **NM-13 (faq)**: mis-pairs Q/A when given alternating card_title/card_body; second card_title landed inside first card as body text. Proposed: pair by adjacency.
+- **CV-06 (closing_cta)**: drops `kicker`, `body`, `label`, contact blocks (`card_title/card_body/list_item`). Proposed: optional contact-card zone.
+- **cover_image (CV-01)**: no `cta` support; adding one shifts centered content under the top-left logo — needs a logo-safe top padding.
+- **Cross-cutting**: kickers are dropped by nearly every renderer; worth a shared kicker helper above the headline.
+- Workaround this deck: deck-local `patch_slides.py` (render -> patch -> build); all blocks stay pin-addressable.
+
+## 2026-08-12 - kickoff-template deck (renderer block-mapping gaps)
+Deck: ~/Decks/kickoff-template (patched deck-locally via patch_slides.py). Each of these renderers
+silently DROPPED plan content_blocks it didn't recognize - proposal: every renderer should fall back
+to rendering unmapped blocks as a stacked list rather than dropping words on the floor.
+- **CV-08**: drops extra `label` blocks (co-brand company name + client logo slot never rendered).
+- **NM-18**: dropped all `list_item` + second `subhead` blocks (only image + headline survived).
+- **NM-07**: dropped the `subhead` intro line under the headline.
+- **WT-01**: scrambled block mapping - used a `body` block as the giant title, put the headline in a card.
+- **NM-15**: rendered first `body` as kicker, dropped remaining `body` paragraphs.
+- **CC-12**: dropped every step_label/step_title/list_item column (headline-only slide).
+- **CC-14**: flattens grouped card_title+list_item structure into one numeral row per list_item.
+- **CV-06**: dropped contact `label`/`body` blocks after headline+subhead.
+- **PD-11**: dropped card_title/card_body product blocks (headline-only slide).

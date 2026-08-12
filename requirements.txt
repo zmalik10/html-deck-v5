@@ -1,0 +1,16 @@
+# html-deck-v5 — Python runtime dependencies
+#
+#   pip install -r requirements.txt
+#   python -m playwright install chromium      # REQUIRED after install (PPTX export + live-edit render)
+#
+# Also install Google Chrome (for PDF export via --print-to-pdf).
+
+# --- core (needed to build + validate + export decks) ---
+jsonschema>=4.0          # full plan-schema validation (validate.py)
+Pillow>=9.0              # embed/resize images at BRAND (build.py inject_images)
+python-pptx>=0.6.21      # native PowerPoint export (engine/export_pptx.py, export_deck.py)
+playwright>=1.40         # headless Chromium: PPTX manifest extraction + live-edit render
+
+# --- optional (only to REGENERATE the reference-library renders; ships pre-built) ---
+numpy>=1.23              # render_reference.py image processing
+scikit-image>=0.19       # render_reference.py image processing

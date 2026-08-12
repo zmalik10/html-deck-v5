@@ -340,7 +340,21 @@
             "list_item",
             "quote",
             "cta",
-            "caption"
+            "caption",
+            "kicker",
+            "lead",
+            "left_label",
+            "right_label",
+            "left_body",
+            "right_body",
+            "step_label",
+            "step_title",
+            "step_body",
+            "value_label",
+            "pillar_title",
+            "pillar_body",
+            "footnote",
+            "tagline"
           ]
         },
         "text": {
