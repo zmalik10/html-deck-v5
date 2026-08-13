@@ -31,6 +31,44 @@ def find_chrome():
     return None
 
 
+def refocus_macos(path, url):
+    """Owner directive 2026-08-13: never stack deck tabs. If a Chrome tab already
+    shows THIS deck file (any ?v=), reload it in place with the fresh URL and bring
+    that tab/window to the front - across Spaces and displays. Returns True when an
+    existing tab was reused; False means the caller should open normally. Only
+    called when Chrome is already running (never launches it)."""
+    if sys.platform != "darwin":
+        return False
+    probe = subprocess.run(["pgrep", "-x", "Google Chrome"], capture_output=True)
+    if probe.returncode != 0:
+        return False
+    script = """
+    tell application "Google Chrome"
+      set winIdx to 0
+      repeat with w in windows
+        set winIdx to winIdx + 1
+        set tabIdx to 0
+        repeat with t in tabs of w
+          set tabIdx to tabIdx + 1
+          if URL of t contains "%s" then
+            set URL of t to "%s"
+            set active tab index of w to tabIdx
+            set index of w to 1
+            activate
+            return "refocused"
+          end if
+        end repeat
+      end repeat
+    end tell
+    return "none"
+    """ % (path.replace("\\", "/"), url)
+    try:
+        r = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, timeout=15)
+        return "refocused" in (r.stdout or "")
+    except Exception:
+        return False
+
+
 def open_edit_mode(args):
     """Live-edit mode: start the local edit server (autosaves text edits to disk) and open
     the deck at its localhost URL. A plain file:// page can't write to disk; this can.
@@ -122,6 +160,12 @@ def main():
     # cache-buster: relaunching the same file:// URL only refocuses a stale tab
     # (Chrome won't reload), so a fresh ?v= forces the updated deck to render.
     url = "file:///" + path.replace("\\", "/") + "?v=" + str(int(time.time()))
+
+    # Reuse-first (owner directive): an existing tab showing this deck is reloaded
+    # in place and refocused - a new window opens ONLY when no such tab exists.
+    if refocus_macos(path, url):
+        print("Refocused the existing %s tab in Chrome (reloaded in place):\n  %s" % (fname, url))
+        return
 
     chrome = find_chrome()
     if chrome:

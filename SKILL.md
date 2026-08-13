@@ -138,9 +138,9 @@ The reviewer opens `out/review.html`, clicks the pen (Review Mode), clicks any e
 **On completion — ALWAYS reopen the deck in Chrome (do this every time, not on request).** The moment a batch of notes is applied (and after any pass that regenerates the deck), rebuild and reopen so the human can see the result immediately:
 ```bash
 python engine/build.py --skill-path . --plan plan.json --slides slides.html --out out
-python engine/open_deck.py --out out --new-window   # ← reopen review.html in a fresh, focused window so it always surfaces
+python engine/open_deck.py --out out   # ← surfaces the deck: REUSES an existing deck tab (reloads it in place and refocuses it, even on another display/Space); opens a new window ONLY if no tab is showing the deck
 ```
-This is the standing rule for the whole pipeline: **any pass that changes the built deck ends by reopening it for review.** Never leave the human to reopen it manually.
+This is the standing rule for the whole pipeline: **any pass that changes the built deck ends by surfacing it for review** - reuse-first (owner directive 2026-08-13: never stack new tabs/windows when the deck is already open somewhere; refocus and reload the one that exists). Never leave the human to reopen it manually.
 
 **Surgical scope is the law of this pass:** apply *only* what the notes ask. If a note says "3 versions of slide 10's visual," produce three alternates for slide 10 and **touch nothing else**. Update only the referenced blocks in `plan.json` (bump `plan_revision`), then rebuild.
 
