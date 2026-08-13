@@ -70,8 +70,9 @@ def icon(name, size=34):
     return '<svg class="icon" data-icon="%s" style="width:%dpx;height:%dpx;flex:none"></svg>' % (name, size, size)
 
 def rule(mt="0", center=False):
-    m = "margin:%s auto 0;" % mt if center else "margin-top:%s;" % mt
-    return '<div style="%swidth:64px;height:8px;background:var(--sb-product-accent,var(--sb-sky))"></div>' % m
+    """Owner directive 2026-08-13: accent ticks/dashes under titles are banned
+    house-wide. Kept as a no-op so all call sites stay valid."""
+    return ""
 
 def photo_bg(tag, scrim="90deg,rgba(6,12,26,0.86) 0%,rgba(6,12,26,0.45) 52%,rgba(6,12,26,0.05) 100%"):
     # BOLD brand duotone: the photo is colourised by a saturated accent (multiply), then a
