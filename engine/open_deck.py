@@ -69,6 +69,41 @@ def refocus_macos(path, url):
         return False
 
 
+def ensure_edit_server(out_dir, plan_path):
+    """Owner directive 2026-08-13: the review chrome's editor button must ALWAYS work.
+    Ensure a live edit server for THIS deck exists whenever the deck is surfaced:
+    reuse one already answering /whoami for this plan; otherwise spawn edit_server.py
+    detached in the background (survives this process; localhost only; no browser tab
+    is opened - the deck's editor button connects to it on demand)."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, here)
+    try:
+        from edit_server import pick_port, server_identity, write_edit_command, PORT_TRIES
+    except Exception as e:
+        print("  [warn] edit server unavailable (%s) - the editor button will not work" % e)
+        return None
+    plan_abs = os.path.abspath(plan_path)
+    if not os.path.exists(plan_abs):
+        return None
+    skill_root = os.path.dirname(here)
+    write_edit_command(plan_abs, out_dir, skill_root)   # keep the double-click launcher fresh
+    for p in range(8770, 8770 + PORT_TRIES):
+        who = server_identity("127.0.0.1", p)
+        if who and who.get("app") == "sbdeck-edit-server" and who.get("plan_path") == plan_abs:
+            return p
+    port = pick_port("127.0.0.1", 8770)
+    devnull = open(os.devnull, "w")
+    subprocess.Popen([sys.executable, os.path.join(here, "edit_server.py"),
+                      "--skill-path", skill_root, "--out", os.path.abspath(out_dir),
+                      "--plan", plan_abs, "--port", str(port)],
+                     stdout=devnull, stderr=devnull, start_new_session=True)
+    for _ in range(20):
+        time.sleep(0.2)
+        if server_identity("127.0.0.1", port):
+            return port
+    return None
+
+
 def open_edit_mode(args):
     """Live-edit mode: start the local edit server (autosaves text edits to disk) and open
     the deck at its localhost URL. A plain file:// page can't write to disk; this can.
@@ -160,6 +195,13 @@ def main():
     # cache-buster: relaunching the same file:// URL only refocuses a stale tab
     # (Chrome won't reload), so a fresh ?v= forces the updated deck to render.
     url = "file:///" + path.replace("\\", "/") + "?v=" + str(int(time.time()))
+
+    # The editor button in the deck probes localhost for a live edit server; keep one
+    # running for this deck at all times (reuse-first, detached spawn otherwise).
+    plan_guess = args.plan or os.path.join(os.path.dirname(os.path.abspath(args.out)), "plan.json")
+    eport = ensure_edit_server(args.out, plan_guess)
+    if eport:
+        print("Edit server live on port %d - the deck's editor button is active." % eport)
 
     # Reuse-first (owner directive): an existing tab showing this deck is reloaded
     # in place and refocused - a new window opens ONLY when no such tab exists.
