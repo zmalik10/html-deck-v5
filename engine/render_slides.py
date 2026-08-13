@@ -459,6 +459,8 @@ def _headline_block(g):
 
 def icon_list(s, acc):
     g = grp(s); head = _headline_block(g)
+    kick = _first(g, "kicker")
+    footnote = _first(g, "footnote")
     titles, bodies = g.get("card_title", []), g.get("card_body", [])
     ic = icons_of(s)
     rows = ""
@@ -476,8 +478,13 @@ def icon_list(s, acc):
         # backgrounds that carry .on-media text; a standalone image must read as a real photo.
         photo = ('<div class="reveal-left" style="flex:1;min-height:200px;border-radius:6px;overflow:hidden;margin-top:26px;position:relative">'
                  + '<img data-image="%s" class="img-cover"></div>' % img_tag(s))
+    kicker_html = blk(kick, "div", "reveal", "font-size:14px;font-weight:800;letter-spacing:0.2em;color:" + ACC + ";margin:0 0 10px") if kick else ""
+    # optional takeaway band under the rows (TKMS gap, 2026-08: footnote blocks rendered empty)
+    if footnote:
+        rows += ('<div class="reveal sb-card" style="padding:16px 22px;border-left:5px solid ' + ACC + '">'
+                 + blk(footnote, "div", "", "font-size:14px;line-height:1.5;color:var(--sb-text-on-dark);font-weight:600") + '</div>')
     left = ('<div style="flex:0 0 40%;display:flex;flex-direction:column;justify-content:center">'
-            + blk(head, "h2", "hl reveal-left", "font-size:46px;margin:0 0 4px") + rule() + photo + '</div>')
+            + kicker_html + blk(head, "h2", "hl reveal-left", "font-size:46px;margin:0 0 4px") + rule() + photo + '</div>')
     right = '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px">%s</div>' % rows
     return f'<div style="display:flex;gap:44px;height:100%;align-items:stretch">{left}{right}</div>', 64
 
@@ -512,12 +519,18 @@ def card_row(s, acc):
     ic = icons_of(s)
     n = min(len(titles), len(bodies))
     split = has_image(s)
+    # ADAPTIVE DENSITY (TKMS overflow, 2026-08): three long cards + a 2-line headline
+    # overflow the 720px stage in split mode. When total copy is heavy, tighten card
+    # padding/type instead of letting content collide with the headline.
+    heavy = split and n >= 3 and sum(len(b.get("text", "")) for b in bodies[:n]) > 500
+    card_pad = "padding:16px 22px" if heavy else ("padding:24px 26px" if split else "flex:1;padding:32px 28px")
+    t_size, b_size = ("17.5px", "14px") if heavy else ("22px", "16px")
     cards = ""
     for i in range(n):
-        cards += ('<div class="reveal sb-card" style="%s">' % ("padding:24px 26px" if split else "flex:1;padding:32px 28px")
+        cards += ('<div class="reveal sb-card" style="%s">' % card_pad
                   + (icon(ic[i], 36) + '<div style="height:14px"></div>' if i < len(ic) else rule("0") + '<div style="height:16px"></div>')
-                  + blk(titles[i], "div", "no-caps", "font-weight:900;font-size:22px;color:var(--sb-text-on-dark);margin-bottom:12px")
-                  + blk(bodies[i], "div", "", "font-size:16px;line-height:1.55;color:var(--sb-body-on-dark)")
+                  + blk(titles[i], "div", "no-caps", "font-weight:900;font-size:%s;color:var(--sb-text-on-dark);margin-bottom:%s" % (t_size, "8px" if heavy else "12px"))
+                  + blk(bodies[i], "div", "", "font-size:%s;line-height:1.5;color:var(--sb-body-on-dark)" % b_size)
                   + '</div>')
     if split:
         # Stacked cards left, natural photo right (no scrim - it sits beside text, not under it).
@@ -526,9 +539,9 @@ def card_row(s, acc):
                 + cards + '</div>')
         right = ('<div class="reveal-right" style="flex:0 0 42%;border-radius:6px;overflow:hidden;position:relative;min-height:0">'
                  + '<img data-image="%s" class="img-cover" style="position:absolute;inset:0;width:100%%;height:100%%;object-fit:cover"></div>' % img_tag(s))
-        inner = (blk(head, "h2", "hl reveal", "font-size:44px;margin:0 0 6px")
+        inner = (blk(head, "h2", "hl reveal", "font-size:%s;margin:0 0 6px" % ("32px" if heavy else "44px"))
                  + rule("6px") + subh
-                 + f'<div style="flex:1;display:flex;gap:36px;align-items:stretch;min-height:0;margin-top:26px">{left}{right}</div>')
+                 + f'<div style="flex:1;display:flex;gap:36px;align-items:stretch;min-height:0;margin-top:{"16px" if heavy else "26px"}">{left}{right}</div>')
         return inner, 64
     subh = ('<div style="display:flex;justify-content:center">'
             + blk(sub, "div", "reveal no-caps", "font-size:18px;font-weight:600;color:var(--sb-body-on-dark);margin-top:12px;text-align:center")
@@ -914,11 +927,14 @@ def logo_board(s, acc):
 def proof_stack(s, acc):
     g = grp(s)
     claim = _headline_block(g)
+    kick = _first(g, "kicker")
     stats = g.get("stat", []) + g.get("kpi", [])
     labels = g.get("stat_label", []) + g.get("kpi_label", [])
     q = _first(g, "quote")
     qcite = _first(g, "caption")
     media = g.get("card_body", [])
+    mtitles = g.get("card_title", [])
+    footnote = _first(g, "footnote")
     inner = ""
     if claim:
         inner += (blk(claim, "h2", "hl reveal", "font-size:40px;margin:0 0 6px;text-align:center")
@@ -941,13 +957,21 @@ def proof_stack(s, acc):
                    + (blk(qcite, "div", "", "font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:" + ACC + ";margin-top:16px") if qcite else "")
                    + '</div>')
     if media:
+        # titled proof cards, side by side (up to 3) - card_title pairs with card_body
+        # (TKMS gap, 2026-08: titles were dropped and cards capped at 2).
         mcards = ""
-        for mb in media[:2]:
-            mcards += ('<div class="reveal sb-card" style="padding:20px 22px;margin-bottom:14px">'
-                       + blk(mb, "div", "", "font-size:16px;line-height:1.5;color:var(--sb-body-on-dark)") + '</div>')
-        bottom += '<div style="flex:1;display:flex;flex-direction:column;justify-content:center">' + mcards + '</div>'
+        for mi, mb in enumerate(media[:3]):
+            mt = mtitles[mi] if mi < len(mtitles) else None
+            mcards += ('<div class="reveal sb-card" style="flex:1;padding:20px 22px">'
+                       + (blk(mt, "div", "no-caps", "font-weight:800;font-size:16px;color:var(--sb-text-on-dark);margin-bottom:6px") if mt else "")
+                       + blk(mb, "div", "", "font-size:14px;line-height:1.5;color:var(--sb-body-on-dark)") + '</div>')
+        bottom += '<div style="flex:2;display:flex;gap:16px;align-items:stretch">' + mcards + '</div>'
     if bottom:
         inner += '<div style="display:flex;gap:20px;margin-top:22px;align-items:stretch">' + bottom + '</div>'
+    if footnote:
+        inner += blk(footnote, "div", "reveal", "font-size:12px;color:var(--sb-body-on-dark);margin-top:16px;font-style:italic")
+    if kick:
+        inner = blk(kick, "div", "reveal", "font-size:14px;font-weight:800;letter-spacing:0.2em;color:" + ACC + ";margin:0 0 10px;text-align:center") + inner
     return inner, 64
 
 def case_study(s, acc):
@@ -1100,7 +1124,10 @@ def photo_timeline(s, acc):
 def stat_rail(s, acc):
     g = grp(s)
     head = _headline_block(g)
-    kicker = _first(g, "body")
+    # kicker: prefer a real kicker block; fall back to the legacy body-as-kicker.
+    # lead: a real paragraph under the rule (TKMS gap, 2026-08: lead blocks rendered empty).
+    kicker = _first(g, "kicker") or _first(g, "body")
+    lead = _first(g, "lead")
     stats = g.get("stat", []) + g.get("kpi", [])
     labels = g.get("stat_label", []) + g.get("kpi_label", [])
     left = ""
@@ -1108,6 +1135,8 @@ def stat_rail(s, acc):
         left += blk(kicker, "div", "reveal", "font-size:15px;font-weight:700;letter-spacing:0.06em;color:" + ACC + ";margin-bottom:14px")
     if head:
         left += blk(head, "h2", "hl reveal-left", "font-size:40px;margin:0 0 8px") + rule("2px")
+    if lead:
+        left += blk(lead, "div", "reveal", "font-size:15px;line-height:1.55;color:var(--sb-body-on-dark);margin:14px 0 0")
     rows = ""
     for i, st in enumerate(stats[:4]):
         lb = labels[i] if i < len(labels) else None
@@ -2550,9 +2579,14 @@ def multiplier_rows(s, acc):
 def roadmap(s, acc):
     g = grp(s)
     head = _headline_block(g)
-    phases = g.get("card_title", [])[:4]
-    mils = g.get("list_item", [])
-    owners = g.get("body", [])
+    kick = g.get("kicker", [None])[0]
+    # Accepts BOTH the generic card_title/list_item/body triple and the documented
+    # step_label/step_title/step_body triple, plus an optional closing quote band
+    # (TKMS deck gap, 2026-08: plans authored with step_* rendered empty).
+    phases = (g.get("card_title") or g.get("step_title") or [])[:4]
+    mils = g.get("list_item") or g.get("step_label") or []
+    owners = g.get("body") or g.get("step_body") or []
+    quote = g.get("quote", [None])[0]
     n = len(phases)
     chev = ('<div style="flex:0 0 26px;display:flex;align-items:center;justify-content:center">'
             '<div style="width:14px;height:14px;border-top:4px solid ' + ACC + ';border-right:4px solid ' + ACC
@@ -2577,9 +2611,14 @@ def roadmap(s, acc):
                   + '</div>')
         if i < n - 1:
             cells += chev
-    inner = (blk(head, "h2", "hl reveal", "font-size:44px;margin:0 0 6px") + rule("6px")
+    kicker_html = blk(kick, "div", "reveal", "font-size:14px;font-weight:800;letter-spacing:0.2em;color:" + ACC + ";margin:0 0 10px") if kick else ""
+    qband = ""
+    if quote:
+        qband = ('<div class="reveal sb-card" style="margin-top:20px;padding:18px 30px;border-left:5px solid ' + ACC + '">'
+                 + blk(quote, "div", "no-caps", "font-size:19px;font-weight:700;line-height:1.4;font-style:italic;color:var(--sb-text-on-dark)") + '</div>')
+    inner = (kicker_html + blk(head, "h2", "hl reveal", "font-size:44px;margin:0 0 6px") + rule("6px")
              + '<div style="flex:1;display:flex;align-items:center"><div style="display:flex;gap:6px;width:100%;align-items:stretch">'
-             + cells + '</div></div>')
+             + cells + '</div></div>' + qband)
     return inner, 64
 
 def gantt(s, acc):
@@ -3699,6 +3738,15 @@ def main():
                             cwd=os.path.dirname(patcher))
         if r != 0:
             print("  [warn] deck-local patch_slides.py exited %d — slides may be unpatched" % r)
+        else:
+            # Patch output may add its own ordinal badges/numerals; re-run the decorative-
+            # numeral pass on the patched file so RC8b treats them as chrome (TKMS, 2026-08:
+            # the pass previously ran only pre-patch, forcing manual aria-hidden in patches).
+            h = open(args.out).read()
+            h2 = _hide_decorative_numerals(h)
+            if h2 != h:
+                with open(args.out, "w") as f:
+                    f.write(h2)
     if warnings:
         print("  [warn] no dedicated renderer (used fallback) for: " + ", ".join(warnings))
 

@@ -404,6 +404,27 @@ def main():
             print("  ADVISORY off-palette colour %s (%d element[s]) — intended? use a brand token or bank the change."
                   % (a["hex"], a["count"]))
 
+    # Export-safety advisories (TKMS lessons, 2026-08) — patterns that render fine in the
+    # browser but break or distort in the PPTX/PDF exporters. Informational, never block.
+    exp = []
+    if re.search(r'<img[^>]*style="[^"]*transform:\s*scale', authored):
+        exp.append("transform:scale on an <img> — the exporter scales WITHOUT container clipping, so the "
+                   "image bleeds past its panel. Pre-crop the asset (alpha-trim) instead.")
+    for m in re.finditer(r'<(?:div|span)[^>]*style="[^"]*transform:\s*rotate\([^)]*\)[^"]*"[^>]*>', authored):
+        if 'data-block' not in m.group(0):
+            exp.append("CSS-rotated decorative element — border/rotate tricks export as stray marks. "
+                       "Use an inline-SVG data-URI image for decorative shapes.")
+            break
+    for m in re.finditer(r'<[a-z]+[^>]*data-block="[^"]*"[^>]*style="[^"]*font-size:(1[0-2](?:\.\d)?)px[^"]*"[^>]*>(.*?)</', authored, re.S):
+        if m.group(2).count('class="product-name"') >= 2:
+            exp.append("small-print block with 2+ product-name spans — wrapped lines containing multiple "
+                       "inline spans can merge into one long paragraph at export. Render boilerplate plain-text.")
+            break
+    if exp:
+        print("\nSWEEP export-safety advisories (%d) — informational, do not block:" % len(exp))
+        for e in exp:
+            print("  ADVISORY " + e)
+
     sys.exit(0 if passed == len(checks) else 1)
 
 if __name__ == "__main__":

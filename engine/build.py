@@ -352,7 +352,12 @@ def inject_images(slides_html, skill_path, resolved, brand=True, img_choices=Non
         path = _resolve_owned_path(skill_path, e.get("file", "")) if e else None
         if e and path:
             uri = _embed_image(path)
-            resolved.append({**e["provenance"], "asset_id": "image:" + e["id"]})
+            prov = e.get("provenance")
+            if not prov:
+                print('  [warn] catalog entry %s has no provenance dict — add one (see existing entries); defaulting' % e["id"])
+                prov = {"kind": "image", "source": "owned library (provenance missing)", "author": "SmartBuild",
+                        "license": "SmartBuild-owned", "requires_attribution": False, "approved_for_client": True}
+            resolved.append({**prov, "asset_id": "image:" + e["id"]})
             alt = e.get("mood") or tag
             return '<img data-image="%s"%s%s src="%s" alt="%s">' % (tag, _cover_attr(rest), rest, uri, alt)
         # 2) Plan-recorded Unsplash choice for this slot (only reached when nothing owned fit).
