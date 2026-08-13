@@ -136,7 +136,7 @@ shared layer and logged here, so the template library keeps improving. See the
 
 ## 2026-08-11 — affiliate-partner-program deck (renderer block-type coverage)
 - **CC-14 (numeral_actions)**: only consumes `list_item`; drops `step_label/step_title/step_body`, `kicker`, `subhead`, `caption`. Proposed: accept the step_* triple (the schema's natural step vocabulary).
-- **NM-15 (stat_rail)**: only consumes kpi/stat types; drops `card_title/card_body` rows. Proposed: accept card_title+card_body pairs as bold-lead rows.
+- **NM-15 (stat_rail)** [FIXED at source 2026-08-12]: only consumes kpi/stat types; drops `card_title/card_body` rows. Proposed: accept card_title+card_body pairs as bold-lead rows.
 - **NM-05 (versus)**: drops `left_label/left_body/right_label/right_body` (the schema types named for it), plus `body` and `cta`. Proposed: consume the left_*/right_* types directly.
 - **AN-12 (data_table)**: drops `kicker`, `stat_label`, and its own `headline` when stats present. Proposed: render stat_label/stat/caption triples as tier rows.
 - **PD-02 (suite)**: drops `pillar_title/pillar_body` (schema's pillar vocabulary) and `footnote`. Proposed: pillar_title as product logo lookup + pillar_body copy; footnote as bottom strip.
@@ -162,14 +162,14 @@ to rendering unmapped blocks as a stacked list rather than dropping words on the
 
 ## 2026-08-12 - TKMS CPSP proposal deck (decks/tkms-proposal)
 Renderer gaps worked around via deck-local patch_slides.py; banked as suggestions:
-- **NM-15 (stat_rail)**: drops `kicker` and `lead` blocks (uses first `body` as an accent kicker line); a proposal-style slide needs a real lead paragraph under the headline. Suggest: render `kicker` above headline, `lead` as a muted paragraph.
-- **NM-07 (card_row)**: 3 cards with 40+ word bodies + 2-line headline overflow the 720px stage in image-split mode (headline/subhead overlapped card 1). Suggest: scale card padding/font when total copy is long, as done for stat tiles elsewhere.
-- **NM-18 (icon_list)**: drops `kicker` and `footnote`; a bottom takeaway band (accent-left-border card) is a natural fit under the rows.
-- **PO-01 (roadmap)**: consumes card_title/list_item/body but ignores the documented step_label/step_title/step_body triple and `quote`; a quote band under the phase cards fits the closing-thought pattern.
+- **NM-15 (stat_rail)** [FIXED at source 2026-08-12]: drops `kicker` and `lead` blocks (uses first `body` as an accent kicker line); a proposal-style slide needs a real lead paragraph under the headline. Suggest: render `kicker` above headline, `lead` as a muted paragraph.
+- **NM-07 (card_row)** [FIXED at source 2026-08-12 - adaptive density when copy is heavy]: 3 cards with 40+ word bodies + 2-line headline overflow the 720px stage in image-split mode (headline/subhead overlapped card 1). Suggest: scale card padding/font when total copy is long, as done for stat tiles elsewhere.
+- **NM-18 (icon_list)** [FIXED at source 2026-08-12]: drops `kicker` and `footnote`; a bottom takeaway band (accent-left-border card) is a natural fit under the rows.
+- **PO-01 (roadmap)** [FIXED at source 2026-08-12 - accepts step_* triple + quote band]: consumes card_title/list_item/body but ignores the documented step_label/step_title/step_body triple and `quote`; a quote band under the phase cards fits the closing-thought pattern.
 - **PO-05 (capability)**: renders titles + decorative coverage bars only - cannot express a pillars-x-items capability matrix (pillar_title + list_item groups). Suggest a matrix variant.
-- **NM-09 (proof_stack)**: drops `card_title` (proof cards render body-only), caps proof cards at 2, ignores `footnote` (needed for "results reported by clients" attributions).
+- **NM-09 (proof_stack)** [FIXED at source 2026-08-12 - titled cards x3 + footnote]: drops `card_title` (proof cards render body-only), caps proof cards at 2, ignores `footnote` (needed for "results reported by clients" attributions).
 - **CV-09 (next_steps -> closing_cta)**: drops `body` paragraphs and contact card_title/card_body pairs; a next-step closing needs the why-now copy + contact cards.
-- **_hide_decorative_numerals** runs before deck-local patch_slides.py, so patch-injected ordinal badges need manual aria-hidden="true" (RC8b). Suggest: run the decor pass after the patch hook.
+- **_hide_decorative_numerals** [FIXED at source 2026-08-12 - pass now re-runs after the patch hook] runs before deck-local patch_slides.py, so patch-injected ordinal badges need manual aria-hidden="true" (RC8b). Suggest: run the decor pass after the patch hook.
 - **validate.py chrome counts (FIXED at source 2026-08-12)**: expected page-number count used len(plan.slides) including tombstoned (status:"deleted") slides, so any deck that deletes slides mid-refine hard-failed the page-number check. Now counts live slides only. (TKMS deck, 4 tombstones.)
 
 ## 2026-08-13 - kickoff-template deck: candidate new template

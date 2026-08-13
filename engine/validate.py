@@ -411,9 +411,15 @@ def main():
         exp.append("transform:scale on an <img> — the exporter scales WITHOUT container clipping, so the "
                    "image bleeds past its panel. Pre-crop the asset (alpha-trim) instead.")
     for m in re.finditer(r'<(?:div|span)[^>]*style="[^"]*transform:\s*rotate\([^)]*\)[^"]*"[^>]*>', authored):
-        if 'data-block' not in m.group(0):
-            exp.append("CSS-rotated decorative element — border/rotate tricks export as stray marks. "
-                       "Use an inline-SVG data-URI image for decorative shapes.")
+        tag = m.group(0)
+        if 'data-block' in tag:
+            continue
+        # Only SMALL rotated marks are the proven failure class (border-trick chevrons
+        # export as corner brackets). Large rotated outlines (cover motifs) export fine.
+        wh = re.search(r'width:\s*(\d+)px', tag)
+        if wh and int(wh.group(1)) <= 40:
+            exp.append("small CSS-rotated decorative mark (%spx) — border/rotate tricks export as stray "
+                       "corner brackets. Use an inline-SVG data-URI image instead." % wh.group(1))
             break
     for m in re.finditer(r'<[a-z]+[^>]*data-block="[^"]*"[^>]*style="[^"]*font-size:(1[0-2](?:\.\d)?)px[^"]*"[^>]*>(.*?)</', authored, re.S):
         if m.group(2).count('class="product-name"') >= 2:

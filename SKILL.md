@@ -251,6 +251,24 @@ Every deck can be viewed in light OR dark, so these are not optional polish. Fol
 - **Cards must be visible in both themes.** Use `.sb-card` (or an equivalent visibly-elevated panel) - the raw panel token alone is nearly invisible on the dark deck background.
 - **Display/hero text is brand NAVY on a light canvas.** Headlines, big statements, and pull-quotes use `.hl` or `color:var(--sb-title)` — navy (#005491) in light mode, white in dark mode. Never hard-code a near-black colour (`--sb-text-on-dark`, `--sb-text-primary`, `#0f1419`) for display type; that reads flat and off-brand on white. (Small body/caption text still uses the muted body tokens.) SWEEP hard-fails near-black display text ≥36px.
 
+## House style — learned rules (bank of client corrections, 2026-08)
+Each of these exists because a reviewer had to correct a shipped deck. Apply them at BUILD so the correction never recurs:
+- **No decorative gradients.** Panels, bands and chips use SOLID brand fills (navy `var(--sb-title)`, accent, ink). Where a big surface needs visual interest, use a PHOTOGRAPH with a solid ink overlay (`background:var(--sb-ink);opacity:~0.7`) and `.on-media` content - not a gradient.
+- **Product logos are never boxed and never small.** No tiles, chips or containers around product logos; render them bare on the card at >=26px height (30px preferred). On a product-led card the LOGO IS THE TITLE: centered, above the subheader (also centered), description text left-aligned. The deck must read product-first - we are the solution.
+- **Icon cards center the icon + subheader, keep the description left-aligned.** Same pattern as logo-led cards.
+- **Fill the canvas - wasted container space is a defect.** Bodies >=13px at line-height ~1.55, titles 16-21px; vertically center card content so uneven copy reads as breathing room, not truncation; bottom-anchored chips only align when the row's copy lengths are balanced - balance the copy or don't bottom-anchor. When a cell still has slack, outsource a REAL element into it (owned image, Unsplash photo strip, logo row) - never leave dead panel.
+- **Never crop a supplied product/marketing image.** Fit it whole (`object-fit:contain`) inside a white panel sized to its aspect ratio, and reshape the slide's content around it. Crop-to-fill (`img-cover`) is for photography, not product shots.
+- **Product mockup PNGs: alpha-trim, never transform-scale.** If a transparent-margin asset renders small, cut a tight derivative (PIL: crop to thresholded alpha bbox, e.g. alpha>16) and register it in the catalog. `transform:scale` is forbidden - it exports without container clipping.
+- **Never silently condense a prompt-slide.** A source slide that is really a prompt (a wall of strategy notes, "make this into a visual") gets its content preserved in full - expand into a connected multi-slide sequence if one slide can't legibly hold it, and surface every proposed cut at PLAN approval. Reviewers treat dropped substance as a defect even when the slide "looked done".
+
+## Export safety (learned the hard way - SWEEP surfaces these as advisories)
+The browser renders things the PPTX/PDF exporters cannot. At BUILD:
+- **No CSS shape tricks** (rotated-border chevrons, transformed divs) - they export as stray marks. Decorative shapes are inline-SVG data-URI `<img>`s in an on-palette colour.
+- **No `transform:scale` on images** - exports ignore container clipping (see alpha-trim rule above).
+- **Small-print blocks (<13px) with 2+ inline `.product-name` spans** can merge their wrapped lines into one long paragraph at export - render boilerplate/footnotes as plain text (`brandify` off).
+- **Hand-authored patch code:** zip() content lists against STYLE lists only after padding the style list to the content length - a short logos/icons list must never silently drop a content card. Deck copy drives; styling follows.
+- **Verify every export against a real renderer.** On macOS PowerPoint's AppleScript is sandbox-blocked; use `python engine/verify_export_macos.py --plan <deck>/plan.json --pptx <deck>/out/deck.pptx --out-dir <dir>` (drives Keynote), then EYEBALL the renders against review.html. Fonts: PPTX only references Montserrat by name - install `assets/fonts/ttf/*.ttf` to `~/Library/Fonts` on any reviewing Mac (see that folder's README), and warn recipients without Montserrat that PowerPoint will substitute.
+
 ## Motion, product accent & bloom (BUILD) — use them, don't leave them dormant
 The frontend ships three capabilities most decks forget to use. BUILD SHOULD apply them:
 - **Scroll-reveal:** tag primary elements with `.reveal` (or `.reveal-left/right/scale/hero`).
