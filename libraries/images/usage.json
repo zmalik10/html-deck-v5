@@ -51,7 +51,8 @@
  },
  "image:img-client-conversation": {
   "decks": [
-   "Implementation Kick-Off - COMPANY NAME (template)"
+   "Implementation Kick-Off - COMPANY NAME (template)",
+   "Become a SMARTBUILD Affiliate Partner"
   ]
  },
  "image:img-kickoff-training": {
@@ -152,6 +153,91 @@
  "image:img-tom-smrte-hero": {
   "decks": [
    "Design. Build. Sustain."
+  ]
+ },
+ "image:img-partners-hero-crew": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-warm-intro-email": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-persona-it-provider": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-persona-recruiter": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-persona-accountant": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-partners-advisors": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-persona-media": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-partners-workers-tablet": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-logo-azure": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-logo-m365": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-logo-quickbooks": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-logo-sage": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-logo-netsuite": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:unsplash-photo-1503387762-592deb58ef4e": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-warm-handshake": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:img-sparks-grinding": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
+  ]
+ },
+ "image:unsplash-photo-1541888946425-d81bb19240f5": {
+  "decks": [
+   "Become a SMARTBUILD Affiliate Partner"
   ]
  }
 }
