@@ -43,6 +43,7 @@ _Per-template `version` is the version a deck stamps when it uses the template (
 - **NM-22** `v1.0.0` Photo Collage With Title Band — Four-photo full-bleed collage crossed by a solid sky title band. The evolution / montage slide.
 - **NM-23** `v1.0.0` Photo Filmstrip Timeline — Four full-height photo frames with role + year plates: a career or era progression told in frames.
 - **NM-24** `v1.0.0` Case Study Photo Split — Navy panel with case-study title left, layered photo collage right.
+- **NM-25** `v1.0.0` Checklist Sheet Over Photo — Warning signs / criteria / requirements as a white ruled punch-list sheet over a full-bleed photo; green checks = positive status (colour logic). Promoted from the affiliate-partner deck (owner-praised, 2026-08-13).
 
 ## Product & demo (12)
 - **PD-01** `v1.0.0` Product / Feature Pillar — Explain one product pillar using a large accent panel, short product description, and one KPI/proof point.

@@ -58,9 +58,12 @@ async (args) => {
     for (let j = 0; j < gy; j++) {
       const x = r.left + pad + (r.width - 2 * pad) * (i + 0.5) / gx;
       const y = r.top + pad + (r.height - 2 * pad) * (j + 0.5) / gy;
-      const el = document.elementFromPoint(x, y);
+      // Sample the WHOLE stack at the point, not just the topmost element: a
+      // transparent layout wrapper above a full-bleed photo/scrim must not hide
+      // the real content underneath (fixed 2026-08-13 - NM-25 false LOW).
+      const stack = document.elementsFromPoint(x, y);
       total++;
-      if (isContent(el)) filled++;
+      if (stack.some(isContent)) filled++;
     }
   }
   return { filled, total };

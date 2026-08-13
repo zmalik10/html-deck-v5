@@ -392,11 +392,11 @@ def cover_geo(s, acc):
         n = len((head.get("text") or "")) if head else 0
         tsize = 104 if n <= 20 else 92 if n <= 30 else 78 if n <= 44 else 66
         title = blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:0.98;margin:0" % tsize)
-    subsize = 30 if len((sub.get("text") or "")) <= 90 else 24 if sub else 30
+    subsize = 20 if len((sub.get("text") or "")) <= 90 else 19 if sub else 20
     content = ('<div style="max-width:820px">'
                + blk(label, "div", "label reveal", "color:var(--sb-product-accent,var(--sb-sky));margin-bottom:20px")
                + title
-               + blk(sub, "div", "reveal", "font-size:%dpx;font-weight:700;line-height:1.45;margin-top:24px" % subsize)
+               + blk(sub, "div", "reveal", "font-size:%dpx;font-weight:500;line-height:1.55;margin-top:22px;max-width:640px" % subsize)
                + blk(cap, "div", "reveal", "font-size:15px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;opacity:0.85;margin-top:30px")
                + '</div>')
     wrap_cls = "on-media" if photo else ""
@@ -430,6 +430,48 @@ def photo_statement(s, acc):
     inner = (photo
              + '<div class="on-media" style="position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding:0 72px;box-sizing:border-box">%s</div>' % content)
     return inner, 0
+
+
+def checklist_sheet(s, acc):
+    """NM-25 (promoted 2026-08-13 from the affiliate-partner deck, owner-praised):
+    a white ruled checklist sheet floating over a full-bleed photo with an ink scrim -
+    the site punch list. Kicker + headline (white, on-media) left; right sheet carries
+    card_title/card_body rows, each led by an ink-outlined box with a green check
+    (COLOUR LOGIC: green = positive/checked status, never decorative)."""
+    import base64 as _b64
+    g = grp(s)
+    head = _headline_block(g)
+    kick = _first(g, "kicker")
+    titles, bodies = g.get("card_title", []), g.get("card_body", [])
+    img = img_tag(s) or "context"
+    check_svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" '
+                 'stroke="#2F9E44" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+                 '<path d="M20 6 9 17l-5-5"/></svg>')
+    check_img = ('<img src="data:image/svg+xml;base64,%s" style="width:18px;height:18px;object-fit:contain" alt="">'
+                 % _b64.b64encode(check_svg.encode()).decode())
+    rows = ""
+    for i in range(min(len(titles), len(bodies))):
+        rows += ('<div class="reveal" style="flex:1;display:flex;align-items:center;gap:18px;padding:0 30px'
+                 + (';border-top:1px solid var(--sb-border-subtle, rgba(0,84,145,0.15))' if i else '') + '">'
+                 + '<span style="flex:none;width:30px;height:30px;border:2.5px solid var(--sb-ink);border-radius:6px;'
+                 + 'display:flex;align-items:center;justify-content:center">' + check_img + '</span>'
+                 + '<div>'
+                 + blk(titles[i], "div", "no-caps", "font-size:15px;font-weight:800;color:var(--sb-title);margin-bottom:3px")
+                 + blk(bodies[i], "div", "", "font-size:14px;line-height:1.5;color:var(--sb-body-on-dark)")
+                 + '</div></div>')
+    bg = ('<div style="position:absolute;inset:0"><img data-image="' + img + '" class="img-cover"></div>'
+          + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.66"></div>')
+    inner = (bg
+        + '<div style="position:relative;z-index:2;display:flex;width:100%;height:100%;'
+        + 'align-items:center;gap:54px;padding:70px 64px;box-sizing:border-box">'
+        + '<div class="on-media" style="flex:1 1 38%">'
+        + (blk(kick, "div", "reveal", "font-size:14px;font-weight:700;letter-spacing:0.24em;color:var(--sb-sky);margin-bottom:14px") if kick else "")
+        + blk(head, "h2", "reveal-hero", "font-size:44px;font-weight:800;line-height:1.1;margin:0;color:#fff")
+        + '</div>'
+        + '<div class="reveal-right sb-card" style="flex:0 0 54%;height:100%;display:flex;flex-direction:column;'
+        + 'padding:14px 0;background:var(--sb-panel-bg, #f5f7fa)">' + rows + '</div></div>')
+    return inner, 0
+
 
 def quote_full(s, acc):
     g = grp(s)
@@ -1223,8 +1265,8 @@ def photo_columns(s, acc):
                  # matches the (square) source, centred in the column, so each face shows FULLY —
                  # no clipped heads. object-position:center top still protects any non-square source.
                  '<div style="width:100%;max-width:290px;aspect-ratio:1/1;margin:0 auto;border-radius:6px;overflow:hidden"><img data-image="' + itag + '" class="img-cover" style="object-position:center top"></div>'
-                 + (blk(role, "div", "no-caps", "font-weight:800;font-size:18px;color:var(--sb-text-on-dark);margin-top:14px") if role else "")
-                 + (blk(out, "div", "", "font-size:14px;line-height:1.45;color:var(--sb-body-on-dark);margin-top:6px") if out else "")
+                 + (blk(role, "div", "no-caps", "font-weight:800;font-size:18px;color:var(--sb-title);margin-top:14px;text-align:center") if role else "")
+                 + (blk(out, "div", "", "font-size:14px;line-height:1.45;color:var(--sb-body-on-dark);margin-top:6px;text-align:left") if out else "")
                  + '</div>')
     inner = '<div style="display:flex;gap:20px;align-items:stretch">' + cols + '</div>'
     if thesis:
@@ -3717,6 +3759,7 @@ REGISTRY.update({
     "wf_pillars": wf_pillars,
     "wf_moat": wf_moat,
 })
+REGISTRY.update({"checklist_sheet": checklist_sheet})
 # <<< EXT REGISTRY END <<<
 
 # ---------- deck-level accent ----------

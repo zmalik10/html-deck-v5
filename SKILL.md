@@ -254,6 +254,13 @@ Every deck can be viewed in light OR dark, so these are not optional polish. Fol
 
 ## House style — learned rules (bank of client corrections, 2026-08)
 Each of these exists because a reviewer had to correct a shipped deck. Apply them at BUILD so the correction never recurs:
+- **COLOUR LOGIC - every colour means something (owner-approved 2026-08-13).** Colours are semantic, not decorative:
+  - **Brand blues (sky/navy)** = identity and emphasis: kickers, headline accent words, titles, structural highlights.
+  - **`var(--sb-confirm)` (green, official token)** = positive status ONLY: checked items, money earned/payouts, gains. Never decorative.
+  - **Ink** = structure: outlines, frames, scrims, checklist boxes.
+  - **Copper vs sky** = paired-party contrast (YOUR JOB sky / OUR JOB copper): two parties, two warm-vs-brand voices.
+  - **Product accents** = only when that product is the subject.
+  Restraint is part of the logic: one semantic accent per element, and if a colour has no meaning to carry, it stays neutral. Do not "add colour" to decorate - add it to MEAN something.
 - **NO accent dashes, ticks, or rules - ever.** The little horizontal hash before a label (.label::before) and the short accent bar under a title (rule()) are BANNED house-wide and removed at source (owner directive, 2026-08-13). Never reintroduce them in renderers, hand-authored slides, or deck patches; a kicker/label is typography alone.
 - **No decorative gradients.** Panels, bands and chips use SOLID brand fills (navy `var(--sb-title)`, accent, ink). Where a big surface needs visual interest, use a PHOTOGRAPH with a solid ink overlay - not a gradient.
 - **The PHOTO RAIL is the house pattern for detail/phase/section slides (PO-10) - owner directive, use it on EVERY deck.** A full-height photograph rail (slide `image_intent` resolved at BRAND, solid ink overlay ~0.72, `.on-media` badge/kicker/headline/lead) beside an equal-height card grid. A connected sequence (same `group`) repeats the rail treatment with a DIFFERENT photo per slide (variety ledger applies). PLAN should reach for PO-10 whenever a sequence of detail slides carries product or capability content.
@@ -314,8 +321,8 @@ BRAND bakes footer chrome per slide **by role** (`build.py` classifies via the v
 
 ## Continuous template-improvement loop
 **In the active deck you can change anything freely** — apply every edit the reviewer wants, no restrictions. The loop is about what happens to *good, reusable ideas*:
-- When an edit reflects a **template-level** improvement (would help any deck using that layout — "takeaway box overlaps the logo", "stat label too small"), **bank it as a suggestion** into the template owners' feedback stack by logging it in `layouts/TEMPLATE-IMPROVEMENTS.md` (template id, issue, proposed fix, date). This does **not** change the deck's behaviour — the deck edit already happened.
-- **Master templates change only through a stage-gate** (owner reviews the banked suggestion → git PR → version bump). Suggestions flow *up*; template changes do **not** silently flow *down* into existing decks.
+- When an edit reflects a **template-level** improvement (would help any deck using that layout), **apply it to the master template in the same session** (owner directive 2026-08-13: reviewer-driven fixes influenced by templates are adjusted at the template, not merely banked), log it in `layouts/TEMPLATE-IMPROVEMENTS.md` (template id, issue, fix, date), and **regenerate the rendered gallery** (`python engine/build_gallery.py`) so the library reflects reality.
+- Template changes still do **not** silently flow *down* into existing decks — a deck adopts a newer template only on a deliberate refresh.
 - **Existing/in-flight decks are unaffected** by later master-template changes — a deck adopts a newer template only on a deliberate refresh.
 So: active deck = total freedom; master templates = protected and improved via the gated feedback stack. That's what keeps quality compounding without surprising in-flight work.
 

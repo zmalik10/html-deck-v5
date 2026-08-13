@@ -98,9 +98,9 @@ def token_css(tokens):
     light, dark = tokens["color"]["light"], tokens["color"]["dark"]
     fam = tokens["typography"]["font_fallback"]
     common = (
-        "--sb-sky:%s;--sb-copper:%s;--sb-steel:%s;--sb-pink:%s;--sb-ink:%s;--sb-navy:%s;--sb-on-accent:#fff;"
+        "--sb-sky:%s;--sb-copper:%s;--sb-steel:%s;--sb-pink:%s;--sb-ink:%s;--sb-navy:%s;--sb-confirm:%s;--sb-on-accent:#fff;"
         "--sb-font-fallback:%s;--sb-radius-large:%s;--sb-anim-button:%s;--sb-anim-bloom:%s;"
-    ) % (b["sky"], b["copper"], b["steel"], b["pink"], b["ink"], b["navy"], fam,
+    ) % (b["sky"], b["copper"], b["steel"], b["pink"], b["ink"], b["navy"], b.get("confirm", "#2F9E44"), fam,
          tokens["radius"]["large"], tokens["animation"]["button_hover"], tokens["animation"]["bloom"])
     def theme_vars(c, on_dark):
         # theme-dependent set: existing on-dark vars + new SEMANTIC tokens renderers use

@@ -7366,6 +7366,66 @@
      "max_chars": 400
     }
    ]
+  },
+  {
+   "id": "NM-25",
+   "version": "1.0.0",
+   "renderer": "checklist_sheet",
+   "family": "Narrative & marketing",
+   "title": "Checklist Sheet Over Photo",
+   "story_job": "Warning signs, criteria, or requirements rendered as the audience's real-world artifact: a white ruled punch-list sheet floating over a full-bleed photo with an ink scrim, big white statement beside it. Green checks = positive status (colour logic).",
+   "slots": [
+    "kicker (optional)",
+    "headline",
+    "background photo (image_intent)",
+    "2-5 card_title+card_body rows"
+   ],
+   "structure": "full-bleed photo + ink scrim | statement left (38%) | ruled checklist sheet right (54%)",
+   "tags": [
+    "checklist",
+    "punch-list",
+    "signals",
+    "criteria",
+    "house-style",
+    "concept-slide"
+   ],
+   "complexity": "medium",
+   "scores": {
+    "marketing": 5,
+    "consulting": 4,
+    "fillability": 5,
+    "visual": 5
+   },
+   "tool_prompt": "Recreate the \"Checklist Sheet Over Photo\" layout: full-bleed photo with a solid ink scrim; kicker + big white statement left; white ruled checklist sheet right where each row is an ink-outlined box with a green check, a navy row title, and body text. Declare image_intent for the background photo.",
+   "replaces": [],
+   "template_scope": "slide",
+   "sourced": false,
+   "shape": "full-bleed-split",
+   "item_count": 4,
+   "orientation": "column",
+   "is_flow": false,
+   "select_when": "A list of things to watch for, qualify against, or verify - warning signals, criteria, requirements, readiness checks - especially when a generic icon-card grid would read bland.",
+   "avoid_when": "Avoid for narrative paragraphs or when no plausible background photo exists.",
+   "slot_schema": [
+    {
+     "name": "headline",
+     "type": "headline",
+     "required": true,
+     "max_chars": 70
+    },
+    {
+     "name": "background photo",
+     "type": "image",
+     "required": true,
+     "max_chars": 0
+    },
+    {
+     "name": "rows",
+     "type": "card",
+     "required": true,
+     "max_chars": 0
+    }
+   ]
   }
  ]
 }
