@@ -412,8 +412,21 @@ def make_handler(state):
             self.send_header("Content-Type", ctype)
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-store")
+            # CORS: the deck's file:// review page (origin "null") probes /whoami with
+            # fetch(); without these headers the browser blocks READING the response,
+            # every probe silently fails, and the editor button reports "not running"
+            # even while this server is alive (owner-reported bug, fixed 2026-08-13).
+            # Localhost-only server, GET/POST of deck data - safe to allow any origin.
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.send_header("Access-Control-Allow-Private-Network", "true")
             self.end_headers()
             self.wfile.write(data)
+
+        def do_OPTIONS(self):
+            # CORS preflight (Chrome sends one for private-network requests)
+            self._send(204, "")
 
         def do_GET(self):
             path = self.path.split("?", 1)[0]
