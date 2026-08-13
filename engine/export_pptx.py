@@ -404,7 +404,7 @@ def com_assemble(plan, entries, frag_by_slide, out_path):
         except Exception:
             pass
         pos = 0  # 0-based count of slides already in `out`
-        for sl in plan["slides"]:
+        for sl in [s for s in plan["slides"] if s.get("status") != "deleted"]:
             ref = sl.get("reference") if isinstance(sl.get("reference"), dict) else None
             if ref and ref.get("ref_id") in entries:
                 e = entries[ref["ref_id"]]
@@ -468,7 +468,9 @@ def pptx_assemble(plan, out_path):
     prs.slide_height = Inches(PPTH_IN)
     blank = prs.slide_layouts[6]              # 6 = blank layout in the default template
     meta = []
-    for sl in plan.get("slides", []):
+    # Tombstoned slides (status:"deleted") stay in the plan for pin resolution but are
+    # never rendered - the DOM has no section for them, so adding a slide would ship blanks.
+    for sl in [s for s in plan.get("slides", []) if s.get("status") != "deleted"]:
         prs.slides.add_slide(blank)
         ref = sl.get("reference") if isinstance(sl.get("reference"), dict) else None
         meta.append({"kind": "ref_blank", "ref_id": ref.get("ref_id")} if (ref and ref.get("ref_id"))
@@ -519,7 +521,7 @@ def export(sp, plan_path, slides_html, out_path, theme=None, do_authored=True):
     frag_by_slide = {f["slide"]: f for f in cur.get("fragments", []) if f.get("pptx_native")}
     fragdir = os.path.join(sp, "layouts", "reference-library", "fragments")
 
-    print("EXPORT: %d slides, theme=%s" % (len(plan["slides"]), theme))
+    print("EXPORT: %d slides, theme=%s" % (len([s for s in plan["slides"] if s.get("status") != "deleted"]), theme))
     t0 = time.time()
     # Use PowerPoint COM only when it's actually available AND the deck reuses verbatim
     # reference slides (which need InsertFromFile). Otherwise assemble natively with

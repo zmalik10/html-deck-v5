@@ -159,3 +159,23 @@ to rendering unmapped blocks as a stacked list rather than dropping words on the
 - **CC-14**: flattens grouped card_title+list_item structure into one numeral row per list_item.
 - **CV-06**: dropped contact `label`/`body` blocks after headline+subhead.
 - **PD-11**: dropped card_title/card_body product blocks (headline-only slide).
+
+## 2026-08-12 - TKMS CPSP proposal deck (decks/tkms-proposal)
+Renderer gaps worked around via deck-local patch_slides.py; banked as suggestions:
+- **NM-15 (stat_rail)**: drops `kicker` and `lead` blocks (uses first `body` as an accent kicker line); a proposal-style slide needs a real lead paragraph under the headline. Suggest: render `kicker` above headline, `lead` as a muted paragraph.
+- **NM-07 (card_row)**: 3 cards with 40+ word bodies + 2-line headline overflow the 720px stage in image-split mode (headline/subhead overlapped card 1). Suggest: scale card padding/font when total copy is long, as done for stat tiles elsewhere.
+- **NM-18 (icon_list)**: drops `kicker` and `footnote`; a bottom takeaway band (accent-left-border card) is a natural fit under the rows.
+- **PO-01 (roadmap)**: consumes card_title/list_item/body but ignores the documented step_label/step_title/step_body triple and `quote`; a quote band under the phase cards fits the closing-thought pattern.
+- **PO-05 (capability)**: renders titles + decorative coverage bars only - cannot express a pillars-x-items capability matrix (pillar_title + list_item groups). Suggest a matrix variant.
+- **NM-09 (proof_stack)**: drops `card_title` (proof cards render body-only), caps proof cards at 2, ignores `footnote` (needed for "results reported by clients" attributions).
+- **CV-09 (next_steps -> closing_cta)**: drops `body` paragraphs and contact card_title/card_body pairs; a next-step closing needs the why-now copy + contact cards.
+- **_hide_decorative_numerals** runs before deck-local patch_slides.py, so patch-injected ordinal badges need manual aria-hidden="true" (RC8b). Suggest: run the decor pass after the patch hook.
+- **validate.py chrome counts (FIXED at source 2026-08-12)**: expected page-number count used len(plan.slides) including tombstoned (status:"deleted") slides, so any deck that deletes slides mid-refine hard-failed the page-number check. Now counts live slides only. (TKMS deck, 4 tombstones.)
+
+## 2026-08-13 - kickoff-template deck: candidate new template
+- **Vertical chapter timeline** (kickoff deck slide 6): full-bleed photo + directional scrim, numbered
+  nodes (01-0N, aria-hidden) on a glowing connector line, glass body cards stacked top-to-bottom.
+  Strong fit for any "journey/phases/chapters" narrative slide. Candidate for promotion to a WT-series
+  template; built deck-locally in decks/kickoff-template/patch_slides.py.
+- **export_pptx.py tombstone bug (FIXED at source 2026-08-12)**: both assembly paths added a blank PPTX slide per plan slide including status:"deleted" tombstones (TKMS deck shipped 4 trailing blanks). Now filters live slides only, matching render_slides.py.
+- **Export-safe decor rule (TKMS lesson)**: CSS rotated-border chevrons export as corner brackets, and CSS transform:scale on images exports WITHOUT container clipping - use inline-SVG data-URI images for decorative marks and pre-cropped raster assets instead. Wrapped lines containing multiple .product-name spans can merge into one long paragraph at export - keep long small-print blocks plain text.

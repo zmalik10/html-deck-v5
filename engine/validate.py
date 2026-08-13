@@ -338,7 +338,9 @@ def run_checks(skill_path, plan, out_dir, strict_sri=False):
         # own SmartBuild mark (closing badge / hero wordmark) — the brand rule is at most ONE
         # SmartBuild logo per slide. So expected page-nums == (#slides - 1), and expected
         # footer-logos == (non-cover slides that don't already carry their own mark).
-        n_slides = len(plan.get("slides", []))
+        # Tombstoned slides (status:"deleted") stay in the plan for pin resolution but are
+        # never rendered — chrome expectations must count LIVE slides only.
+        n_slides = len([s for s in plan.get("slides", []) if s.get("status") != "deleted"])
         exp_num = max(0, n_slides - 1)
         slide_parts = [p for p in re.split(r'(?=<section class="slide")', review)
                        if p.lstrip().startswith("<section") and "data-placeholder" not in p]

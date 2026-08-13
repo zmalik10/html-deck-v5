@@ -2266,6 +2266,88 @@
      "requires_attribution": false,
      "approved_for_client": true
     }
+   },
+   {
+    "id": "img-tkms-cover-hero",
+    "file": "assets/images/tkms-cover-hero.png",
+    "status": "seeded",
+    "tags": [
+     "tkms-original-hero",
+     "submarine",
+     "naval",
+     "arctic",
+     "canada",
+     "cover"
+    ],
+    "provenance": {
+     "kind": "image",
+     "source": "extracted from client deck SMARTBUILD TKMS Proposal v2.pptx (slide 1 hero, AI-generated)",
+     "author": "SmartBuild (client deck asset)",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    },
+    "mood": "client deck asset"
+   },
+   {
+    "id": "img-smrtgc-tablet-clean",
+    "file": "assets/images/smrtgc-tablet-clean.png",
+    "status": "seeded",
+    "tags": [
+     "product-smrt-gc-tablet",
+     "product",
+     "smrtgc",
+     "tablet",
+     "dashboard",
+     "mockup"
+    ],
+    "provenance": {
+     "kind": "image",
+     "source": "extracted from client deck SMARTBUILD TKMS Proposal v2.pptx (slide 8 tablet_clean)",
+     "author": "SmartBuild (client deck asset)",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    },
+    "mood": "client deck asset"
+   },
+   {
+    "id": "img-smrtgc-laptop-tight",
+    "file": "assets/images/smrtgc-laptop-tight.png",
+    "status": "seeded",
+    "tags": [
+     "product-smrt-gc-tight",
+     "product",
+     "smrtgc",
+     "laptop",
+     "mockup"
+    ],
+    "mood": "smrtGC tablet-keyboard mockup, transparent margins trimmed for full-bleed panels",
+    "provenance": {
+     "kind": "image",
+     "source": "alpha-trimmed derivative of img-commonly-used-reference-slides-s08-00",
+     "author": "SmartBuild",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    }
+   },
+   {
+    "id": "img-tom-smrte-hero",
+    "file": "assets/images/tom-smrte-hero.png",
+    "status": "seeded",
+    "tags": [
+     "tom-smrte-hero"
+    ],
+    "mood": "smrt-E two-phone marketing hero from Tom (placeholder bytes until file provided)",
+    "provenance": {
+     "kind": "image",
+     "source": "SmartBuild marketing asset via Tom (placeholder: extracted smrt-E phone screenshot)",
+     "author": "SmartBuild",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    }
    }
   ]
  },
