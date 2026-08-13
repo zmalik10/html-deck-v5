@@ -629,6 +629,29 @@ def inject_reference_renders(slides_html, plan, sp, theme):
     return "".join(out)
 
 
+def inject_bleed(slides_html):
+    """Owner correction 2026-08-13: on any screen that is not exactly 16:9, the area
+    around the scaled stage shows. Text slides blend into the theme deck background,
+    but a full-bleed PHOTO slide must reach all four viewport corners. For every
+    section whose stage opens with the full-bleed pattern
+    (<div style="position:absolute;inset:0"><img ... src=...>), inject a section-level
+    .slide-bleed layer reusing the same (already-baked) image behind the stage.
+    Screen-only: print/export CSS hides it, and exports capture the stage alone."""
+    fullbleed = re.compile(r'<div style="position:absolute;inset:0"><img[^>]*?src="([^"]+)"')
+    def per_section(m):
+        section = m.group(0)
+        if 'class="slide-bleed"' in section:
+            return section
+        fb = fullbleed.search(section)
+        if not fb:
+            return section
+        gt = section.index(">") + 1
+        bleed = ('<div class="slide-bleed" aria-hidden="true">'
+                 '<img class="img-cover" src="%s" alt=""></div>' % fb.group(1))
+        return section[:gt] + bleed + section[gt:]
+    return re.sub(r'<section class="slide".*?</section>', per_section, slides_html, flags=re.S)
+
+
 def build_page(mode, title, slides_html, css_head, ui_html, deck_js, annotations, sources, plan_rev, theme, stage_no=None, stage_name=None, variants=None):
     boot = {
         "__DECK__": {"mode": mode, "title": title, "plan_revision": plan_rev,
@@ -726,6 +749,7 @@ def main():
         if ii.get("tag") and ii.get("resolved"):
             img_choices.setdefault(ii["tag"], ii["resolved"])
     slides_html = inject_images(slides_html, sp, resolved, brand=args.brand, img_choices=img_choices)
+    slides_html = inject_bleed(slides_html)   # full-bleed photo slides reach the viewport corners
     extra_css = ""
     if args.brand:
         extra_css += footer_logo_css(sp, resolved)

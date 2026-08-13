@@ -18,11 +18,16 @@ body {
   color: var(--sb-text-on-dark, #fff);
   overflow: hidden;
 }
-/* Presentation surfaces letterbox in dark ink, never the page tint - a light frame
-   around a scaled slide reads as broken white borders (owner correction, 2026-08-13).
-   Applies to the clean client deck always, and to review.html while fullscreen. */
-html[data-mode="presentation"] body { background: var(--sb-ink, #0b0f1a); }
-html:fullscreen body { background: var(--sb-ink, #0b0f1a); }
+/* Letterbox rule (owner correction, 2026-08-13): the area around a scaled slide is
+   ALWAYS the theme deck background, so text slides blend seamlessly. Full-bleed photo
+   slides instead extend their own image to all four viewport corners via .slide-bleed
+   (an ambient, blurred copy of the slide's background image injected by build.py behind
+   the stage). Screen-only: exports capture the 1280x720 stage. */
+.slide-bleed { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+.slide-bleed img { filter: blur(36px) brightness(0.92); transform: scale(1.15); }
+.slide-bleed::after { content: ""; position: absolute; inset: 0;
+  background: var(--sb-ink, #0b0f1a); opacity: 0.55; }
+@media print { .slide-bleed { display: none !important; } }
 
 /* ---- Scroll-snap container ---- */
 .deck {
@@ -36,6 +41,7 @@ html:fullscreen body { background: var(--sb-ink, #0b0f1a); }
 
 /* ---- One snap area per slide, centers the fixed canvas ---- */
 .slide {
+  position: relative;
   height: 100vh;
   height: 100svh;
   width: 100vw;
