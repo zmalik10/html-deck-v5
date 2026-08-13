@@ -42,19 +42,33 @@ def refocus_macos(path, url):
     probe = subprocess.run(["pgrep", "-x", "Google Chrome"], capture_output=True)
     if probe.returncode != 0:
         return False
+    # NOTE: Chrome's "set index of w to 1" switches the tab but does NOT reliably
+    # raise the window (minimized windows and other Spaces stay hidden). After
+    # activating, raise the window for real via System Events AXRaise, keyed off
+    # the active tab's title (2026-08-13: reviewer reported the deck not surfacing).
     script = """
     tell application "Google Chrome"
-      set winIdx to 0
       repeat with w in windows
-        set winIdx to winIdx + 1
         set tabIdx to 0
         repeat with t in tabs of w
           set tabIdx to tabIdx + 1
           if URL of t contains "%s" then
             set URL of t to "%s"
             set active tab index of w to tabIdx
+            try
+              if minimized of w then set minimized of w to false
+            end try
             set index of w to 1
             activate
+            -- BONUS raise via System Events: only works if the calling terminal has
+            -- Accessibility permission; harmless (fully swallowed) when it does not.
+            try
+              set tabTitle to title of active tab of w
+              tell application "System Events" to tell process "Google Chrome"
+                perform action "AXRaise" of (first window whose title contains tabTitle)
+                set frontmost to true
+              end tell
+            end try
             return "refocused"
           end if
         end repeat
