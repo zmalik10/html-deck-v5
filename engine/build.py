@@ -133,7 +133,7 @@ def token_css(tokens):
 
 def font_css(skill_path):
     css = ""
-    for w in (400, 700, 900):
+    for w in (400, 500, 600, 700, 800, 900):
         uri = b64(os.path.join(skill_path, "assets", "fonts", "montserrat-%d.woff2" % w), "font/woff2")
         css += ("@font-face{font-family:'Montserrat';font-style:normal;font-weight:%d;"
                 "font-display:swap;src:url('%s') format('woff2');}\n" % (w, uri))
