@@ -3561,6 +3561,60 @@ def wf_moat(s, acc):
     return inner, 0
 # <<< EXT RENDERERS END <<<
 
+
+
+_PRODUCT_LOGO_RE = re.compile(r'\b(smrtAEC|smrtGC|smrtSUB|smrtPAY|smrt-E)\b')
+
+def photo_rail_detail(s, acc):
+    """PO-10: the HOUSE PATTERN (owner directive, 2026-08) — a full-height photo rail
+    (slide image_intent + solid ink overlay) carrying badge/kicker/headline/lead in
+    white, beside an equal-height 2x2 grid of content cards. A card whose title names
+    a product renders that product's LOGO as the centered card title (house rule:
+    logo-as-title, subheader centered, description left). Optional footnote becomes
+    an accent takeaway band under the grid. Author card titles WITHOUT repeating the
+    product name in words - the logo carries the identity."""
+    g = grp(s)
+    head = _headline_block(g)
+    kick = _first(g, "kicker")
+    lead = _first(g, "lead") or _first(g, "subhead")
+    badge = _first(g, "label")
+    titles, bodies = g.get("card_title", []), g.get("card_body", [])
+    footnote = _first(g, "footnote")
+    img = img_tag(s) or "context"
+    cards = ""
+    for i in range(min(len(titles), len(bodies))):
+        m = _PRODUCT_LOGO_RE.search(titles[i].get("text", ""))
+        logo_html = ('<img data-logo="%s" style="height:30px;width:auto;margin-bottom:10px">' % m.group(1)) if m else ""
+        cards += ('<div class="reveal sb-card" style="display:flex;flex-direction:column;justify-content:center;padding:20px 24px;border-top:5px solid ' + ACC + '">'
+                  + '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:10px">'
+                  + logo_html
+                  + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:16px;color:var(--sb-text-on-dark)")
+                  + '</div>'
+                  + blk(bodies[i], "div", "", "font-size:13.5px;line-height:1.6;color:var(--sb-body-on-dark);text-align:left")
+                  + '</div>')
+    grid = ('<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:16px;min-height:0">'
+            + cards + '</div>')
+    foot_html = ""
+    if footnote:
+        foot_html = ('<div class="reveal sb-card" style="margin-top:14px;padding:12px 18px;border-left:5px solid ' + ACC + '">'
+                     + blk(footnote, "div", "", "font-size:12px;line-height:1.5;color:var(--sb-body-on-dark)") + '</div>')
+    badge_html = ""
+    if badge:
+        badge_html = blk(badge, "span", "", "align-self:flex-start;padding:5px 12px;border-radius:6px;background:" + ACC
+                         + ";font-weight:900;font-size:11.5px;letter-spacing:0.16em;margin-bottom:14px")
+    rail = ('<div class="reveal-left" style="flex:0 0 27%;border-radius:6px;overflow:hidden;position:relative">'
+            + '<img data-image="' + img + '" class="img-cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">'
+            + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.72"></div>'
+            + '<div class="on-media" style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:30px 26px;box-sizing:border-box">'
+            + badge_html
+            + (blk(kick, "div", "reveal", "font-size:11.5px;font-weight:800;letter-spacing:0.18em;margin:0 0 12px;opacity:0.85") if kick else "")
+            + blk(head, "h2", "hl reveal", "font-size:29px;margin:0;line-height:1.15")
+            + (blk(lead, "div", "reveal", "font-size:13.5px;line-height:1.6;margin-top:16px") if lead else "")
+            + '</div></div>')
+    right = '<div style="flex:1;display:flex;flex-direction:column;min-height:0">' + grid + foot_html + '</div>'
+    return '<div style="display:flex;gap:26px;height:100%;align-items:stretch">' + rail + right + '</div>', 64
+
+
 REGISTRY = {
     "cover_geo": cover_geo, "cover_image": cover_geo, "cover_dark_photo": cover_geo,
     "closing_cta": closing_cta, "photo_closing": closing_cta, "next_steps": closing_cta,
@@ -3570,6 +3624,7 @@ REGISTRY = {
     "narrative_split": narrative_split, "three_step": three_step, "field_flow": three_step,
     "versus": versus, "suite": suite, "product_family": suite,
     "product_pillar": product_pillar, "section_gradient": section_gradient, "section_minimal": section_gradient,
+    "photo_rail_detail": photo_rail_detail,
 }
 
 # >>> EXT REGISTRY START >>>

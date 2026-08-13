@@ -1,4 +1,4 @@
-# SmartBuild Template Library v9 — 104 templates
+# SmartBuild Template Library v9 — 105 templates
 _Per-template `version` is the version a deck stamps when it uses the template (see run manifest). Bumped only through the stage-gate — `layouts/GATE.md`._
 
 ## Cover & framing (16)
@@ -91,12 +91,13 @@ _Per-template `version` is the version a deck stamps when it uses the template (
 - **AN-14** `v1.0.0` Cost / Benefit Stack — Compare investment and returns.
 - **AN-15** `v1.0.0` Multiplier Proof Rows — Three rows led by large 2x / 3x / 4x factors with bolded claim keywords and italic source captions.
 
-## Process & operating (9)
+## Process & operating (10)
 - **PO-01** `v1.0.0` Phase Roadmap — Show time-phased execution and ownership.
 - **PO-02** `v1.0.0` Gantt / Launch Timeline — Show a project or launch plan over time.
 - **PO-03** `v1.0.0` Swimlane Process Map — Show cross-functional workflow and handoffs.
 - **PO-04** `v1.0.0` Customer Journey Map — Map a user or customer experience across stages.
 - **PO-05** `v1.0.0` Capability Map — Show organizational capability coverage.
+- **PO-10** `v1.0.0` Photo Rail Detail — THE house pattern for detail/phase slides: photo rail with ink overlay + white headline beside an equal 2x2 card grid; product logos as card titles.
 - **PO-06** `v1.0.0` Operating Model Blueprint — Describe the operating model in six components.
 - **PO-07** `v1.0.0` Org Chart — Show team structure, reporting, and capability coverage.
 - **PO-08** `v1.0.0` Architecture / Data Flow — Explain data or system flow.
