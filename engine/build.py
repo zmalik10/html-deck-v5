@@ -646,13 +646,13 @@ def build_page(mode, title, slides_html, css_head, ui_html, deck_js, annotations
            "img-src 'self' data: https:; font-src 'self' data:; "
            "connect-src 'self' https: http://127.0.0.1:* http://localhost:*;")
     return (
-        "<!DOCTYPE html>\n<html lang=\"en\" data-theme=\"%s\">\n<head>\n<meta charset=\"UTF-8\">\n"
+        "<!DOCTYPE html>\n<html lang=\"en\" data-theme=\"%s\" data-mode=\"%s\">\n<head>\n<meta charset=\"UTF-8\">\n"
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
         "<meta http-equiv=\"Content-Security-Policy\" content=\"%s\">\n"
         "<title>%s</title>\n<style>\n%s</style>\n</head>\n<body>\n"
         "<div class=\"deck\">\n%s\n</div>\n%s\n"
         "<script>\n%s</script>\n<script>\n%s</script>\n</body>\n</html>\n"
-    ) % (theme, csp, title, css_head, slides_html, ui_html, boot_js, deck_js)
+    ) % (theme, mode, csp, title, css_head, slides_html, ui_html, boot_js, deck_js)
 
 
 def template_library_script(skill_path):
