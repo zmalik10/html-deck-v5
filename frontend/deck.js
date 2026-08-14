@@ -2121,3 +2121,18 @@
     } catch (e) { alert('Could not open the template library: ' + e); }
   });
 })();
+
+  /* ---- TOC click-to-jump (owner feature 2026-08-14) ----------------------------------
+     build.py stamps agenda/TOC entries with data-jump="<slide uuid>". Clicking one
+     smooth-scrolls to that slide. Inert while editing/annotating so pins and text
+     edits never hijack. */
+  document.addEventListener('click', function (e) {
+    var j = e.target.closest && e.target.closest('[data-jump]');
+    if (!j) return;
+    if (document.body.classList.contains('edit-mode') ||
+        document.body.classList.contains('text-edit-mode') ||
+        /\bmode-\w+/.test(document.body.className)) return;
+    var t = document.querySelector('section.slide[data-slide="' + j.getAttribute('data-jump') + '"]');
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+

@@ -629,6 +629,55 @@ def inject_reference_renders(slides_html, plan, sp, theme):
     return "".join(out)
 
 
+def inject_toc_jumps(slides_html, plan):
+    """Owner feature 2026-08-14: on any table-of-contents / agenda slide, every entry
+    becomes click-to-jump. Detection: the slide's topic contains agenda/contents/toc
+    (or the section carries an explicit data-toc attribute). Each entry block
+    (list_item / card_title / step_title / body) is text-matched against the OTHER
+    slides' headline text and topic; on a match the block is stamped with
+    data-jump="<target slide_uuid>" + class sb-toc-jump. deck.js smooth-scrolls on
+    click; exports are unaffected (the attribute is inert in PPTX/PDF)."""
+    import unicodedata
+    def norm(t):
+        t = unicodedata.normalize("NFKD", t or "").lower()
+        return re.sub(r"[^a-z0-9 ]+", "", t).strip()
+    slides = [s for s in plan.get("slides", []) if s.get("status") != "deleted"]
+    targets = []   # (slide_uuid, [normalized headline/topic strings])
+    for s in slides:
+        keys = [norm(s.get("topic", ""))]
+        for b in s.get("content_blocks", []):
+            if b.get("type") == "headline" and b.get("status") != "deleted":
+                keys.append(norm(b.get("text", "")))
+        targets.append((s["slide_uuid"], [k for k in keys if len(k) >= 4]))
+    TOC_RE = re.compile(r"agenda|table of contents|\btoc\b|\bcontents\b")
+    for s in slides:
+        is_toc = bool(TOC_RE.search((s.get("topic") or "").lower()))
+        if not is_toc:
+            sec_m = re.search(r'<section class="slide"[^>]*data-slide="%s"[^>]*>' % s["slide_uuid"], slides_html)
+            is_toc = bool(sec_m and "data-toc" in sec_m.group(0))
+        if not is_toc:
+            continue
+        for b in s.get("content_blocks", []):
+            if b.get("status") == "deleted" or b.get("type") not in ("list_item", "card_title", "step_title", "body"):
+                continue
+            entry = norm(b.get("text", ""))
+            if len(entry) < 4:
+                continue
+            hit = None
+            for uuid, keys in targets:
+                if uuid == s["slide_uuid"]:
+                    continue
+                if any(entry in k or k in entry for k in keys):
+                    hit = uuid
+                    break
+            if not hit:
+                continue
+            pat = re.compile(r'(<[a-z0-9]+ )([^>]*data-block="%s")' % b["block_uuid"])
+            slides_html = pat.sub(r'\1data-jump="%s" \2' % hit, slides_html, count=1)
+            slides_html = re.sub(r'(data-jump="%s" [^>]*class=")' % hit, r"\1sb-toc-jump ", slides_html, count=1)
+    return slides_html
+
+
 def inject_bleed(slides_html):
     """Owner correction 2026-08-13: on any screen that is not exactly 16:9, the area
     around the scaled stage shows. Text slides blend into the theme deck background,
@@ -750,6 +799,7 @@ def main():
             img_choices.setdefault(ii["tag"], ii["resolved"])
     slides_html = inject_images(slides_html, sp, resolved, brand=args.brand, img_choices=img_choices)
     slides_html = inject_bleed(slides_html)   # full-bleed photo slides reach the viewport corners
+    slides_html = inject_toc_jumps(slides_html, plan)   # agenda/TOC entries become click-to-jump
     extra_css = ""
     if args.brand:
         extra_css += footer_logo_css(sp, resolved)

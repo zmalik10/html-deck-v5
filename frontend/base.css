@@ -650,3 +650,7 @@ body.text-edit-mode [contenteditable="true"][data-te]:focus { outline: 2px solid
 /* When any sidepanel is open, hide the centred nav-dot rail (it would sit under the panel);
    the toolbar stays at the top-right, clear above the panel (which opens at top:64). */
 body.panel-open #nav-dots { display: none; }
+
+/* TOC click-to-jump entries (build.py stamps data-jump; deck.js scrolls) */
+.sb-toc-jump { cursor: pointer; }
+.sb-toc-jump:hover { text-decoration: underline; text-underline-offset: 3px; }

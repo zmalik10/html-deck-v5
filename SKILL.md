@@ -299,6 +299,13 @@ The frontend ships three capabilities most decks forget to use. BUILD SHOULD app
 - **Product accent:** on a slide/card that features a product, set `--sb-product-accent` to that
   product's token (smrtGC=sky, smrtSUB=copper, smrtAE/smrtAEC=steel, smrt-E=pink). `.product-name` and
   `.kpi-num` adopt it automatically — colour-coordinate headers/stats to the product being discussed.
+- **TOC click-to-jump (automatic):** any agenda / table-of-contents slide gets clickable
+  entries - build.py detects it (topic contains agenda/contents/toc, or the section carries
+  `data-toc`), matches each entry block's text against the other slides' headlines and
+  topics, and stamps `data-jump="<slide uuid>"`; deck.js smooth-scrolls on click and the
+  entry shows a pointer + hover underline. Works in review AND presentation; inert in
+  edit/annotate modes and in PPTX/PDF exports. No authoring step needed - just write the
+  agenda entries so they echo the slide headlines.
 - **Bloom:** for expandable detail, use `_kit.bloom(pid, label, panel_html)` — a trigger button that
   irises a full-slide panel open from its position. Screen-only (hidden in PDF/PPTX).
   For a GRID of expandable topic tiles (the "expand more" pattern), use
