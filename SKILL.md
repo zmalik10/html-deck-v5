@@ -259,7 +259,7 @@ Each of these exists because a reviewer had to correct a shipped deck. Apply the
   - **`var(--sb-confirm)` (green, official token)** = positive status ONLY: checked items, money earned/payouts, gains. Never decorative.
   - **Ink** = structure: outlines, frames, scrims, checklist boxes.
   - **Copper vs sky** = paired-party contrast (YOUR JOB sky / OUR JOB copper): two parties, two warm-vs-brand voices.
-  - **Product accents** = only when that product is the subject.
+  - **Product accents** = only when that product is the subject. On product-audience labels ("FOR GENERAL CONTRACTORS"), the "FOR" prefix is ink and the audience name carries THAT PRODUCT'S logo accent (owner directive 2026-08-14). NOTE: read accents from the actual logo files - smrtGC=copper(orange), smrtSUB=sky, smrt-E=pink, smrtAEC=steel; the tokens' product_accents map has GC/SUB swapped vs the real wordmarks (flagged, not yet corrected in tokens.json).
   Restraint is part of the logic: one semantic accent per element, and if a colour has no meaning to carry, it stays neutral. Do not "add colour" to decorate - add it to MEAN something.
 - **NO accent dashes, ticks, or rules - ever.** The little horizontal hash before a label (.label::before) and the short accent bar under a title (rule()) are BANNED house-wide and removed at source (owner directive, 2026-08-13). Never reintroduce them in renderers, hand-authored slides, or deck patches; a kicker/label is typography alone.
 - **No decorative gradients.** Panels, bands and chips use SOLID brand fills (navy `var(--sb-title)`, accent, ink). Where a big surface needs visual interest, use a PHOTOGRAPH with a solid ink overlay - not a gradient.
