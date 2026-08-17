@@ -164,12 +164,14 @@ python engine/build.py --skill-path . --plan plan.json --slides slides.html --ou
 ```
 BRAND records each injected asset in the plan's `resolved_assets` with `source/author/license/approved_for_client`. That provenance drives the Sources panel and the client license gate.
 
-### Image sourcing — owned first, Unsplash fallback (do this as part of BRAND)
-Before the `--brand` build, resolve every slide's `image_intent` to a real photo. **The order is not negotiable: SmartBuild's own photos always win** — with one carve-out for generic mood photos, below.
-1. **Owned first.** For each `image_intent.tag`, check the owned library (`libraries/images/catalog.json`). If an owned image matches the tag, that is the image — `build.py` embeds it automatically. Do NOT pick an Unsplash photo for a slot an owned image can fill.
+### Image sourcing — brand-specific owned first, then source Unsplash freely (do this as part of BRAND)
+Before the `--brand` build, resolve every slide's `image_intent` to a real photo. Two rules, in order:
+1. **Brand-SPECIFIC assets are owned-only, always.** Product screenshots, logos, exec/team headshots, client logos, and photos extracted from our own decks/site come from the owned library (`libraries/images/catalog.json`) — never substitute stock for these. `build.py` embeds them automatically.
 
-   **1a. VARIETY RULE for generic mood photos — no two decks share a hero.** Owned-first applies unconditionally to brand-SPECIFIC assets (product screenshots, logos, exec/team headshots, photos extracted from our own decks/site). But GENERIC mood photos (covers, heroes, closing shots, atmosphere imagery) must vary across decks: if every deck reuses the same owned jobsite photo, every client sees the same deck. Before picking a generic photo, check the usage ledger `libraries/images/usage.json` (build.py appends every brand-built deck's image usage automatically). If the candidate is already recorded under ANOTHER deck's title, do not reuse it — pick a different owned match or source a FRESH Unsplash photo for this deck (step 2), recorded in `image_intent.resolved`. Fetch and LOOK at 2-3 candidates before choosing (Read tool); pick for the slide's message, not the first hit.
-2. **Unsplash fallback (you choose it — no human step).** Only for a slot with NO owned match: search Unsplash yourself (use the slide's `image_intent.query` / `mood` as the search phrase), pick ONE photo that genuinely fits the slide's message, and record your choice into that slide's `image_intent.resolved`:
+   **1a. GENERIC mood photos: Unsplash is a FIRST-CLASS source, not a fallback (owner directive 2026-08-14).** Covers, heroes, closing shots, section rails, persona/atmosphere imagery — these are free to come from Unsplash whenever a fresh photo fits the message better than what we own. Unsplash is free-license, commercial-use, no attribution required, so there is no reason to force an ill-fitting owned photo into a generic slot. **Never reuse the same generic photo twice inside one deck/page**, and check the usage ledger `libraries/images/usage.json` so decks don't share heroes. Fetch and LOOK at 3-5 candidates (Read tool) before choosing; pick for the slide's actual message, and prefer photos that read as real moments over staged stock clichés (generic handshakes, fake boardroom high-fives).
+
+   Resolving Unsplash IDs when the site is blocked in the browser pane: `curl -sL https://unsplash.com/s/photos/<query>` and grep for `images.unsplash.com/photo-[a-z0-9-]*`, then download with `?w=1400&q=78&fm=jpg`.
+2. **Recording an Unsplash pick (you choose it — no human step).** Search Unsplash yourself (use the slide's `image_intent.query` / `mood` as the search phrase), pick ONE photo that genuinely fits, and record your choice into that slide's `image_intent.resolved`:
    ```json
    "resolved": { "provider": "unsplash",
      "photo_id": "photo-1503387762-592deb58ef4e",
