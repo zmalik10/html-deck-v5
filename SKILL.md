@@ -179,7 +179,7 @@ Before the `--brand` build, resolve every slide's `image_intent` to a real photo
      "author": "Jane Doe", "author_url": "https://unsplash.com/@janedoe",
      "license": "Unsplash", "approved_for_client": true }
    ```
-   `build.py --brand` then **downloads that photo and bakes it into the HTML as a data-URI** (self-contained; falls back to a live CDN reference only if offline). Unsplash photos are free-license and allowed on client decks (`approved_for_client: true`), recorded with attribution for the Sources panel. Never override an owned image with Unsplash.
+   `build.py --brand` then **downloads that photo and bakes it into the HTML as a data-URI** (self-contained; falls back to a live CDN reference only if offline). Unsplash photos are free-license and allowed on client decks (`approved_for_client: true`), recorded with attribution for the Sources panel. Only brand-specific slots (rule 1) are off-limits to Unsplash.
 3. **No manual approval loop.** Choose images yourself. If the human dislikes a pick, they pin it in review; then you swap only that slide's `image_intent.resolved.photo_id` and rebuild.
 4. **Formatting is guaranteed by the slot, not the photo.** Every image slot must have fixed geometry so any photo fills it without distortion — author slots via `_kit.image_slot(tag, height=…)` or a sized container holding `<img data-image="tag" class="img-cover">` (object-fit:cover). SWEEP fails an image slot that has no sizing, and fails an unresolved slot at BRAND (no dead grey slabs).
 
