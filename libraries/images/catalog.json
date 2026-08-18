@@ -2408,6 +2408,72 @@
      "requires_attribution": false,
      "approved_for_client": true
     }
+   },
+   {
+    "id": "img-smrte-app-mockup",
+    "tags": [
+     "smrte-app-mockup",
+     "product-smrt-e-mockup",
+     "product",
+     "smrte",
+     "phone",
+     "voice",
+     "mockup"
+    ],
+    "mood": "smrt-E mobile app on two phones, voice capture and daily log tiles, transparent background",
+    "file": "assets/images/smrte/smrte-phones.png",
+    "status": "seeded",
+    "provenance": {
+     "kind": "image",
+     "source": "SmartBuild smrt-E product leaflet (August 2025 - Version 4)",
+     "author": "SmartBuild",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    }
+   },
+   {
+    "id": "img-smrte-multilang",
+    "tags": [
+     "smrte-multilang",
+     "multilanguage",
+     "translation",
+     "notifications",
+     "smrte"
+    ],
+    "mood": "smrt-E notifications screen ringed by hazard-report requests spoken in Russian, Chinese, Arabic, Portuguese and Spanish",
+    "file": "assets/images/smrte/smrte-multilang.png",
+    "status": "seeded",
+    "provenance": {
+     "kind": "image",
+     "source": "SmartBuild smrt-E product leaflet (August 2025 - Version 4)",
+     "author": "SmartBuild",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    }
+   },
+   {
+    "id": "img-field-voice-worker",
+    "tags": [
+     "field-voice-worker",
+     "voice",
+     "field",
+     "worker",
+     "hi-vis",
+     "proof"
+    ],
+    "mood": "field worker in hi-vis and hard hat speaking into a phone on site",
+    "file": "assets/images/smrte/field-voice-worker.jpg",
+    "status": "seeded",
+    "provenance": {
+     "kind": "image",
+     "source": "SmartBuild smrt-E product leaflet (August 2025 - Version 4)",
+     "author": "SmartBuild",
+     "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    }
    }
   ]
  },
