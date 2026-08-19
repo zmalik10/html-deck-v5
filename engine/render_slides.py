@@ -449,15 +449,17 @@ def checklist_sheet(s, acc):
                  '<path d="M20 6 9 17l-5-5"/></svg>')
     check_img = ('<img src="data:image/svg+xml;base64,%s" style="width:18px;height:18px;object-fit:contain" alt="">'
                  % _b64.b64encode(check_svg.encode()).decode())
+    # v1.1 (owner refinement 2026-08-19): the single full-height sheet read as a flat
+    # slab - each signal is now its OWN floating card with air between them.
     rows = ""
     for i in range(min(len(titles), len(bodies))):
-        rows += ('<div class="reveal" style="flex:1;display:flex;align-items:center;gap:18px;padding:0 30px'
-                 + (';border-top:1px solid var(--sb-border-subtle, rgba(0,84,145,0.15))' if i else '') + '">'
-                 + '<span style="flex:none;width:30px;height:30px;border:2.5px solid var(--sb-ink);border-radius:6px;'
+        rows += ('<div class="reveal-right sb-card" style="flex:1;display:flex;align-items:center;gap:18px;'
+                 + 'padding:18px 26px;background:var(--sb-panel-bg, #f5f7fa)">'
+                 + '<span style="flex:none;width:28px;height:28px;border:2px solid var(--sb-ink);border-radius:6px;'
                  + 'display:flex;align-items:center;justify-content:center">' + check_img + '</span>'
                  + '<div>'
-                 + blk(titles[i], "div", "no-caps", "font-size:15px;font-weight:800;color:var(--sb-title);margin-bottom:3px")
-                 + blk(bodies[i], "div", "", "font-size:14px;line-height:1.5;color:var(--sb-body-on-dark)")
+                 + blk(titles[i], "div", "no-caps", "font-size:15.5px;font-weight:800;color:var(--sb-title);margin-bottom:4px")
+                 + blk(bodies[i], "div", "", "font-size:13.5px;line-height:1.55;color:var(--sb-body-on-dark)")
                  + '</div></div>')
     bg = ('<div style="position:absolute;inset:0"><img data-image="' + img + '" class="img-cover"></div>'
           + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.66"></div>')
@@ -468,8 +470,8 @@ def checklist_sheet(s, acc):
         + (blk(kick, "div", "reveal", "font-size:14px;font-weight:700;letter-spacing:0.24em;color:var(--sb-sky);margin-bottom:14px") if kick else "")
         + blk(head, "h2", "reveal-hero", "font-size:44px;font-weight:800;line-height:1.1;margin:0;color:#fff")
         + '</div>'
-        + '<div class="reveal-right sb-card" style="flex:0 0 54%;height:100%;display:flex;flex-direction:column;'
-        + 'padding:14px 0;background:var(--sb-panel-bg, #f5f7fa)">' + rows + '</div></div>')
+        + '<div style="flex:0 0 52%;height:100%;display:flex;flex-direction:column;gap:14px;'
+        + 'justify-content:center">' + rows + '</div></div>')
     return inner, 0
 
 
