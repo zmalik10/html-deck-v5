@@ -1903,7 +1903,62 @@ def hub(s, acc):
     return inner, 64
 
 def layers(s, acc):
+    """CC-08 Layered Build-Up.
+
+    v1.1 (2026-08-20): a slide that declares pillar_title/pillar_body renders the real
+    thing - a titled slide whose LEFT half is the labelled stack (each tier a title with
+    its one-line qualifier, top tier filled with the accent) and whose RIGHT half carries
+    detail cards with their VALUE payoff lines, closed by a footnote band. Plans using the
+    legacy body/card_body shape are untouched."""
     g = grp(s)
+    pt, pb = g.get("pillar_title", []), g.get("pillar_body", [])
+    if pt:
+        head = _headline_block(g)
+        sub = _first(g, "subhead") or _first(g, "lead")
+        foot = _first(g, "footnote")
+        titles, bodies = g.get("card_title", []), g.get("card_body", [])
+        values = g.get("value_label", [])
+        n = len(pt)
+        tiers = ""
+        for i in range(n):
+            top = (i == 0)
+            inner_w = 100 - i * (22 // max(n - 1, 1))
+            style = ("background:%s;border:none" % ACC) if top else ""
+            tiers += ('<div class="reveal%s" style="width:%d%%;margin:0 auto 10px;border-radius:6px;'
+                      'padding:15px 22px;box-sizing:border-box;text-align:center;%s">'
+                      % (" on-media" if top else " sb-card", inner_w, style)
+                      + blk(pt[i], "div", "no-caps", "font-size:18px;font-weight:800;line-height:1.25;%s"
+                            % ("" if top else "color:var(--sb-text-on-dark)"))
+                      + (blk(pb[i], "div", "no-caps", "font-size:13px;font-weight:500;margin-top:4px;%s"
+                             % ("opacity:0.9" if top else "color:var(--sb-body-on-dark)")) if i < len(pb) else "")
+                      + '</div>')
+            if i < n - 1:            # a downward flow tick between tiers (SVG, export-safe)
+                tiers += ('<div aria-hidden="true" style="display:flex;justify-content:center;margin:-4px 0 4px">'
+                          '<svg width="20" height="16" viewBox="0 0 24 24" fill="none">'
+                          '<path d="M12 4v14M6 13l6 6 6-6" stroke="%s" stroke-width="2.5" '
+                          'stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/></svg></div>' % ACC)
+        foot_html = ""
+        if foot:
+            foot_html = ('<div class="reveal sb-card" style="margin-top:12px;padding:12px 18px;border-left:5px solid ' + ACC + '">'
+                         + blk(foot, "div", "", "font-size:12.5px;line-height:1.5;color:var(--sb-body-on-dark)") + '</div>')
+        cards = ""
+        for i in range(min(len(titles), len(bodies))):
+            cards += ('<div class="reveal sb-card" style="flex:1;display:flex;flex-direction:column;justify-content:center;'
+                      'padding:22px 26px;border-top:5px solid ' + ACC + '">'
+                      + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:19px;line-height:1.25;"
+                            "color:var(--sb-text-on-dark);margin-bottom:8px")
+                      + blk(bodies[i], "div", "", "font-size:14.5px;line-height:1.6;color:var(--sb-body-on-dark)")
+                      + value_line(values[i] if i < len(values) else None, size=12)
+                      + '</div>')
+        left = ('<div style="flex:0 0 45%;display:flex;flex-direction:column;justify-content:center;min-height:0">'
+                + tiers + foot_html + '</div>')
+        right = '<div style="flex:1;display:flex;flex-direction:column;gap:16px;min-height:0">%s</div>' % cards
+        order = (right + left) if has_tag(s, "mirror") else (left + right)
+        title = (blk(head, "h2", "hl reveal", "font-size:40px;margin:0 0 10px")
+                 + (blk(sub, "div", "reveal no-caps", "font-size:17px;font-weight:500;line-height:1.5;"
+                        "color:var(--sb-body-on-dark);margin-bottom:22px;max-width:900px") if sub else ""))
+        return (title + '<div style="flex:1;display:flex;gap:32px;align-items:stretch;min-height:0">'
+                + order + '</div>'), 64
     b = g.get("body", [])
     cb = g.get("card_body", [])
     ordered = []
