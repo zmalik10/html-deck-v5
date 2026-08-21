@@ -2494,29 +2494,6 @@
      "requires_attribution": false,
      "approved_for_client": true
     }
-   },
-   {
-    "id": "img-smrtgc-tablet-full",
-    "tags": [
-     "product-smrt-gc-full",
-     "product",
-     "smrtgc",
-     "tablet",
-     "keyboard",
-     "dashboard",
-     "mockup"
-    ],
-    "mood": "the complete smrtGC dashboard on a tablet with keyboard - alpha-trimmed derivative, nothing cropped",
-    "file": "assets/images/smrtgc-tablet-full.png",
-    "status": "seeded",
-    "provenance": {
-     "kind": "image",
-     "source": "alpha-trimmed derivative of assets/images/extracted/commonly-used-reference-slides-s08-i00.png (SmartBuild reference deck)",
-     "author": "SmartBuild",
-     "license": "SmartBuild-owned",
-     "requires_attribution": false,
-     "approved_for_client": true
-    }
    }
   ]
  },

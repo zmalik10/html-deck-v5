@@ -13,7 +13,7 @@
   "artifacts": {
     "review.html": {
       "path": "/Users/zainmalik/.claude/skills/html-deck-v5/layouts/library-v9/_preview/out/review.html",
-      "sha256_16": "2061656c3e4669e5"
+      "sha256_16": "d79c7cfd8ef69472"
     }
   },
   "resolved_assets": [
@@ -30,552 +30,552 @@
   "sources_forced_visible": false,
   "slides": [
     {
-      "slide_uuid": "a16ee7ce-298d-4a36-a5b2-f76faa839b20",
+      "slide_uuid": "2f545645-c02a-45c9-a98a-8b5fccadf0df",
       "template_id": "CV-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "d8fc12e1-d166-436f-8824-7d18b56cf2fe",
+      "slide_uuid": "ef9ab0ec-5b20-42a0-9a1f-f66b0fdc815a",
       "template_id": "CV-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "ad9177ff-2de4-4cca-9c7e-3d2522601718",
+      "slide_uuid": "8d13a925-f447-427e-92b7-8e164758d043",
       "template_id": "CV-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "78f7400f-a0e5-4452-93e4-573e83f95034",
+      "slide_uuid": "5aeedd33-72fd-4f01-88db-725e60de8693",
       "template_id": "CV-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "63445cf3-0fb6-47e3-8459-8fb372aa39b9",
+      "slide_uuid": "cf5b1876-303c-4e4e-a69f-eb2a848d99ae",
       "template_id": "CV-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "7880861d-644b-4ac9-a1a1-e6a7bd32a472",
+      "slide_uuid": "c2226ccb-bd43-4b24-8cba-b57e44616313",
       "template_id": "CV-06",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "2f694b24-fd83-4ae5-983a-35db9f5f8e1e",
+      "slide_uuid": "6f0cbb97-3658-49d9-b825-1ac22b34f8a9",
       "template_id": "CV-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "f532e278-0abf-4b2e-8517-05386733697e",
+      "slide_uuid": "10c71f41-0d28-4ba3-9fff-6231faba64e1",
       "template_id": "NM-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "1db63fc0-3715-49a5-9d97-e94d0553fed9",
+      "slide_uuid": "f319d37c-c3a6-4e55-a387-d9516f4c4363",
       "template_id": "NM-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "ba5944a9-3bbe-45ad-8059-98fd9476af10",
+      "slide_uuid": "89285383-bc61-4a6c-a333-5afccb37dc10",
       "template_id": "NM-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "7274851e-94e7-43f4-9dd8-cab3034cc908",
+      "slide_uuid": "179aebde-ecb6-436b-b85c-2241d0f8a0a2",
       "template_id": "NM-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c7465702-3613-4836-8b04-b43856c338d3",
+      "slide_uuid": "f7d9bfa6-8fcd-4a8f-bd6f-c3d9b36bd558",
       "template_id": "NM-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "d3c80249-5bf1-4468-b3a0-5e81049de9d3",
+      "slide_uuid": "e36cbca5-16bb-4c28-90f9-48a2d8ca4c42",
       "template_id": "NM-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "fcae6fc1-5188-46cb-a43f-13fd08a2f664",
+      "slide_uuid": "d49133c1-df8f-402a-ab65-3bf8ca4ec3b7",
       "template_id": "NM-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "1665ee8d-7329-470c-ae9d-e4ec879bfa6c",
+      "slide_uuid": "b42b83af-9742-4902-ae4c-063950dca56f",
       "template_id": "NM-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "45944f35-f5a5-41c1-85ea-d85ae9a51eb8",
+      "slide_uuid": "62e67fee-4fbd-46f6-9567-9d97988de571",
       "template_id": "NM-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "6fad8288-10d2-4fe4-88f0-a8bef4aeadcf",
+      "slide_uuid": "5431784f-e188-47c2-9380-b6b45c07e1bf",
       "template_id": "NM-11",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "37fd2be4-f28b-408f-8ed0-376f6f352feb",
+      "slide_uuid": "f2259fc1-2ebf-4530-ab08-dffe08281ab0",
       "template_id": "NM-12",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "86e189bf-b808-430c-b7ee-0ddf6d4f1239",
+      "slide_uuid": "0dc02206-662f-49c8-8955-1350ed23a77c",
       "template_id": "NM-13",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "fd4a5992-f6b0-4203-8bd0-cccdb4f5b139",
+      "slide_uuid": "d030714d-35fd-488a-b0c3-e2cfc25ca2c3",
       "template_id": "NM-14",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "a4d93601-befd-4c6e-a1ba-7406284a62a9",
+      "slide_uuid": "3584c0e8-91f8-4428-bb89-390c47a7fa66",
       "template_id": "PD-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "3471d5cf-a29f-4fa8-84cb-7373678aa334",
+      "slide_uuid": "2364c791-f74c-46f7-b731-ed33829cd25f",
       "template_id": "PD-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "d8ba1b0e-91b7-4bae-aa55-0ab4914e46b1",
+      "slide_uuid": "fb2a3237-fe09-434e-814c-72d6cf97d7ae",
       "template_id": "PD-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "a6f31380-8397-43a9-be43-65233403761b",
+      "slide_uuid": "4c9b6b6b-7582-45cb-8b23-04e7c098db15",
       "template_id": "PD-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c7a41cdd-b6b2-46a9-a384-e649fedecc2f",
+      "slide_uuid": "7b9864da-ecd0-472b-8d9f-8854067bad9f",
       "template_id": "PD-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "d0dc13ab-e8e2-4141-8be8-c8896d124905",
+      "slide_uuid": "d34aa56e-8754-4f92-826b-7f9b1b773c3b",
       "template_id": "PD-06",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "2cf91956-1aed-475d-a26d-51a5787681f5",
+      "slide_uuid": "ae64b431-698d-4e71-8fc0-e1de39a370b4",
       "template_id": "CC-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "acaf4074-9c0b-44d4-a7eb-adcae8e7a44a",
+      "slide_uuid": "a822d7d4-cd93-4623-b155-3e2dea843cca",
       "template_id": "CC-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "e44f3522-a790-4467-b625-ef9c46780bac",
+      "slide_uuid": "69f73e8a-d12a-4ea1-8ee9-89f613018a6d",
       "template_id": "CC-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c4e343b4-9323-46de-8155-74d812253f29",
+      "slide_uuid": "4d5b3c58-1db5-4340-aa9c-702bf8f2bb06",
       "template_id": "CC-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "8d1d7cd7-b105-4f4b-969f-830871ced824",
+      "slide_uuid": "31e9c7e1-57e5-45a1-8856-a621a5c690d1",
       "template_id": "CC-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "8ded2448-3787-4821-bec2-5de4218cf266",
+      "slide_uuid": "e59d2c78-9f81-440f-b547-9f0be374f2e9",
       "template_id": "CC-06",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "7bf18439-636e-4215-895b-400e0debf027",
+      "slide_uuid": "84b53f87-5d96-4bd2-b1d9-f8403e4d5b3d",
       "template_id": "CC-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "5f2867ad-97cb-47d6-a4f8-7d38616c7737",
+      "slide_uuid": "fa51d5c4-86f2-4976-8d7f-2c17d1ee66b5",
       "template_id": "CC-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c1e4279b-b16c-4abe-a896-8f283f19b25c",
+      "slide_uuid": "928333b5-8908-4dc0-903d-e23ae7e2ae7d",
       "template_id": "CC-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "9d9cadc0-c8c1-4d25-a89d-514fc8a5eecb",
+      "slide_uuid": "e7e822cb-244e-43f2-825d-3d59ab612ce3",
       "template_id": "CC-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "9d2dfae9-d02f-47a8-8313-1033b4fc48a5",
+      "slide_uuid": "4a7d5984-399b-4a59-ae75-bd23a37d9066",
       "template_id": "CC-11",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "4a4d0d8e-739f-4c2b-9117-893f2dd5b557",
+      "slide_uuid": "7c579374-ebb8-48ad-8efc-47403eba14ab",
       "template_id": "AN-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "05a36fe5-7878-46e2-888e-5ccd60739aa6",
+      "slide_uuid": "a80e2175-c3ce-4b4e-b464-d51727ba0519",
       "template_id": "AN-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "5a06c7bf-d07b-42df-94dd-077ce9333f9d",
+      "slide_uuid": "d16d6c90-9226-4ee9-aacc-62ab0093f796",
       "template_id": "AN-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "451a7472-d810-4b94-9261-3526582b5b39",
+      "slide_uuid": "1da0762d-943e-4a4d-867b-9428ce1f9133",
       "template_id": "AN-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "bfb2a56a-f3bc-4dba-953b-7d9062baea48",
+      "slide_uuid": "7dfa21e4-cc08-4031-ae62-008bd6122f19",
       "template_id": "AN-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "5bcc16a8-29ed-4155-8a8d-19d2f65e2c5f",
+      "slide_uuid": "08b4b492-f140-471a-89f9-ff72597c32d5",
       "template_id": "AN-06",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "328c4213-182b-4f0e-bc98-696d5228d839",
+      "slide_uuid": "41523473-39e2-4577-98fe-9641abd484da",
       "template_id": "AN-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "57d61172-d744-4435-97ff-6f7948142dbc",
+      "slide_uuid": "20653eb6-c5f7-4a7b-8dba-b24cb913dcd5",
       "template_id": "AN-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "59885cbc-ad76-455d-b932-fbc9c3308a72",
+      "slide_uuid": "eef0c880-3c12-4036-9709-809019a5506d",
       "template_id": "AN-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "e6aa9710-4b68-4995-a331-02dc7c537d84",
+      "slide_uuid": "af16523d-32a3-44b3-b06d-b8c3e4987379",
       "template_id": "AN-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "45f008da-0677-493e-bbb1-f14a3c595d1b",
+      "slide_uuid": "3fa5ba2d-5ab5-45f8-b0a2-7d2ee4f15197",
       "template_id": "AN-11",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "0458347d-1f2c-4271-b3cb-9a458e4982f8",
+      "slide_uuid": "cff050ed-0b16-4db0-8cdd-a7683d6d75b0",
       "template_id": "AN-12",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "da6c96a2-1d2e-4f6a-92d7-160dae837e57",
+      "slide_uuid": "b7694bff-dc22-4960-89ee-1303bbab7ff0",
       "template_id": "AN-13",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "172e4d3e-922f-4c60-92e3-a332ba490ba3",
+      "slide_uuid": "2bcd95ca-dff4-48dc-8e8d-dc76efd045c3",
       "template_id": "AN-14",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "480b3883-da38-491f-befd-ff24e7a395b5",
+      "slide_uuid": "9f2164b0-9798-4c84-b6fc-64544ccfa06c",
       "template_id": "PO-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "898cb744-0d96-463c-82e4-1f2676ee05da",
+      "slide_uuid": "d3fa1fc4-310f-435c-ab4a-b63fa873c3ab",
       "template_id": "PO-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "96944770-552c-4f17-8d4b-100e44aa5d4e",
+      "slide_uuid": "0260a75a-e5bd-498a-9362-54ab5f16161b",
       "template_id": "PO-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "8aa200b4-6957-466c-b8bd-e39616ece223",
+      "slide_uuid": "c125fa7a-c310-4c3f-b8e7-3cd9abd20e6e",
       "template_id": "PO-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "3a299be6-c0ee-4ceb-82a5-72e56e8f92af",
+      "slide_uuid": "1af2a66d-adbc-4816-85f1-409f9932c0ee",
       "template_id": "PO-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "5da15768-6c10-420c-8733-be895d0bb333",
+      "slide_uuid": "1b549e22-a4ef-4758-823c-c7ba4b340a46",
       "template_id": "PO-06",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "6bd673f7-57f1-4cbd-9068-31850834ea86",
+      "slide_uuid": "76643378-d790-4870-b1f8-c4481aecda01",
       "template_id": "PO-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "107aac21-b13e-4fb8-a040-66d401001088",
+      "slide_uuid": "4681d7f4-d748-4e0e-961d-3f80a29a1077",
       "template_id": "PO-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "21a1f1c2-0884-4e5d-83b7-91bf923b7ff6",
+      "slide_uuid": "28114ab7-5e18-4cef-ba9f-3027aaf95873",
       "template_id": "WT-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "b839d029-e47c-4b38-b0aa-d51dd8596ea6",
+      "slide_uuid": "e9c25cd4-fd66-45a5-92b6-47ffb97ec3f8",
       "template_id": "WT-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "11268c9c-ce9a-4270-a7cf-2d80573d50f1",
+      "slide_uuid": "8fdd8c0a-5e53-4d48-a1ca-e393f2749719",
       "template_id": "WT-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c1af4770-bfa9-4e8c-956c-87393da01f67",
+      "slide_uuid": "e7b19ece-36c1-4cbd-87b7-b407f4801b47",
       "template_id": "WT-04",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "4145e0bb-814c-4503-b505-f99c3626d4d5",
+      "slide_uuid": "48eb96b9-8147-49e4-bb4f-f92d049cf94c",
       "template_id": "UT-01",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "68696a12-f79a-47e5-81c2-d91a81953995",
+      "slide_uuid": "bc3bc4f0-cc14-42b4-8d87-4d3a80c17834",
       "template_id": "UT-02",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "0059c00b-1fcf-4541-bdd0-3c32f88d295c",
+      "slide_uuid": "535dbbf9-d2ad-43b9-babc-fc203d1e6d31",
       "template_id": "CV-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "f89407f4-1660-4cab-be0d-5e4cd2555097",
+      "slide_uuid": "645a39e0-4753-49e5-95be-c047467fb463",
       "template_id": "CV-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "81efdf1b-359a-445a-bdbf-db01d5422ba1",
+      "slide_uuid": "cb1183a5-62c8-44eb-9a8f-99de090b9b95",
       "template_id": "CV-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "5a499b06-a5ba-4bbe-b2fa-25c126736d06",
+      "slide_uuid": "64d8b58e-a85b-4079-a5e7-6ab9ac30c9d9",
       "template_id": "CV-11",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "bb7ab7ff-7761-4ba5-ae5b-dd8eb0443fdb",
+      "slide_uuid": "c6215891-6d89-4db5-87a8-6a9025362f8c",
       "template_id": "CV-12",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "49e81160-31d7-4187-b6df-1ebb992bc700",
+      "slide_uuid": "350e11d6-d0dc-40d9-b442-04022edfeb04",
       "template_id": "CV-13",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "903f8025-9a17-4848-bea0-870c6f31f4be",
+      "slide_uuid": "bb26ad60-4723-4a4c-9e31-8b507b524cd7",
       "template_id": "CV-14",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "889897f9-fbd4-467e-9249-cef643fa8b59",
+      "slide_uuid": "c5aff5de-60e7-4f87-b809-6b8617e01bba",
       "template_id": "CV-15",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "6c4de62e-5752-4e95-b0ea-451e939f43c6",
+      "slide_uuid": "7d900d8a-528e-4af8-9ad6-035ac13df3e2",
       "template_id": "CV-16",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "9b55e40a-da7c-433f-85a6-b6e1035b9e08",
+      "slide_uuid": "418d71ca-43ed-4c17-8caf-019f60f75246",
       "template_id": "NM-15",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "5d1dee24-fb4e-4399-a223-a3fba4570f4c",
+      "slide_uuid": "825162ec-25f3-4e69-8c1e-462d4705de85",
       "template_id": "NM-16",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "9a460a7c-f92b-43fa-b0b8-1e311caf424f",
+      "slide_uuid": "32c6eb59-12ce-4416-ae90-cf925ca04289",
       "template_id": "NM-17",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "6a107b64-c962-4572-af05-cd2847a64a5e",
+      "slide_uuid": "0da4c9b0-f80b-4e2a-93e6-f45ed672bc43",
       "template_id": "NM-18",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c4f6af43-da5c-4e61-b59a-1a69f9943e7a",
+      "slide_uuid": "6fd0a340-79c3-4144-b24f-5be3e25e4545",
       "template_id": "NM-19",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "26d6c3bc-880f-459a-ac75-9bf644e292d2",
+      "slide_uuid": "d0015aec-4633-44ec-b9be-37ec83e71c3c",
       "template_id": "NM-20",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "f0b83cb3-9b4a-4f0a-9e04-7a391dfb3686",
+      "slide_uuid": "0e6e0a1b-503c-44a3-a207-79beeeb82e17",
       "template_id": "NM-21",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "cd373276-0633-48c1-8427-a2f6c00f5b3c",
+      "slide_uuid": "5c74aa43-2759-4803-b0f3-e06af60f3517",
       "template_id": "NM-22",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c49a6adb-52d0-4107-b0e8-e3ab821a20d8",
+      "slide_uuid": "9575e284-71bc-467d-b4e0-b611f02a3ba5",
       "template_id": "NM-23",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "616b799c-ecfd-4846-bd5e-a3dcf287e501",
+      "slide_uuid": "e3fee950-8d42-42fd-9a3a-b73dbf4a392f",
       "template_id": "NM-24",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "2f8587e2-16d8-4e07-a381-6b69b07c6941",
+      "slide_uuid": "c2100e5e-2d58-46e2-b1b7-20d7844c7fa5",
       "template_id": "PD-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "6ea257a2-1979-44f5-8d03-ebd3636cd9d4",
+      "slide_uuid": "31c4e044-5932-4259-807f-d25fb8f90b62",
       "template_id": "PD-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "650caf72-aff3-4567-82ee-f55990e93f23",
+      "slide_uuid": "0fc05694-fe06-4f83-9440-1319fce35782",
       "template_id": "PD-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "7568edf2-2cf5-4193-9011-763389a2883e",
+      "slide_uuid": "e8dbf738-3d55-4cfa-839a-205eb3807656",
       "template_id": "PD-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "f0d96853-df36-4b88-9333-a24a37dce1b4",
+      "slide_uuid": "862c5361-d0c1-4c4c-8b2c-ffb9bc95490b",
       "template_id": "PD-11",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "d158b12e-02f5-4954-9ecc-4a7e773cb160",
+      "slide_uuid": "81873bf3-9102-4cc4-ac3b-7307ecb8e603",
       "template_id": "PD-12",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "07f6ef87-7d81-4f56-8e7e-3ba594ca2b8f",
+      "slide_uuid": "85cad77b-168c-418a-bc2a-0c56386f688b",
       "template_id": "CC-12",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "33b51ec6-910c-4de9-92c8-b69bc34a438b",
+      "slide_uuid": "9a21a16e-e7ba-4de6-bf64-6e4de095cdf7",
       "template_id": "CC-13",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "9a5efdb8-6032-487f-93f9-7d5ab5b5e38d",
+      "slide_uuid": "a73dfa83-c7f5-4c53-aa4d-ff33cac87cb8",
       "template_id": "CC-14",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "8f72e1f8-b2de-4752-aded-e3e39a667e91",
+      "slide_uuid": "6d7a95c4-a436-46aa-8770-cbf3a02d4f17",
       "template_id": "AN-15",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "1228100d-43f6-461e-9701-1c9891083c7b",
+      "slide_uuid": "965c39d8-e00c-4152-894c-210f57f88dcb",
       "template_id": "PO-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "ed99b624-0582-4763-99ce-e320783123dc",
+      "slide_uuid": "0091af17-e653-40c6-a300-89c6da9e44d6",
       "template_id": "WT-05",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c0de29ed-5ab6-4a17-868c-9df12d3076c5",
+      "slide_uuid": "9cb2dcbd-7928-46e9-be24-43183609f9e5",
       "template_id": "WT-06",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "1aa4a0d3-a270-46b6-b933-0ef237ed4401",
+      "slide_uuid": "7aae870d-1aeb-463f-ad6b-73a5a252991d",
       "template_id": "WT-07",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "931caf29-640f-4bde-9868-25a880fae091",
+      "slide_uuid": "210578ac-c37f-4db5-b866-30d59aaad4ba",
       "template_id": "WT-08",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "ca186d74-c59e-4995-bb5e-05ddb9d0eae3",
+      "slide_uuid": "8df38169-03d8-493e-ba30-208a3548341c",
       "template_id": "WT-09",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "4b297ba0-f99c-4876-8b0d-f26b6898c904",
+      "slide_uuid": "c6d09397-0a02-4d12-809c-8e6ba43fe450",
       "template_id": "WT-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "9461d34b-dcc5-4129-b8d9-c28293581733",
+      "slide_uuid": "a30097c6-d48d-4b49-b89b-b1d838cfa3a9",
       "template_id": "WT-11",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "908ca6e8-f90f-4af3-ac44-be71fefa87fd",
+      "slide_uuid": "aa7628fd-be4d-469c-b3b2-3d5f267c8b2c",
       "template_id": "WT-12",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "2c4602ed-c55f-42b7-9254-be8096100868",
+      "slide_uuid": "7cda9650-5438-4543-a7ea-97e3cb0ac502",
       "template_id": "UT-03",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "18b0080c-60bc-46a6-afe3-df0f900090db",
+      "slide_uuid": "e39117aa-7e29-4fe5-baee-bafbca48d902",
       "template_id": "SB-WF",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "3efa99ab-6280-4c34-92c2-476fcfe76f75",
+      "slide_uuid": "d5341442-d145-41c7-a674-be39de004117",
       "template_id": "SB-CONTRAST",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "c5c194ca-348c-464f-9fad-4b7de7105932",
+      "slide_uuid": "eb3778d4-0779-4bdc-949e-0a9637be5f16",
       "template_id": "SB-PILLARS",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "97d1eb69-4430-46d3-8445-234affb510a3",
+      "slide_uuid": "08bff520-2574-4c2b-b2a2-33c088c4ba0e",
       "template_id": "SB-MOAT",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "8536c7e2-8fd4-4a6b-ac51-b3a02d385efd",
+      "slide_uuid": "3957ff02-36ee-47de-805d-dced21322281",
       "template_id": "PO-10",
       "template_version": "1.0.0"
     },
     {
-      "slide_uuid": "068575f7-3858-4a72-bd2e-1a61a77d7992",
+      "slide_uuid": "4a9d5122-96c0-4f05-aaff-5a3c5d067807",
       "template_id": "NM-25",
       "template_version": "1.0.0"
     }

@@ -238,3 +238,11 @@ seven real template gaps. All fixed in the master renderers, not deck-locally.
   `.on-media` and on any `[data-bleed="dark"]` stage; render_slides stamps `data-bleed="dark"` on
   full-bleed ink-veiled stages; deck.js's footer sampler trusts that declaration (it cannot sample a
   photo + veil, so it was falling back to the theme's dominant tone and keeping full colour).
+- **NM-18 `contain`: the white plate is now OPT-IN via `plate` (corrected 2026-08-20, reviewer-flagged).**
+  Wrapping every contained shot in a white panel was wrong for a TRANSPARENT device mockup - the panel
+  stole the device's height and read as a rectangle on the light canvas. Default is bare (float on the
+  deck canvas at full size); add `plate` only for a shot that genuinely ships on a white background.
+  Companion lesson for PLAN: two owned product tags are BLEED CROPS of their device
+  (`product-smrt-gc-tablet` cuts the tablet's top/right, `product-smrt-e-mockup` runs the phones off
+  three edges). `object-fit:contain` cannot un-crop a source - check the asset itself before blaming the
+  renderer, and prefer the alpha-trimmed complete-device tags (`product-smrt-gc-tight`, `product-smrt-e`).

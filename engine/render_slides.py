@@ -664,12 +664,15 @@ def icon_list(s, acc):
         # duotone/scrim. photo_bg() (tint + legibility gradient) is reserved for full-bleed
         # backgrounds that carry .on-media text; a standalone image must read as a real photo.
         if has_tag(s, "contain"):
-            # a supplied product/marketing shot: fitted WHOLE inside a white product
-            # plate, never cropped (house rule) - so a shot that ships on white reads as
-            # an intentional panel instead of a stray rectangle on the deck canvas.
+            # A supplied product/marketing shot: fitted WHOLE, never cropped (house rule).
+            # Default is BARE - a transparent-background device mockup should float on the
+            # deck canvas at full size, not sit inside a box that steals its height. Add the
+            # `plate` tag for a shot that ships on a white background, which needs the white
+            # panel to read as an intentional surface rather than a stray rectangle.
+            plate = ('padding:18px;border-radius:6px;background:rgba(255,255,255,1);'
+                     'box-shadow:0 10px 30px rgba(6,12,26,0.10);') if has_tag(s, "plate") else ''
             photo = ('<div class="reveal-left" style="flex:1;min-height:210px;display:flex;align-items:center;'
-                     'justify-content:center;margin-top:20px;padding:18px;box-sizing:border-box;border-radius:6px;'
-                     'background:rgba(255,255,255,1);box-shadow:0 10px 30px rgba(6,12,26,0.10);overflow:hidden">'
+                     'justify-content:center;margin-top:20px;box-sizing:border-box;overflow:hidden;' + plate + '">'
                      + contain_img(s) + '</div>')
         else:
             photo = ('<div class="reveal-left" style="flex:1;min-height:200px;border-radius:6px;overflow:hidden;'
