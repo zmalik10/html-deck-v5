@@ -1834,10 +1834,10 @@ def hub(s, acc):
     syn = (_first(g, "card_body") or _first(g, "footnote")) if titled else head
     ic = icons_of(s)
     n = len(spokes)
-    if n >= 5:                      # two flanking columns of up to three
-        col = [18, 50, 82][:((n + 1) // 2)]
-        positions = [(17, y) for y in ([18, 50, 82] if n > 4 else col)][:((n + 1) // 2)]
-        positions += [(83, y) for y in [18, 50, 82]][:n - len(positions)]
+    if n >= 5:                      # two flanking columns of up to three each
+        ys = {1: [50], 2: [26, 74], 3: [16, 50, 84]}
+        lc, rc = (n + 1) // 2, n // 2
+        positions = [(17, y) for y in ys[lc]] + [(83, y) for y in ys[rc]]
     else:
         positions = [(50, 13), (16, 50), (84, 50), (50, 87)]
 
