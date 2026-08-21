@@ -143,6 +143,17 @@ img.img-cover { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* Inline SmartBuild wordmark + badge: white on the dark theme, full-colour on light. */
 :root[data-theme="dark"] img[data-logo="smartbuild"],
 :root[data-theme="dark"] img[data-logo="smartbuild-badge"] { filter: brightness(0) invert(1); }
+/* ...and WHITE on any fixed-dark backdrop regardless of the deck theme: inside an
+   .on-media overlay (accent/navy panel or photo scrim), or on a stage the renderer
+   marked as a full-bleed dark bleed. Fixed 2026-08-20: a light-theme deck with a
+   dark photo cover was showing the FULL-COLOUR mark on near-black, which reads as a
+   third (non-existent) logo rendering. There are only ever two: white and colour. */
+.on-media img[data-logo="smartbuild"],
+.on-media img[data-logo="smartbuild-badge"],
+[data-bleed="dark"] img[data-logo="smartbuild"],
+[data-bleed="dark"] img[data-logo="smartbuild-badge"],
+img[data-logo="smartbuild"].mono-white,
+img[data-logo="smartbuild-badge"].mono-white { filter: brightness(0) invert(1); }
 
 /* Page number, one per slide (baked at BRAND) */
 .sb-page-num { position: absolute; right: 30px; bottom: 18px; z-index: 40; pointer-events: none;

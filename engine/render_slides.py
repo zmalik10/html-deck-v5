@@ -498,10 +498,14 @@ def cover_dark_photo(s, acc):
                + mark_img(mark, 30) if mark else "")
             + '</div>')
     n = len((head.get("text") or "")) if head else 0
-    tsize = 96 if n <= 14 else 86 if n <= 26 else 74 if n <= 40 else 62
-    body = ('<div style="max-width:830px">'
+    # MEASURED ladder: Montserrat 900 uppercase runs ~0.70em per glyph, so size the
+    # title to the 1136px of usable canvas rather than guessing - a short lockup title
+    # ("SMARTBUILD x MICROSOFT") then holds ONE line instead of orphaning its last word.
+    lines = 1 if n <= 27 else 2 if n <= 56 else 3
+    tsize = max(42, min(96, int(1120.0 / max(n / float(lines), 1) / 0.70)))
+    body = ('<div style="max-width:%dpx">' % (1136 if lines == 1 else 880)
             + (blk(label, "div", "label reveal", "color:var(--sb-sky);margin-bottom:18px") if label else "")
-            + blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:0.94;margin:0;max-width:9.5em" % tsize)
+            + blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:0.94;margin:0" % tsize)
             + (blk(sub, "div", "reveal no-caps", "font-size:29px;font-weight:600;line-height:1.25;margin-top:26px;"
                    "max-width:700px") if sub else "")
             + (blk(lead, "div", "reveal", "font-size:17px;font-weight:500;line-height:1.5;margin-top:18px;"
@@ -555,6 +559,8 @@ def checklist_sheet(s, acc):
     g = grp(s)
     head = _headline_block(g)
     kick = _first(g, "kicker")
+    lead = _first(g, "lead") or _first(g, "subhead")
+    cap = _first(g, "caption") or _first(g, "footnote")
     titles, bodies = g.get("card_title", []), g.get("card_body", [])
     img = img_tag(s) or "context"
     check_svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" '
@@ -574,17 +580,24 @@ def checklist_sheet(s, acc):
                  + blk(titles[i], "div", "no-caps", "font-size:15.5px;font-weight:800;color:var(--sb-title);margin-bottom:4px")
                  + blk(bodies[i], "div", "", "font-size:13.5px;line-height:1.55;color:var(--sb-body-on-dark)")
                  + '</div></div>')
-    bg = ('<div style="position:absolute;inset:0"><img data-image="' + img + '" class="img-cover"></div>'
+    bg = ('<div style="position:absolute;inset:0">' + cover_img(s, img) + '</div>'
           + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.66"></div>')
+    # v1.2 (2026-08-20): the statement column takes an optional lead under the headline
+    # and an optional caption footer, so a closing slide can carry its legal line without
+    # a second slide or an untagged scrap of text.
+    statement = ('<div class="on-media" style="flex:1 1 38%;display:flex;flex-direction:column;justify-content:center">'
+        + (blk(kick, "div", "reveal", "font-size:14px;font-weight:700;letter-spacing:0.24em;color:var(--sb-sky);margin-bottom:14px") if kick else "")
+        + blk(head, "h2", "reveal-hero", "font-size:46px;font-weight:800;line-height:1.08;margin:0;color:#fff")
+        + (blk(lead, "div", "reveal no-caps", "font-size:19px;font-weight:500;line-height:1.5;margin-top:18px;opacity:0.9") if lead else "")
+        + (blk(cap, "div", "reveal", "font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;"
+               "margin-top:34px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.26);opacity:0.78") if cap else "")
+        + '</div>')
+    sheet = ('<div style="flex:0 0 52%;height:100%;display:flex;flex-direction:column;gap:14px;'
+             'justify-content:center">' + rows + '</div>')
+    order = (sheet + statement) if has_tag(s, "mirror") else (statement + sheet)
     inner = (bg
         + '<div style="position:relative;z-index:2;display:flex;width:100%;height:100%;'
-        + 'align-items:center;gap:54px;padding:70px 64px;box-sizing:border-box">'
-        + '<div class="on-media" style="flex:1 1 38%">'
-        + (blk(kick, "div", "reveal", "font-size:14px;font-weight:700;letter-spacing:0.24em;color:var(--sb-sky);margin-bottom:14px") if kick else "")
-        + blk(head, "h2", "reveal-hero", "font-size:44px;font-weight:800;line-height:1.1;margin:0;color:#fff")
-        + '</div>'
-        + '<div style="flex:0 0 52%;height:100%;display:flex;flex-direction:column;gap:14px;'
-        + 'justify-content:center">' + rows + '</div></div>')
+        + 'align-items:center;gap:54px;padding:70px 64px;box-sizing:border-box">' + order + '</div>')
     return inner, 0
 
 
@@ -616,36 +629,61 @@ def _headline_block(g):
     return g.get("headline", [None])[0]
 
 def icon_list(s, acc):
+    """NM-18 Illustration With Icon List.
+
+    v1.1 (2026-08-20): rows can carry a VALUE payoff line (value_label); the headline can
+    carry a lead; the image column honours `contain` for supplied product shots (fitted
+    whole, never cropped) and `focal:` for photography; `mirror` flips the split."""
     g = grp(s); head = _headline_block(g)
     kick = _first(g, "kicker")
+    lead = _first(g, "lead") or _first(g, "subhead")
     footnote = _first(g, "footnote")
     titles, bodies = g.get("card_title", []), g.get("card_body", [])
+    values = g.get("value_label", [])
     ic = icons_of(s)
+    n = min(len(titles), len(bodies))
+    dense = n >= 4 and bool(values)
     rows = ""
-    for i in range(min(len(titles), len(bodies))):
-        rows += ('<div class="reveal sb-card" style="display:flex;gap:18px;align-items:center;padding:22px 24px">'
-                 + (icon(ic[i]) if i < len(ic) else "")
-                 + '<div>'
-                 + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:20px;color:var(--sb-text-on-dark);margin-bottom:4px")
-                 + blk(bodies[i], "div", "", "font-size:15px;line-height:1.5;color:var(--sb-body-on-dark)")
+    for i in range(n):
+        rows += ('<div class="reveal sb-card" style="display:flex;gap:16px;align-items:%s;padding:%s">'
+                 % ("flex-start" if dense else "center", "15px 20px" if dense else "22px 24px")
+                 + (icon(ic[i], 28 if dense else 34) if i < len(ic) else "")
+                 + '<div style="min-width:0">'
+                 + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:%spx;color:var(--sb-text-on-dark);margin-bottom:3px"
+                       % (17 if dense else 20))
+                 + blk(bodies[i], "div", "", "font-size:%spx;line-height:1.5;color:var(--sb-body-on-dark)"
+                       % (13.5 if dense else 15))
+                 + value_line(values[i] if i < len(values) else None, size=11.5, gap="8px")
                  + '</div></div>')
     photo = ""
     if has_image(s):
-        # NATURAL content photo — it sits BESIDE the icon rows, not behind text, so it gets NO
+        # NATURAL content photo \u2014 it sits BESIDE the icon rows, not behind text, so it gets NO
         # duotone/scrim. photo_bg() (tint + legibility gradient) is reserved for full-bleed
         # backgrounds that carry .on-media text; a standalone image must read as a real photo.
-        photo = ('<div class="reveal-left" style="flex:1;min-height:200px;border-radius:6px;overflow:hidden;margin-top:26px;position:relative">'
-                 + '<img data-image="%s" class="img-cover"></div>' % img_tag(s))
+        if has_tag(s, "contain"):
+            # a supplied product/marketing shot: fitted WHOLE, no crop (house rule)
+            photo = ('<div class="reveal-left" style="flex:1;min-height:210px;display:flex;align-items:center;'
+                     'justify-content:center;margin-top:22px;overflow:hidden">' + contain_img(s) + '</div>')
+        else:
+            photo = ('<div class="reveal-left" style="flex:1;min-height:200px;border-radius:6px;overflow:hidden;'
+                     'margin-top:26px;position:relative">' + cover_img(s) + '</div>')
     kicker_html = blk(kick, "div", "reveal", "font-size:14px;font-weight:800;letter-spacing:0.2em;color:" + ACC + ";margin:0 0 10px") if kick else ""
     # optional takeaway band under the rows (TKMS gap, 2026-08: footnote blocks rendered empty)
     if footnote:
         rows += ('<div class="reveal sb-card" style="padding:16px 22px;border-left:5px solid ' + ACC + '">'
                  + blk(footnote, "div", "", "font-size:14px;line-height:1.5;color:var(--sb-text-on-dark);font-weight:600") + '</div>')
-    left = ('<div style="flex:0 0 40%;display:flex;flex-direction:column;justify-content:center">'
-            + kicker_html + blk(head, "h2", "hl reveal-left", "font-size:46px;margin:0 0 4px") + rule() + photo + '</div>')
-    right = '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px">%s</div>' % rows
-    return f'<div style="display:flex;gap:44px;height:100%;align-items:stretch">{left}{right}</div>', 64
-
+    hn = len((head.get("text") or "")) if head else 0
+    hsize = 46 if hn <= 26 else 39 if hn <= 40 else 34
+    left = ('<div style="flex:0 0 38%;display:flex;flex-direction:column;justify-content:center;min-height:0">'
+            + kicker_html
+            + blk(head, "h2", "hl reveal-left", "font-size:%spx;margin:0 0 4px;line-height:1.08" % hsize)
+            + (blk(lead, "div", "reveal no-caps", "font-size:16px;font-weight:500;line-height:1.5;"
+                   "color:var(--sb-body-on-dark);margin-top:12px") if lead else "")
+            + rule() + photo + '</div>')
+    right = ('<div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:%spx;min-height:0">%s</div>'
+             % (11 if dense else 16, rows))
+    order = (right + left) if has_tag(s, "mirror") else (left + right)
+    return '<div style="display:flex;gap:40px;height:100%%;align-items:stretch">%s</div>' % order, 64
 def _card_grid(s, cols):
     g = grp(s); head = _headline_block(g)
     titles, bodies = g.get("card_title", []), g.get("card_body", [])
@@ -4057,8 +4095,12 @@ def main():
         # A little extra breathing room at the TOP on content slides so titles don't sit
         # flush against the top edge (full-bleed slides, pad 0, are untouched).
         top = pad + 26 if pad else 0
-        out.append('<section class="slide" data-slide="%s" data-topic="%s"><div class="stage" style="%s;padding:%dpx %dpx %dpx %dpx">%s</div></section>'
-                   % (s["slide_uuid"], s.get("topic", ""), stage_style, top, pad, pad, pad, inner))
+        # Declare a full-bleed DARK stage so deck.js flips the footer mark to the white
+        # logo (it cannot sample a photo + veil) and base.css flips any inline mark.
+        bleed = ' data-bleed="dark"' if (pad == 0 and ("background:var(--sb-ink)" in inner
+                                                      or "rgba(6,12,26," in inner)) else ""
+        out.append('<section class="slide" data-slide="%s" data-topic="%s"><div class="stage"%s style="%s;padding:%dpx %dpx %dpx %dpx">%s</div></section>'
+                   % (s["slide_uuid"], s.get("topic", ""), bleed, stage_style, top, pad, pad, pad, inner))
     html = "\n".join(out)
     html = _hide_decorative_numerals(html)
     with open(args.out, "w") as f:

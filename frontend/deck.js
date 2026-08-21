@@ -107,6 +107,10 @@
     if (!force && stage.dataset._contrastDone === '1') return;   // once per slide -> no scroll flip
     stage.dataset._contrastDone = '1';
     el.classList.remove('mono-white');
+    // A renderer-declared full-bleed dark stage (photo + ink veil) has no opaque
+    // background-color to sample, so the walk below would read the deck bg and keep the
+    // full-colour mark on near-black. Trust the declaration. (fixed 2026-08-20)
+    if (stage.dataset.bleed === 'dark') { el.classList.add('mono-white'); return; }
     var lum = stageBgLuminance(stage);
     if (lum === null)                       // photo/gradient → assume the deck theme's dominant tone
       lum = (document.documentElement.dataset.theme === 'light') ? 0.9 : 0.1;
