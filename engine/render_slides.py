@@ -112,6 +112,77 @@ ACCENT_CYCLE = ["var(--sb-sky)", "var(--sb-copper)", "var(--sb-steel)",
                 "var(--sb-pink)", "var(--sb-navy)"]
 ACC = "var(--sb-product-accent,var(--sb-sky))"
 
+# ---------------------------------------------------------------------
+# shape_tags as RENDERER MODIFIERS (added 2026-08-20, Microsoft value deck)
+# plan.schema.json locks the slide object (additionalProperties:false), so the
+# free-form `layout.shape_tags` array is the sanctioned channel for per-slide
+# rendering switches. Three are understood house-wide:
+#   "mirror"            -> flip a split/rail layout to its legal mirror
+#   "contain"           -> fit an image whole (product/marketing shots), no crop
+#   "mark:<image-tag>"  -> render that catalog image as a small partner/product mark
+#   "focal:<x>-<y>"     -> object-position for INTELLIGENT CROPPING (owner directive)
+# ---------------------------------------------------------------------
+def _shape_tags(slide):
+    return list((slide.get("layout") or {}).get("shape_tags") or [])
+
+def has_tag(slide, name):
+    return name in _shape_tags(slide)
+
+def tag_value(slide, prefix):
+    for t in _shape_tags(slide):
+        if t.startswith(prefix + ":"):
+            return t.split(":", 1)[1].strip()
+    return None
+
+def focal(slide, default="50% 50%"):
+    """`focal:60-35` => "60% 35%". Aims every crop at the photo's focal point so an
+    off-centre subject is never beheaded by the default centre crop."""
+    v = tag_value(slide, "focal")
+    if v:
+        parts = v.replace("_", "-").split("-")
+        if len(parts) == 2 and all(p.isdigit() for p in parts):
+            return "%s%% %s%%" % (parts[0], parts[1])
+    return default
+
+def cover_img(slide, tag=None, extra=""):
+    """A crop-to-fill photo aimed at the slide's focal point. Inline object-fit stops
+    build.py from also injecting class="img-cover" (which would centre the crop)."""
+    return ('<img data-image="%s" style="position:absolute;inset:0;width:100%%;height:100%%;'
+            'object-fit:cover;object-position:%s%s">' % (tag or img_tag(slide), focal(slide), extra))
+
+def contain_img(slide, tag=None, extra=""):
+    """A supplied product/marketing image fitted WHOLE - never cropped (house rule)."""
+    return ('<img data-image="%s" style="max-width:100%%;max-height:100%%;width:auto;height:auto;'
+            'object-fit:contain;display:block;margin:auto;%s">' % (tag or img_tag(slide), extra))
+
+def mark_img(tag, h=26, style=""):
+    """A partner or product MARK (a real logo asset from the image catalog), fitted
+    whole at a legible size. Bare - no tile, chip or container (house rule)."""
+    if not tag:
+        return ""
+    return ('<img data-image="%s" style="height:%dpx;width:auto;max-width:190px;'
+            'object-fit:contain;display:block;%s" alt="">' % (tag, h, style))
+
+_VALUE_RE = re.compile(r'^(VALUE)(\s+)(.*)$', re.S)
+
+def value_line(bl, size=11.5, gap="11px", on_media=False):
+    """A card's VALUE payoff line. The copy carries its own leading "VALUE" token, so
+    the label is styled INSIDE the same data-block - no rendered word escapes the
+    block model (RC8b) and the whole line stays one editable run at export."""
+    if not bl:
+        return ""
+    txt = brandify(bl.get("text", ""))
+    m = _VALUE_RE.match(txt)
+    raw = txt
+    if m:
+        raw = ('<span style="font-weight:900;letter-spacing:0.14em;color:%s">VALUE</span>'
+               '&nbsp;&nbsp;<span style="font-weight:600">%s</span>' % (ACC, m.group(3)))
+    col = "inherit" if on_media else "var(--sb-body-on-dark)"
+    return blk(bl, "div", "", "font-size:%spx;line-height:1.5;margin-top:%s;padding-top:%s;"
+               "border-top:1px solid %s;color:%s"
+               % (size, gap, gap, "rgba(255,255,255,0.24)" if on_media else "var(--sb-border-subtle)", col),
+               raw=raw)
+
 def _first(g, t):
     return g.get(t, [None])[0]
 
