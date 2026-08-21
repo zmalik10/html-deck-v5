@@ -1,8 +1,8 @@
 {
  "library_version": "0.2.0",
- "policy": "PLAN picks an image by TAG; it does not hunt the web (the model's image-finding is the weak link). Preferred source is our OWN generated/curated library — on-brand and self-contained. At BRAND, owned images embed (SVG inline, raster compressed) and ALWAYS win over the Unsplash fallback. Unsplash is a CDN stopgap for tags the owned library does not cover yet. Every entry carries provenance for the Sources manifest + client license gate.",
+ "policy": "PLAN picks an image by TAG; it does not hunt the web (the model's image-finding is the weak link). Preferred source is our OWN generated/curated library \u2014 on-brand and self-contained. At BRAND, owned images embed (SVG inline, raster compressed) and ALWAYS win over the Unsplash fallback. Unsplash is a CDN stopgap for tags the owned library does not cover yet. Every entry carries provenance for the Sources manifest + client license gate.",
  "owned": {
-  "note": "Owned brand assets live in assets/images/ (alongside logos + fonts) and are referenced skill-root-relative in `file`. SVG assets embed inline as tiny self-contained data URIs; raster (.jpg/.png) drop-ins (e.g. ChatGPT-generated photos) embed compressed via Pillow. Set status='seeded' once a real file is present and approved_for_client=true. These embed at BRAND and take priority over unsplash_fallback. CLIENT/PARTNER LOGOS: when a deck cites another company, use its official logo via the `client-<slug>` tag (files in assets/images/clients/, sourced from our own site — never web-scraped).",
+  "note": "Owned brand assets live in assets/images/ (alongside logos + fonts) and are referenced skill-root-relative in `file`. SVG assets embed inline as tiny self-contained data URIs; raster (.jpg/.png) drop-ins (e.g. ChatGPT-generated photos) embed compressed via Pillow. Set status='seeded' once a real file is present and approved_for_client=true. These embed at BRAND and take priority over unsplash_fallback. CLIENT/PARTNER LOGOS: when a deck cites another company, use its official logo via the `client-<slug>` tag (files in assets/images/clients/, sourced from our own site \u2014 never web-scraped).",
   "entries": [
    {
     "id": "img-construction-aerial",
@@ -448,7 +448,7 @@
      "extracted",
      "commonly-used-reference-slides-s07"
     ],
-    "mood": "smrt-E mobile app — field home screen",
+    "mood": "smrt-E mobile app \u2014 field home screen",
     "file": "assets/images/extracted/commonly-used-reference-slides-s07-i02.png",
     "blob_sha": "51420693c4bad429",
     "dims": [
@@ -472,7 +472,7 @@
      "extracted",
      "commonly-used-reference-slides-s08"
     ],
-    "mood": "smrt-GC dashboard — projects health & tasks",
+    "mood": "smrt-GC dashboard \u2014 projects health & tasks",
     "file": "assets/images/extracted/commonly-used-reference-slides-s08-i00.png",
     "blob_sha": "cb15a6c5a7005c71",
     "dims": [
@@ -1389,7 +1389,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "Parke Pacific",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1408,7 +1408,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "GEN-PRO",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1427,7 +1427,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "GOBROCON",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1446,7 +1446,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "Kaiser Martin Group",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1465,7 +1465,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "ConCreat",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1484,7 +1484,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "AC Electric",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1503,7 +1503,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "Kal Electric",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -1522,7 +1522,7 @@
      "kind": "image",
      "source": "SmartBuild client logo strip (SmartBuildCorporate2023 site, images/clients)",
      "author": "A Hattersley",
-     "license": "client trademark — displayed by SmartBuild with permission",
+     "license": "client trademark \u2014 displayed by SmartBuild with permission",
      "requires_attribution": false,
      "approved_for_client": true
     }
@@ -2471,6 +2471,26 @@
      "source": "SmartBuild smrt-E product leaflet (August 2025 - Version 4)",
      "author": "SmartBuild",
      "license": "SmartBuild-owned",
+     "requires_attribution": false,
+     "approved_for_client": true
+    }
+   },
+   {
+    "id": "img-logo-microsoft-mark",
+    "tags": [
+     "logo-microsoft-mark",
+     "microsoft-mark",
+     "integration-logo",
+     "logo"
+    ],
+    "mood": "logo - the Microsoft four-square mark, alpha-trimmed from the owned Microsoft 365 lockup",
+    "file": "assets/images/site/logo-microsoft-mark.png",
+    "status": "seeded",
+    "provenance": {
+     "kind": "image",
+     "source": "derived (alpha-trim) from assets/images/site/logo-m365.png, itself from smrtbld.com/partners (own website)",
+     "author": "Microsoft (trademark) - lockup asset held by SmartBuild",
+     "license": "owned",
      "requires_attribution": false,
      "approved_for_client": true
     }
