@@ -3774,7 +3774,7 @@ def photo_rail_detail(s, acc):
 
 
 REGISTRY = {
-    "cover_geo": cover_geo, "cover_image": cover_geo, "cover_dark_photo": cover_geo,
+    "cover_geo": cover_geo, "cover_image": cover_geo, "cover_dark_photo": cover_dark_photo,
     "closing_cta": closing_cta, "photo_closing": closing_cta, "next_steps": closing_cta,
     "photo_statement": photo_statement, "photo_quote_band": photo_statement,
     "quote_full": quote_full, "icon_list": icon_list, "feature_benefit": feature_benefit,
