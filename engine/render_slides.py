@@ -152,8 +152,8 @@ def cover_img(slide, tag=None, extra=""):
 
 def contain_img(slide, tag=None, extra=""):
     """A supplied product/marketing image fitted WHOLE - never cropped (house rule)."""
-    return ('<img data-image="%s" style="max-width:100%%;max-height:100%%;width:auto;height:auto;'
-            'object-fit:contain;display:block;margin:auto;%s">' % (tag or img_tag(slide), extra))
+    return ('<img data-image="%s" style="width:100%%;height:100%%;object-fit:contain;'
+            'display:block;%s">' % (tag or img_tag(slide), extra))
 
 def mark_img(tag, h=26, style=""):
     """A partner or product MARK (a real logo asset from the image catalog), fitted
@@ -577,11 +577,11 @@ def checklist_sheet(s, acc):
                  + '<span style="flex:none;width:28px;height:28px;border:2px solid var(--sb-ink);border-radius:6px;'
                  + 'display:flex;align-items:center;justify-content:center">' + check_img + '</span>'
                  + '<div>'
-                 + blk(titles[i], "div", "no-caps", "font-size:15.5px;font-weight:800;color:var(--sb-title);margin-bottom:4px")
-                 + blk(bodies[i], "div", "", "font-size:13.5px;line-height:1.55;color:var(--sb-body-on-dark)")
+                 + blk(titles[i], "div", "no-caps", "font-size:18px;font-weight:800;color:var(--sb-title);margin-bottom:5px")
+                 + blk(bodies[i], "div", "", "font-size:15.5px;line-height:1.55;color:var(--sb-body-on-dark)")
                  + '</div></div>')
     bg = ('<div style="position:absolute;inset:0">' + cover_img(s, img) + '</div>'
-          + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.66"></div>')
+          + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.58"></div>')
     # v1.2 (2026-08-20): the statement column takes an optional lead under the headline
     # and an optional caption footer, so a closing slide can carry its legal line without
     # a second slide or an untagged scrap of text.
@@ -661,9 +661,13 @@ def icon_list(s, acc):
         # duotone/scrim. photo_bg() (tint + legibility gradient) is reserved for full-bleed
         # backgrounds that carry .on-media text; a standalone image must read as a real photo.
         if has_tag(s, "contain"):
-            # a supplied product/marketing shot: fitted WHOLE, no crop (house rule)
+            # a supplied product/marketing shot: fitted WHOLE inside a white product
+            # plate, never cropped (house rule) - so a shot that ships on white reads as
+            # an intentional panel instead of a stray rectangle on the deck canvas.
             photo = ('<div class="reveal-left" style="flex:1;min-height:210px;display:flex;align-items:center;'
-                     'justify-content:center;margin-top:22px;overflow:hidden">' + contain_img(s) + '</div>')
+                     'justify-content:center;margin-top:20px;padding:18px;box-sizing:border-box;border-radius:6px;'
+                     'background:rgba(255,255,255,1);box-shadow:0 10px 30px rgba(6,12,26,0.10);overflow:hidden">'
+                     + contain_img(s) + '</div>')
         else:
             photo = ('<div class="reveal-left" style="flex:1;min-height:200px;border-radius:6px;overflow:hidden;'
                      'margin-top:26px;position:relative">' + cover_img(s) + '</div>')
@@ -674,7 +678,7 @@ def icon_list(s, acc):
                  + blk(footnote, "div", "", "font-size:14px;line-height:1.5;color:var(--sb-text-on-dark);font-weight:600") + '</div>')
     hn = len((head.get("text") or "")) if head else 0
     hsize = 46 if hn <= 26 else 39 if hn <= 40 else 34
-    left = ('<div style="flex:0 0 38%;display:flex;flex-direction:column;justify-content:center;min-height:0">'
+    left = ('<div style="flex:0 0 41%;display:flex;flex-direction:column;justify-content:center;min-height:0">'
             + kicker_html
             + blk(head, "h2", "hl reveal-left", "font-size:%spx;margin:0 0 4px;line-height:1.08" % hsize)
             + (blk(lead, "div", "reveal no-caps", "font-size:16px;font-weight:500;line-height:1.5;"
@@ -1009,11 +1013,13 @@ def cover_agenda_photo(s, acc):
     else:
         bg = '<div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,12,26,0.96),var(--sb-navy))"></div>'
     n = len(items)
-    big = n <= 5
+    big = n <= 8
     left = ('<div class="on-media" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:30px">'
             + blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:1.02;margin:0" % (56 if big else 50))
-            + (blk(sub, "div", "reveal no-caps", "font-size:%dpx;font-weight:%d;line-height:1.4;margin-top:18px"
-                   % (26 if big else 18, 800 if big else 500)) if sub else "")
+            # WEIGHT LADDER: a long supporting line must read as a lead, not a second
+            # headline - key the weight off the copy's own length, not the item count.
+            + (blk(sub, "div", "reveal no-caps", "font-size:%dpx;font-weight:%d;line-height:%s;margin-top:18px;max-width:560px"
+                   % ((26, 800, "1.3") if len(sub.get("text", "")) <= 58 else (20, 500, "1.5"))) if sub else "")
             + (blk(date, "div", "reveal", "font-size:16px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;"
                    "color:var(--sb-body-on-dark);margin-top:26px") if date else "")
             + '</div>')
@@ -1022,14 +1028,13 @@ def cover_agenda_photo(s, acc):
     # plain numeral (never zero-padded), centred in a fixed-width slot.
     def row(b, i):
         num = ('<span aria-hidden="true" style="flex:none;width:26px;text-align:center;font-weight:900;'
-               'font-size:%dpx;opacity:0.62">%d</span>' % (17 if big else 15, i + 1))
+               'font-size:%dpx;opacity:0.62">%d</span>' % (19 if big else 15, i + 1))
         return ('<div style="display:flex;gap:12px;align-items:baseline;padding:%s 0;'
-                'border-top:1px solid rgba(255,255,255,0.22)">' % ("14px" if big else "11px")
+                'border-top:1px solid rgba(255,255,255,0.22)">' % ("17px" if big else "11px")
                 + num + blk(b, "div", "on-media no-caps", "font-size:%dpx;font-weight:700;line-height:1.3"
-                            % (18 if big else 16.5)) + '</div>')
+                            % (20 if big else 16.5)) + '</div>')
     if big:
-        rows = "".join(row(b, i) for i, b in enumerate(items))
-        body = rows
+        body = "".join(row(b, i) for i, b in enumerate(items))
     else:
         half = (n + 1) // 2
         colA = "".join(row(b, i) for i, b in enumerate(items[:half]))
@@ -1900,11 +1905,14 @@ def hub(s, acc):
         positions = [(50, 13), (16, 50), (84, 50), (50, 87)]
 
     def node(b, x, y, i):
-        ib = (icon(ic[i], 24) + '<div style="height:7px"></div>') if i < len(ic) else ""
+        # icon-LEFT rows: a one-word node stacked over its icon leaves half the card
+        # empty, so identity and label share a line and the card hugs its content.
+        ib = icon(ic[i], 26) if i < len(ic) else ""
         tmpl = ('<div class="reveal-scale sb-card" style="position:absolute;left:%d%%;top:%d%%;'
-                'transform:translate(-50%%,-50%%);width:%d%%;padding:14px 16px;box-sizing:border-box">%s%s</div>')
+                'transform:translate(-50%%,-50%%);width:%d%%;padding:16px 20px;box-sizing:border-box;'
+                'display:flex;align-items:center;gap:14px">%s%s</div>')
         return tmpl % (x, y, 26 if n < 5 else 27, ib,
-                       blk(b, "div", "no-caps", "font-size:15px;font-weight:700;line-height:1.3;color:var(--sb-text-on-dark)"))
+                       blk(b, "div", "no-caps", "font-size:18px;font-weight:800;line-height:1.25;color:var(--sb-text-on-dark)"))
     nodes = ""
     for i, b in enumerate(spokes):
         x, y = positions[i]
@@ -1912,7 +1920,7 @@ def hub(s, acc):
     ctxt = (center_b or {}).get("text", "").strip()
     if center_b and (is_product_word(ctxt) or ctxt.upper() == "SMARTBUILD"):
         center_inner = blk(center_b, "div", "", "margin:0", raw=(
-            '<img data-logo="%s" alt="%s" style="height:46px;width:auto;display:block;margin:0 auto">'
+            '<img data-logo="%s" alt="%s" style="height:auto;max-height:54px;max-width:100%%;width:auto;display:block;margin:0 auto">'
             % ("smartbuild" if ctxt.upper() == "SMARTBUILD" else ctxt, ctxt)))
         cbg = "var(--sb-title)"
     else:
@@ -1960,33 +1968,38 @@ def layers(s, acc):
         tiers = ""
         for i in range(n):
             top = (i == 0)
-            inner_w = 100 - i * (22 // max(n - 1, 1))
+            # the FOUNDATION is the widest tier: a stack narrowing toward its base reads
+            # upside-down. Top tier (the interface) is narrowest and accent-filled.
+            inner_w = 76 + i * (24 // max(n - 1, 1))
             style = ("background:%s;border:none" % ACC) if top else ""
-            tiers += ('<div class="reveal%s" style="width:%d%%;margin:0 auto 10px;border-radius:6px;'
-                      'padding:15px 22px;box-sizing:border-box;text-align:center;%s">'
+            tiers += ('<div class="reveal%s" style="width:%d%%;margin:0 auto 12px;border-radius:6px;'
+                      'padding:22px 24px;box-sizing:border-box;text-align:center;%s">'
                       % (" on-media" if top else " sb-card", inner_w, style)
-                      + blk(pt[i], "div", "no-caps", "font-size:18px;font-weight:800;line-height:1.25;%s"
+                      + blk(pt[i], "div", "no-caps", "font-size:21px;font-weight:800;line-height:1.2;%s"
                             % ("" if top else "color:var(--sb-text-on-dark)"))
-                      + (blk(pb[i], "div", "no-caps", "font-size:13px;font-weight:500;margin-top:4px;%s"
+                      + (blk(pb[i], "div", "no-caps", "font-size:14.5px;font-weight:500;margin-top:6px;%s"
                              % ("opacity:0.9" if top else "color:var(--sb-body-on-dark)")) if i < len(pb) else "")
                       + '</div>')
             if i < n - 1:            # a downward flow tick between tiers (SVG, export-safe)
                 tiers += ('<div aria-hidden="true" style="display:flex;justify-content:center;margin:-4px 0 4px">'
                           '<svg width="20" height="16" viewBox="0 0 24 24" fill="none">'
-                          '<path d="M12 4v14M6 13l6 6 6-6" stroke="%s" stroke-width="2.5" '
+                          '<path d="M12 20V6M6 11l6-6 6 6" stroke="%s" stroke-width="2.5" '
                           'stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/></svg></div>' % ACC)
         foot_html = ""
         if foot:
-            foot_html = ('<div class="reveal sb-card" style="margin-top:12px;padding:12px 18px;border-left:5px solid ' + ACC + '">'
-                         + blk(foot, "div", "", "font-size:12.5px;line-height:1.5;color:var(--sb-body-on-dark)") + '</div>')
+            foot_html = ('<div class="reveal sb-card" style="margin-top:16px;padding:16px 20px;border-left:5px solid ' + ACC + '">'
+                         + blk(foot, "div", "", "font-size:14px;line-height:1.5;color:var(--sb-body-on-dark)") + '</div>')
         cards = ""
         for i in range(min(len(titles), len(bodies))):
-            cards += ('<div class="reveal sb-card" style="flex:1;display:flex;flex-direction:column;justify-content:center;'
-                      'padding:22px 26px;border-top:5px solid ' + ACC + '">'
-                      + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:19px;line-height:1.25;"
-                            "color:var(--sb-text-on-dark);margin-bottom:8px")
-                      + blk(bodies[i], "div", "", "font-size:14.5px;line-height:1.6;color:var(--sb-body-on-dark)")
-                      + value_line(values[i] if i < len(values) else None, size=12)
+            cards += ('<div class="reveal sb-card" style="flex:1;display:flex;flex-direction:column;'
+                      'justify-content:space-between;padding:24px 28px;border-top:5px solid ' + ACC + '">'
+                      + '<div>'
+                      + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:21px;line-height:1.22;"
+                            "color:var(--sb-text-on-dark)")
+                      + '<div style="margin-top:10px">'
+                      + blk(bodies[i], "div", "", "font-size:16px;line-height:1.6;color:var(--sb-body-on-dark)")
+                      + '</div></div>'
+                      + value_line(values[i] if i < len(values) else None, size=13, gap="13px")
                       + '</div>')
         left = ('<div style="flex:0 0 45%;display:flex;flex-direction:column;justify-content:center;min-height:0">'
                 + tiers + foot_html + '</div>')
@@ -3886,24 +3899,52 @@ def photo_rail_detail(s, acc):
     footnote = _first(g, "footnote")
     img = img_tag(s) or "context"
     mark = tag_value(s, "mark")
+    ic = icons_of(s)
     n = min(len(titles), len(bodies))
     cards = ""
     for i in range(n):
         m = _PRODUCT_LOGO_RE.search(titles[i].get("text", ""))
-        logo_html = ('<img data-logo="%s" style="height:30px;width:auto;margin-bottom:10px">' % m.group(1)) if m else ""
+        # a product-led card shows the LOGO as its title mark; otherwise a catalog icon
+        # (only when the plan declared one - a missing icon beats a forced one).
+        if m:
+            logo_html = '<img data-logo="%s" style="height:30px;width:auto;margin-bottom:10px">' % m.group(1)
+        elif i < len(ic):
+            logo_html = '<div style="margin-bottom:9px">' + icon(ic[i], 30) + '</div>'
+        else:
+            logo_html = ""
         # ODD COUNT: the last card spans the full width rather than leaving a dead
         # half-cell (no-dead-pixel rule). 3 cards => two up, one wide.
-        span = ';grid-column:1 / -1' if (n % 2 and i == n - 1 and n > 1) else ''
-        cards += ('<div class="reveal sb-card" style="display:flex;flex-direction:column;justify-content:center;padding:18px 22px;border-top:5px solid ' + ACC + span + '">'
-                  + '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:9px">'
-                  + logo_html
-                  + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:15.5px;line-height:1.25;color:var(--sb-text-on-dark)")
-                  + '</div>'
-                  + blk(bodies[i], "div", "", "font-size:13px;line-height:1.55;color:var(--sb-body-on-dark);text-align:left")
-                  + value_line(values[i] if i < len(values) else None)
-                  + '</div>')
-    grid = ('<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px;min-height:0">'
-            + cards + '</div>')
+        wide = bool(n % 2 and i == n - 1 and n > 1)
+        span = ';grid-column:1 / -1' if wide else ''
+        head_html = ('<div style="display:flex;flex-direction:column;align-items:center;text-align:center">'
+                     + logo_html
+                     + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:17px;line-height:1.25;color:var(--sb-text-on-dark)")
+                     + '</div>')
+        body_html = blk(bodies[i], "div", "", "font-size:15px;line-height:1.6;color:var(--sb-body-on-dark);text-align:left")
+        val_html = value_line(values[i] if i < len(values) else None, size=13, gap="14px")
+        if wide:
+            # A full-width card laid out as a COLUMN leaves a band of dead white; run it
+            # sideways instead - identity left, prose and payoff right.
+            inner_card = ('<div style="display:flex;gap:32px;align-items:center;height:100%">'
+                          + '<div style="flex:0 0 30%;display:flex;flex-direction:column;justify-content:center">' + head_html + '</div>'
+                          + '<div style="flex:1;display:flex;flex-direction:column;justify-content:center">'
+                          + body_html + val_html + '</div></div>')
+        else:
+            # top / middle / bottom: the payoff line anchors the card foot so short copy
+            # cannot pool into a lake of white (no-dead-pixel rule).
+            # title and body stay TOGETHER at the top; only the payoff line is
+            # foot-anchored, so short copy never leaves a void through the card's middle.
+            inner_card = ('<div>' + head_html
+                          + '<div style="margin-top:11px">' + body_html + '</div></div>'
+                          + val_html)
+        cards += ('<div class="reveal sb-card" style="display:flex;flex-direction:column;justify-content:%s;'
+                  'padding:20px 24px;border-top:5px solid ' % ("center" if wide else "space-between")
+                  + ACC + span + '">' + inner_card + '</div>')
+    # An odd count spans its last card, so give that row LESS height than the pair row -
+    # a wide card carrying one point does not need an equal share of the canvas.
+    rows_css = ("grid-template-rows:1.18fr 0.82fr" if (n % 2 and n > 1) else "grid-auto-rows:1fr")
+    grid = ('<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;%s;gap:14px;min-height:0">'
+            % rows_css + cards + '</div>')
     foot_html = ""
     if footnote:
         foot_html = ('<div class="reveal sb-card" style="margin-top:14px;padding:12px 18px;border-left:5px solid ' + ACC + '">'
@@ -3919,7 +3960,7 @@ def photo_rail_detail(s, acc):
     mark_html = ('<div style="margin-bottom:18px">' + mark_img(mark, 30) + '</div>') if mark else ""
     rail = ('<div class="reveal-left" style="flex:0 0 30%;border-radius:6px;overflow:hidden;position:relative">'
             + cover_img(s, img)
-            + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.72"></div>'
+            + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.78"></div>'
             + '<div class="on-media" style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:30px 26px;box-sizing:border-box">'
             + mark_html + badge_html
             + (blk(kick, "div", "reveal", "font-size:11.5px;font-weight:800;letter-spacing:0.18em;margin:0 0 12px;opacity:0.85") if kick else "")
