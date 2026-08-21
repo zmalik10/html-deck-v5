@@ -3737,20 +3737,27 @@ def photo_rail_detail(s, acc):
     lead = _first(g, "lead") or _first(g, "subhead")
     badge = _first(g, "label")
     titles, bodies = g.get("card_title", []), g.get("card_body", [])
+    values = g.get("value_label", [])
     footnote = _first(g, "footnote")
     img = img_tag(s) or "context"
+    mark = tag_value(s, "mark")
+    n = min(len(titles), len(bodies))
     cards = ""
-    for i in range(min(len(titles), len(bodies))):
+    for i in range(n):
         m = _PRODUCT_LOGO_RE.search(titles[i].get("text", ""))
         logo_html = ('<img data-logo="%s" style="height:30px;width:auto;margin-bottom:10px">' % m.group(1)) if m else ""
-        cards += ('<div class="reveal sb-card" style="display:flex;flex-direction:column;justify-content:center;padding:20px 24px;border-top:5px solid ' + ACC + '">'
-                  + '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:10px">'
+        # ODD COUNT: the last card spans the full width rather than leaving a dead
+        # half-cell (no-dead-pixel rule). 3 cards => two up, one wide.
+        span = ';grid-column:1 / -1' if (n % 2 and i == n - 1 and n > 1) else ''
+        cards += ('<div class="reveal sb-card" style="display:flex;flex-direction:column;justify-content:center;padding:18px 22px;border-top:5px solid ' + ACC + span + '">'
+                  + '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:9px">'
                   + logo_html
-                  + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:16px;color:var(--sb-text-on-dark)")
+                  + blk(titles[i], "div", "no-caps", "font-weight:800;font-size:15.5px;line-height:1.25;color:var(--sb-text-on-dark)")
                   + '</div>'
-                  + blk(bodies[i], "div", "", "font-size:13.5px;line-height:1.6;color:var(--sb-body-on-dark);text-align:left")
+                  + blk(bodies[i], "div", "", "font-size:13px;line-height:1.55;color:var(--sb-body-on-dark);text-align:left")
+                  + value_line(values[i] if i < len(values) else None)
                   + '</div>')
-    grid = ('<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:16px;min-height:0">'
+    grid = ('<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px;min-height:0">'
             + cards + '</div>')
     foot_html = ""
     if footnote:
@@ -3760,17 +3767,25 @@ def photo_rail_detail(s, acc):
     if badge:
         badge_html = blk(badge, "span", "", "align-self:flex-start;padding:5px 12px;border-radius:6px;background:" + ACC
                          + ";font-weight:900;font-size:11.5px;letter-spacing:0.16em;margin-bottom:14px")
-    rail = ('<div class="reveal-left" style="flex:0 0 27%;border-radius:6px;overflow:hidden;position:relative">'
-            + '<img data-image="' + img + '" class="img-cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">'
+    # the rail headline is often a single surface/product name - let it go BIG, and
+    # step down only when the string is long enough to need the room.
+    hn = len((head.get("text") or "")) if head else 0
+    hsize = 44 if hn <= 10 else 38 if hn <= 18 else 32 if hn <= 30 else 27
+    mark_html = ('<div style="margin-bottom:18px">' + mark_img(mark, 30) + '</div>') if mark else ""
+    rail = ('<div class="reveal-left" style="flex:0 0 30%;border-radius:6px;overflow:hidden;position:relative">'
+            + cover_img(s, img)
             + '<div style="position:absolute;inset:0;background:var(--sb-ink);opacity:0.72"></div>'
             + '<div class="on-media" style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:30px 26px;box-sizing:border-box">'
-            + badge_html
+            + mark_html + badge_html
             + (blk(kick, "div", "reveal", "font-size:11.5px;font-weight:800;letter-spacing:0.18em;margin:0 0 12px;opacity:0.85") if kick else "")
-            + blk(head, "h2", "hl reveal", "font-size:29px;margin:0;line-height:1.15")
-            + (blk(lead, "div", "reveal", "font-size:13.5px;line-height:1.6;margin-top:16px") if lead else "")
+            + blk(head, "h2", "hl reveal", "font-size:%dpx;margin:0;line-height:1.08" % hsize)
+            + (blk(lead, "div", "reveal", "font-size:14px;line-height:1.55;margin-top:18px") if lead else "")
             + '</div></div>')
     right = '<div style="flex:1;display:flex;flex-direction:column;min-height:0">' + grid + foot_html + '</div>'
-    return '<div style="display:flex;gap:26px;height:100%;align-items:stretch">' + rail + right + '</div>', 64
+    # MIRROR: a connected sequence alternates the rail side so the viewer never sees
+    # the same silhouette twice running, while keeping the shared visual language.
+    order = (right + rail) if has_tag(s, "mirror") else (rail + right)
+    return '<div style="display:flex;gap:26px;height:100%;align-items:stretch">' + order + '</div>', 64
 
 
 REGISTRY = {
