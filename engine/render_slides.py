@@ -966,23 +966,43 @@ def cover_agenda_photo(s, acc):
     date = _first(g, "caption")
     items = g.get("list_item", [])
     if has_image(s):
-        bg = photo_bg(img_tag(s), "120deg,rgba(6,12,26,0.92) 0%,rgba(6,12,26,0.72) 50%,rgba(6,12,26,0.55) 100%")
+        bg = ('<div style="position:absolute;inset:0;z-index:0">' + cover_img(s) + '</div>'
+              '<div style="position:absolute;inset:0;z-index:1;background:var(--sb-ink);opacity:0.7"></div>')
     else:
         bg = '<div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,12,26,0.96),var(--sb-navy))"></div>'
+    n = len(items)
+    big = n <= 5
     left = ('<div class="on-media" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:30px">'
-            + blk(head, "h1", "hl reveal-hero", "font-size:56px;line-height:1.02;margin:0")
-            + (blk(sub, "div", "reveal no-caps", "font-size:26px;font-weight:800;margin-top:18px") if sub else "")
+            + blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:1.02;margin:0" % (56 if big else 50))
+            + (blk(sub, "div", "reveal no-caps", "font-size:%dpx;font-weight:%d;line-height:1.4;margin-top:18px"
+                   % (26 if big else 18, 800 if big else 500)) if sub else "")
             + (blk(date, "div", "reveal", "font-size:16px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;"
                    "color:var(--sb-body-on-dark);margin-top:26px") if date else "")
             + '</div>')
-    rows = ""
-    for b in items:
-        rows += ('<div style="padding:16px 0;border-top:1px solid rgba(255,255,255,0.22)">'
-                 + blk(b, "div", "on-media", "font-size:18px;font-weight:700;line-height:1.35") + '</div>')
-    panel = ('<div class="reveal-right on-media" style="flex:0 0 40%%;align-self:stretch;background:%s;border-radius:6px;'
-             'padding:34px 38px;display:flex;flex-direction:column;justify-content:center">%s</div>' % (ACC, rows))
+    # v1.1 (2026-08-20): a longer contents list (6-10 entries) reflows into TWO numbered
+    # columns instead of squeezing ten hairline rows into one - and every entry gets its
+    # plain numeral (never zero-padded), centred in a fixed-width slot.
+    def row(b, i):
+        num = ('<span aria-hidden="true" style="flex:none;width:26px;text-align:center;font-weight:900;'
+               'font-size:%dpx;opacity:0.62">%d</span>' % (17 if big else 15, i + 1))
+        return ('<div style="display:flex;gap:12px;align-items:baseline;padding:%s 0;'
+                'border-top:1px solid rgba(255,255,255,0.22)">' % ("14px" if big else "11px")
+                + num + blk(b, "div", "on-media no-caps", "font-size:%dpx;font-weight:700;line-height:1.3"
+                            % (18 if big else 16.5)) + '</div>')
+    if big:
+        rows = "".join(row(b, i) for i, b in enumerate(items))
+        body = rows
+    else:
+        half = (n + 1) // 2
+        colA = "".join(row(b, i) for i, b in enumerate(items[:half]))
+        colB = "".join(row(b, i + half) for i, b in enumerate(items[half:]))
+        body = ('<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 26px">'
+                '<div>%s</div><div>%s</div></div>' % (colA, colB))
+    panel = ('<div class="reveal-right on-media" style="flex:0 0 %d%%;align-self:stretch;background:%s;border-radius:6px;'
+             'padding:%s;display:flex;flex-direction:column;justify-content:center">%s</div>'
+             % (40 if big else 52, ACC, "34px 38px" if big else "30px 32px", body))
     content = ('<div style="position:absolute;inset:0;z-index:2;display:flex;padding:64px 72px;box-sizing:border-box;'
-               'gap:44px;align-items:stretch">' + left + panel + '</div>')
+               'gap:%dpx;align-items:stretch">' % (44 if big else 36) + left + panel + '</div>')
     inner = bg + logo_mark() + content
     return inner, 0
 
