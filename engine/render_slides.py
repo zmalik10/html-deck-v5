@@ -476,6 +476,48 @@ def cover_geo(s, acc):
              % (wrap_cls, content))
     return inner, 0
 
+def cover_dark_photo(s, acc):
+    """CV-11 Dark Photo Cover (real renderer added 2026-08-20; previously fell through
+    to cover_geo's geometric cover, which threw away the template's whole point).
+    Full-bleed photograph aimed at its focal point, SOLID ink veil (no decorative
+    gradient), a co-brand lockup top-left when `mark:<tag>` is declared, then a
+    massive stacked title with its supporting lines and an uppercase footer rule."""
+    g = grp(s)
+    head = _first(g, "headline")
+    sub = _first(g, "subhead")
+    lead = _first(g, "lead") or _first(g, "body")
+    cap = _first(g, "caption")
+    label = _first(g, "label")
+    mark = tag_value(s, "mark")
+    photo = ('<div style="position:absolute;inset:0;z-index:0">' + cover_img(s) + '</div>'
+             '<div style="position:absolute;inset:0;z-index:1;background:var(--sb-ink);opacity:0.68"></div>')
+    # co-brand lockup: OUR mark, a hairline, THEIR mark. One SmartBuild logo per slide.
+    lock = ('<div style="position:absolute;left:72px;top:52px;z-index:4;display:flex;align-items:center;gap:22px">'
+            '<img data-logo="smartbuild" style="height:34px;width:auto;display:block">'
+            + ('<span style="width:1px;height:34px;background:rgba(255,255,255,0.34)"></span>'
+               + mark_img(mark, 30) if mark else "")
+            + '</div>')
+    n = len((head.get("text") or "")) if head else 0
+    tsize = 96 if n <= 14 else 86 if n <= 26 else 74 if n <= 40 else 62
+    body = ('<div style="max-width:830px">'
+            + (blk(label, "div", "label reveal", "color:var(--sb-sky);margin-bottom:18px") if label else "")
+            + blk(head, "h1", "hl reveal-hero", "font-size:%dpx;line-height:0.94;margin:0;max-width:9.5em" % tsize)
+            + (blk(sub, "div", "reveal no-caps", "font-size:29px;font-weight:600;line-height:1.25;margin-top:26px;"
+                   "max-width:700px") if sub else "")
+            + (blk(lead, "div", "reveal", "font-size:17px;font-weight:500;line-height:1.5;margin-top:18px;"
+                   "opacity:0.86;max-width:600px") if lead else "")
+            + '</div>')
+    foot = ""
+    if cap:
+        foot = ('<div style="position:absolute;left:72px;right:72px;bottom:44px;z-index:4;padding-top:16px;'
+                'border-top:1px solid rgba(255,255,255,0.24)">'
+                + blk(cap, "div", "on-media reveal", "font-size:11.5px;font-weight:700;letter-spacing:0.2em;"
+                      "text-transform:uppercase;opacity:0.8") + '</div>')
+    inner = (photo + lock + foot
+             + '<div class="on-media" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;'
+               'justify-content:center;padding:0 72px;box-sizing:border-box">%s</div>' % body)
+    return inner, 0
+
 def closing_cta(s, acc):
     g = grp(s)
     head, sub, cta = g.get("headline", [None])[0], g.get("subhead", [None])[0], g.get("cta", [None])[0]
