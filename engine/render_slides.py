@@ -1816,38 +1816,70 @@ def synthesis(s, acc):
     return inner, 64
 
 def hub(s, acc):
+    """CC-07 Hub / System Map. Rectangular, no circles.
+
+    v1.1 (2026-08-20): scales past four spokes - FIVE OR SIX nodes flank the hub in
+    two columns of three (a ring that high clips the canvas). A centre node whose text
+    is a brand/product name renders that LOGO instead of styled words (house rule).
+    When the slide carries BOTH a headline and a subhead the headline becomes the real
+    slide title with the subhead as its lead, and card_body/footnote takes the synthesis
+    band; a headline ALONE keeps the legacy behaviour (headline = synthesis band)."""
     g = grp(s)
     bodies = g.get("body", [])
     center_b = bodies[0] if bodies else None
-    pains = bodies[1:5]
-    syn = _headline_block(g)
+    head = _headline_block(g)
+    sub = _first(g, "subhead") or _first(g, "lead")
+    titled = bool(head and sub)
+    spokes = bodies[1:7] if titled else bodies[1:5]
+    syn = (_first(g, "card_body") or _first(g, "footnote")) if titled else head
     ic = icons_of(s)
-    positions = [(50, 13), (16, 50), (84, 50), (50, 87)]
+    n = len(spokes)
+    if n >= 5:                      # two flanking columns of up to three
+        col = [18, 50, 82][:((n + 1) // 2)]
+        positions = [(17, y) for y in ([18, 50, 82] if n > 4 else col)][:((n + 1) // 2)]
+        positions += [(83, y) for y in [18, 50, 82]][:n - len(positions)]
+    else:
+        positions = [(50, 13), (16, 50), (84, 50), (50, 87)]
 
     def node(b, x, y, i):
-        ib = (icon(ic[i], 26) + '<div style="height:8px"></div>') if i < len(ic) else ""
+        ib = (icon(ic[i], 24) + '<div style="height:7px"></div>') if i < len(ic) else ""
         tmpl = ('<div class="reveal-scale sb-card" style="position:absolute;left:%d%%;top:%d%%;'
-                'transform:translate(-50%%,-50%%);width:26%%;padding:16px;box-sizing:border-box">%s%s</div>')
-        return tmpl % (x, y, ib, blk(b, "div", "", "font-size:14px;line-height:1.4;color:var(--sb-text-on-dark)"))
+                'transform:translate(-50%%,-50%%);width:%d%%;padding:14px 16px;box-sizing:border-box">%s%s</div>')
+        return tmpl % (x, y, 26 if n < 5 else 27, ib,
+                       blk(b, "div", "no-caps", "font-size:15px;font-weight:700;line-height:1.3;color:var(--sb-text-on-dark)"))
     nodes = ""
-    for i, b in enumerate(pains):
+    for i, b in enumerate(spokes):
         x, y = positions[i]
         nodes += node(b, x, y, i)
-    center = ('<div class="on-media" style="position:absolute;left:50%%;top:50%%;transform:translate(-50%%,-50%%);'
-              'width:30%%;background:%s;border-radius:6px;padding:22px 18px;box-sizing:border-box;text-align:center;z-index:2">'
-              % ACC
-              + blk(center_b, "div", "", "font-size:16px;font-weight:800;line-height:1.4") + '</div>')
+    ctxt = (center_b or {}).get("text", "").strip()
+    if center_b and (is_product_word(ctxt) or ctxt.upper() == "SMARTBUILD"):
+        center_inner = blk(center_b, "div", "", "margin:0", raw=(
+            '<img data-logo="%s" alt="%s" style="height:46px;width:auto;display:block;margin:0 auto">'
+            % ("smartbuild" if ctxt.upper() == "SMARTBUILD" else ctxt, ctxt)))
+        cbg = "var(--sb-title)"
+    else:
+        center_inner = blk(center_b, "div", "", "font-size:16px;font-weight:800;line-height:1.4")
+        cbg = ACC
+    center = ('<div class="on-media reveal-scale" style="position:absolute;left:50%%;top:50%%;'
+              'transform:translate(-50%%,-50%%);width:26%%;background:%s;border-radius:6px;'
+              'padding:26px 20px;box-sizing:border-box;text-align:center;z-index:2">%s</div>' % (cbg, center_inner))
     lines = ""
-    for (x, y) in positions[:len(pains)]:
-        lines += '<line x1="50" y1="50" x2="%d" y2="%d" stroke="%s" stroke-width="0.6"/>' % (x, y, ACC)
+    for (x, y) in positions[:n]:
+        lines += '<line x1="50" y1="50" x2="%d" y2="%d" stroke="%s" stroke-width="0.5" opacity="0.55"/>' % (x, y, ACC)
     svg = ('<svg viewBox="0 0 100 100" preserveAspectRatio="none" '
            'style="position:absolute;inset:0;width:100%;height:100%;z-index:0">' + lines + '</svg>')
-    diagram = '<div style="position:relative;flex:1;min-height:340px">' + svg + nodes + center + '</div>'
+    diagram = '<div style="position:relative;flex:1;min-height:330px">' + svg + nodes + center + '</div>'
+    title = ""
+    if titled:
+        title = ('<div style="margin-bottom:14px">'
+                 + blk(head, "h2", "hl reveal", "font-size:40px;line-height:1.1;margin:0 0 12px")
+                 + blk(sub, "div", "reveal no-caps", "font-size:17px;font-weight:500;line-height:1.55;"
+                       "color:var(--sb-body-on-dark);max-width:900px") + '</div>')
     band = ""
     if syn:
         band = ('<div style="margin-top:18px">'
-                + p_accent_box(blk(syn, "div", "no-caps", "font-size:24px;font-weight:800;line-height:1.3")) + '</div>')
-    inner = p_kicker(g) + diagram + band
+                + p_accent_box(blk(syn, "div", "no-caps", "font-size:22px;font-weight:800;line-height:1.3")) + '</div>')
+    inner = p_kicker(g) + title + diagram + band
     return inner, 64
 
 def layers(s, acc):
