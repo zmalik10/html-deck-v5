@@ -194,3 +194,47 @@ Renderer gaps worked around via deck-local patch_slides.py; banked as suggestion
 - **APPLIED AT SOURCE (owner directive, 2026-08-13 - templates now adjust in-session):** cover_geo subhead laddered (19-20px/500, was 24-30px/700); photo_columns (NM-19) captions to house rule (navy centered title, left body); NEW NM-25 "Checklist Sheet Over Photo" renderer promoted from the affiliate deck (punch-list concept, green confirm checks); --sb-confirm token added to brand tokens + emitted by build.py; density_check now samples the full element stack (transparent wrappers over full-bleed photos no longer read as empty). Gallery regenerated.
 - **NM-25 v1.1 (APPLIED AT SOURCE 2026-08-19, owner refinement)**: the checklist sheet was one full-height slab - now each signal is its own floating sb-card (14px gaps, justify-center column at 52%), check box 28px/2px ink, title 15.5/800 navy, body 13.5/1.55. Gallery regenerated.
 - **Exporter capture bug (2026-08-19, worked around deck-side)**: a HEADLINE whose soft-wrap boundary meets an inline styled span exports with its wrapped lines merged into one unwrapped paragraph (same family as the small-print .product-name advisory) - slide text then runs under neighbouring shapes in PPTX. Workaround: explicit <br> at the browser's break points (runs reproduce verbatim). Real fix belongs in the get_manifest line-splitter.
+
+## 2026-08-20 — SMARTBUILD x Microsoft value deck (APPLIED AT SOURCE, gallery regenerated)
+Rebuilding a 13-slide PPTX whose every content slide was the same flat 2x2 of bordered boxes exposed
+seven real template gaps. All fixed in the master renderers, not deck-locally.
+- **NEW shape_tags-as-modifiers convention (cross-cutting).** `plan.schema.json` locks the slide object
+  (`additionalProperties:false`), so `layout.shape_tags` is now the sanctioned channel for per-slide
+  rendering switches, understood house-wide by the helpers in render_slides.py: `mirror` (flip a split
+  to its legal mirror), `contain` (fit a supplied product shot whole), `mark:<image-tag>` (render a
+  partner/product mark from the image catalog), `focal:<x>-<y>` (object-position, i.e. the INTELLIGENT
+  CROPPING house rule made declarative instead of hand-authored). Helpers: `has_tag/tag_value/focal/
+  cover_img/contain_img/mark_img/value_line`.
+- **NEW `value_label` support (PO-10, NM-18, CC-08).** Feature cards can carry a VALUE payoff line. The
+  copy keeps its own leading "VALUE" token and the label is styled INSIDE the same data-block, so no
+  rendered word escapes the block model (RC8b) and the line stays one editable run at export.
+- **CV-11 Dark Photo Cover got a REAL renderer** (`cover_dark_photo`) - it was aliased to `cover_geo`,
+  i.e. the geometric cover, throwing away the template's whole point. Full-bleed focal-aimed photo,
+  solid ink veil, co-brand lockup top-left when `mark:` is set, footer rule. Title size is now MEASURED
+  (~0.70em/glyph for Montserrat 900 caps) against the 1136px canvas instead of guessed off a length
+  ladder, so a short lockup title holds ONE line instead of orphaning its last word.
+- **CC-07 Hub scales past four spokes.** 5-6 nodes flank the hub in two columns of three (a ring that
+  tall clips the canvas). Nodes are icon-LEFT rows (a one-word node stacked over its icon left half the
+  card empty). A centre node naming a brand/product renders that LOGO. With headline+subhead present the
+  headline becomes the real slide title and card_body/footnote takes the synthesis band; headline alone
+  keeps the legacy behaviour.
+- **CV-10 agenda panel holds 8 entries** in one numbered column (two columns only past 8; the old
+  5-item threshold pushed 8 entries into two short columns floating in a half-empty slab), and the
+  supporting line's weight now keys off its OWN length so a long lead stops reading as a second headline.
+- **CC-08 Layered Build-Up got its real composition** when `pillar_title`/`pillar_body` are present:
+  labelled stack left (accent-filled top tier), detail cards with VALUE lines right, footnote band.
+  The pyramid now widens DOWNWARD toward the foundation (it read upside-down) and the flow ticks point UP.
+- **PO-10 card fill (the recurring dead-pixel defect).** Cards distribute as identity/prose group at top
+  with the payoff line foot-anchored; `icon_intent` icons render as card marks; an ODD card count spans
+  its last card full-width AND runs it sideways (identity left, prose right) on a shorter grid row
+  (1.18fr/0.82fr) - the old 2x2 left a dead half-cell, then a dead full-width band. Rail is 30% with an
+  0.78 ink veil and an adaptive headline (a single surface name goes to 44px).
+- **NM-18 `contain` path = a white product plate.** A product shot that ships on white now sits in an
+  intentional rounded white panel (house rule: fit whole in a white panel, never crop) instead of
+  reading as a stray rectangle on the light deck canvas; the image fills its box rather than floating.
+- **LOGO CONTRAST BUG (frontend, real brand defect).** An inline `<img data-logo="smartbuild">` only went
+  white in the DARK theme, so a LIGHT-theme deck with a dark photo cover showed the FULL-COLOUR mark on
+  near-black - effectively a third, non-existent logo rendering. base.css now flips the mark inside
+  `.on-media` and on any `[data-bleed="dark"]` stage; render_slides stamps `data-bleed="dark"` on
+  full-bleed ink-veiled stages; deck.js's footer sampler trusts that declaration (it cannot sample a
+  photo + veil, so it was falling back to the theme's dominant tone and keeping full colour).

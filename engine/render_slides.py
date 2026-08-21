@@ -175,8 +175,11 @@ def value_line(bl, size=11.5, gap="11px", on_media=False):
     m = _VALUE_RE.match(txt)
     raw = txt
     if m:
-        raw = ('<span style="font-weight:900;letter-spacing:0.14em;color:%s">VALUE</span>'
-               '&nbsp;&nbsp;<span style="font-weight:600">%s</span>' % (ACC, m.group(3)))
+        # EXPORT SAFETY: the gap must be a REAL space character, not &nbsp; padding -
+        # the PPTX text extractor collapses the entity and the label fuses to the copy
+        # ("VALUEZero manual re-entry"). Space for the text runs, margin for the optics.
+        raw = ('<span style="font-weight:900;letter-spacing:0.14em;color:%s;margin-right:7px">VALUE</span>'
+               ' <span style="font-weight:600">%s</span>' % (ACC, m.group(3)))
     col = "inherit" if on_media else "var(--sb-body-on-dark)"
     return blk(bl, "div", "", "font-size:%spx;line-height:1.5;margin-top:%s;padding-top:%s;"
                "border-top:1px solid %s;color:%s"
